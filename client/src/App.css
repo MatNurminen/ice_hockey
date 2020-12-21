@@ -1,0 +1,64 @@
+#overlay {
+  position: absolute;
+}
+
+body {
+  background: #ececec;
+}
+.btn {
+  border-radius: 0px;
+}
+.nav {
+  color: #fff;
+}
+.roster {
+  background: #ffffff;
+  height: 80px;
+}
+.mainNav {
+  background: #0b3548;
+}
+.adminNav {
+  background: #c8333b;
+}
+.dropdown-menu {
+  border-radius: 0px;
+  margin-top: 0;
+}
+.nav-item {
+  margin-left: 1em;
+}
+.img-scale {
+  overflow: hidden;
+}
+.img-scale img {
+  transition: all 1s ease-out;
+}
+.img-scale img:hover {
+  transform: scale(1.1);
+}
+.team-logo {
+  height: 60px;
+  width: 150px;
+  overflow: hidden;
+}
+.team-logo img {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+}
+.error-img {
+  max-width: 480px;
+  height: auto;
+  width: auto;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.btn-sign {
+  color: #fff;
+  border-style: solid;
+  border-width: 0.1pt;
+}
+.btn-sign:hover {
+  background-color: #00a651;
+}

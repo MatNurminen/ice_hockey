@@ -1,0 +1,12 @@
+#overlay {
+  position: absolute;
+  z-index: 9999;
+}
+#imgsearch {
+  max-width: 23px;
+  max-height: auto;
+  margin-right: 0.5rem;
+  border-style: solid;
+  border-color: #000000;
+  border-width: 0.1rem;
+}
