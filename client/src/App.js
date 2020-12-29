@@ -20,7 +20,7 @@ import Footer from './components/layout/Footer';
 import Players from './components/players/players';
 import FreeAgents from './components/players/FreeAgents';
 
-import LeaguesReport from './components/reports/leagues';
+import LeaguesReport from './reports/leagues';
 
 class App extends Component {
   render() {
