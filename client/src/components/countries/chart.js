@@ -84,10 +84,23 @@ export class CountryChart extends Component {
       return <h1>WAIT!</h1>;
     }
 
-    //console.log(countrybyleague.players);
+    let forlabels = countrybyleague.map((plcount) => {
+      return plcount.s_name;
+    });
+
+    let fordata = countrybyleague.map((plcount) => {
+      return plcount.players;
+    });
+
     const data = {
-      //labels: ['Red', 'Blue', 'Yellow'],
-      datasets: countrybyleague.players,
+      labels: forlabels,
+      datasets: [
+        {
+          data: fordata,
+          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+          hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+        },
+      ],
     };
 
     return (
@@ -149,7 +162,7 @@ export class CountryChart extends Component {
                 </Table>
               </TableContainer>
             </Grid>
-            <Grid align='center' item sm={8} xs={12}>
+            <Grid align='center' item sm={7} xs={12}>
               <Pie data={data} />
             </Grid>
           </Grid>
