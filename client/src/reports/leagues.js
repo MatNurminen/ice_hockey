@@ -8,7 +8,7 @@ import {
   Document,
   StyleSheet,
 } from '@react-pdf/renderer';
-import { getLeagues } from '../../store/actions/leagueActions';
+import { getLeagues } from '../store/actions/leagueActions';
 
 const styles = StyleSheet.create({
   page: {

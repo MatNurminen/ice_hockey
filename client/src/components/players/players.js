@@ -95,7 +95,10 @@ export class Players extends Component {
                 <TableRow key={player.player_id}>
                   <TableCell>{player.num}</TableCell>
                   <TableCell>{player.pos}</TableCell>
-                  <TableCell component={Link} to='/'>
+                  <TableCell
+                    component={Link}
+                    to={'/players/' + player.player_id}
+                  >
                     {player.first_name} {player.last_name}
                   </TableCell>
                   <TableCell>

@@ -2,6 +2,7 @@ import React from 'react';
 // import SearchPlayer from './players/searchPlayer';
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Table from '@material-ui/core/Table';
@@ -89,20 +90,18 @@ export class Roster extends React.Component {
       this.state.clubId
       //this.props.history
     );
-    this.componentDidMount();
-    //this.setState({ setOpen: false });
+    //this.componentDidMount();
+    this.setState({ setOpen: false });
     //this.props.history.push('/rosters?league=1&year=2020');
     //this.componentDidMount();
   };
 
   deletePlayerFromRoster = (championship_id) => {
     this.props.deletePlayerFromRoster(championship_id, this.props.history);
-    //this.componentDidMount();
   };
 
   render() {
     const { classes, rosters, players } = this.props;
-    //console.log(players);
     const clubs = _.groupBy(rosters, (value) => {
       return value.club + '#' + value.logo + '#' + value.club_id;
     });
@@ -124,7 +123,6 @@ export class Roster extends React.Component {
           <DialogTitle>Add player to</DialogTitle>
           <DialogContent>
             <h5>{this.state.nameClub}</h5>
-            <h6>{this.state.clubId}</h6>
             <Autocomplete
               id='free-solo-demo'
               freeSolo
@@ -157,7 +155,6 @@ export class Roster extends React.Component {
             </Button>
             <Button
               onClick={() => this.insertPlayerToRoster()}
-              //onClick={() => console.log(this.state.playerId)}
               className={classes.dialogBtn}
               variant='contained'
             >
@@ -166,9 +163,15 @@ export class Roster extends React.Component {
           </DialogActions>
         </Dialog>
         <Container>
-          <img src={rosters.league_logo} alt='' width='80'></img>
-          <Typography variant='h4'>Season {this.season}</Typography>
-
+          <Grid container>
+            <Grid item xs={6}>
+              <img src={rosters.league_logo} alt='' width='80'></img>
+              <Typography variant='h4'>Season {this.season}</Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Button variant='contained'>Print</Button>
+            </Grid>
+          </Grid>
           {Object.entries(clubs).map(([club, player]) => {
             return (
               <Table className={classes.mainTable}>
