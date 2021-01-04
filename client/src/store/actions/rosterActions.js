@@ -16,10 +16,11 @@ export const insertPlayerToRoster = (season, player_id, club_id) => async (
     player_id,
     club_id,
   });
-  dispatch({
-    type: actions.INSERT_PLAYER_TO_ROSTER,
-    payload: { season, player_id, club_id },
-  });
+  // TODO получить ответ и вернуть его в редюссер
+  // dispatch({
+  //   type: actions.INSERT_PLAYER_TO_ROSTER,
+  //   payload: { season, player_id, club_id },
+  // });
 };
 
 export const deletePlayerFromRoster = (championship_id) => async (dispatch) => {

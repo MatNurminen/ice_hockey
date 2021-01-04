@@ -29,7 +29,7 @@ const sqlDeleteFromRoster = {
 
 const sqlInsertToRoster = {
   text:
-    'INSERT INTO championship (season, player_id, club_id) VALUES ($1, $2, $3)',
+    'INSERT INTO championship (season, player_id, club_id) VALUES ($1, $2, $3) RETURNING *',
 };
 
 router.get('/', async (req, res) => {
@@ -46,12 +46,13 @@ router.delete('/:championship_id', async (req, res) => {
 });
 
 router.post('/insert', async (req, res) => {
-  await pool.query(sqlInsertToRoster, [
+  const newPlayer = await pool.query(sqlInsertToRoster, [
     req.body.season,
     req.body.player_id,
     req.body.club_id,
   ]);
-  res.send('Player ' + req.body.player_id + ' success');
+    // TODO сделать запрос на получение добавленного участника
+  res.send('Player ' + req.body.player_id + ' success ' + JSON.stringify(newPlayer.rows[0].championship_id));
 });
 
 module.exports = router;
