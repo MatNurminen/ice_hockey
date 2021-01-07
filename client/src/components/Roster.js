@@ -82,7 +82,7 @@ export class Roster extends React.Component {
   }
 
   insertPlayerToRoster = () => {
-    console.log(this.state.year, this.state.playerId, this.state.clubId);
+    //console.log(this.state.year, this.state.playerId, this.state.clubId);
     //this.props.insertPlayerToRoster(2020, 4493, 3);
     this.props.insertPlayerToRoster(
       this.state.year,

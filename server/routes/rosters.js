@@ -32,6 +32,10 @@ const sqlInsertToRoster = {
     'INSERT INTO championship (season, player_id, club_id) VALUES ($1, $2, $3) RETURNING *',
 };
 
+const sqlGetNewPlayer = {
+  text: 'SELECT * FROM championship WHERE championship_id = $1',
+};
+
 router.get('/', async (req, res) => {
   const allRoster = await pool.query(sqlRoster, [
     req.query.year,
@@ -51,8 +55,13 @@ router.post('/insert', async (req, res) => {
     req.body.player_id,
     req.body.club_id,
   ]);
-    // TODO сделать запрос на получение добавленного участника
-  res.send('Player ' + req.body.player_id + ' success ' + JSON.stringify(newPlayer.rows[0].championship_id));
+  // TODO сделать запрос на получение добавленного участника
+  res.send(
+    'Player ' +
+      req.body.player_id +
+      ' success ' +
+      JSON.stringify(newPlayer.rows[0].championship_id)
+  );
 });
 
 module.exports = router;
