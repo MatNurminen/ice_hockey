@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as actions from './index';
+const queryString = require('query-string')
 
 export const getRosters = (year, league) => async (dispatch) => {
   const res = await axios.get('/api/rosters', {
@@ -11,16 +12,17 @@ export const getRosters = (year, league) => async (dispatch) => {
 export const insertPlayerToRoster = (season, player_id, club_id) => async (
   dispatch
 ) => {
-  await axios.post('/api/rosters/insert', {
+  const {data} = await axios.post('/api/rosters/insert', {
     season,
     player_id,
     club_id,
+    league : queryString.parse(window.location.search).league || 0
   });
-  // TODO получить ответ и вернуть его в редюссер
-  // dispatch({
-  //   type: actions.INSERT_PLAYER_TO_ROSTER,
-  //   payload: { season, player_id, club_id },
-  // });
+
+  dispatch({
+    type: actions.INSERT_PLAYER_TO_ROSTER,
+    payload: data,
+  });
 };
 
 export const deletePlayerFromRoster = (championship_id) => async (dispatch) => {
