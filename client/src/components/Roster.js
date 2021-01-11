@@ -12,12 +12,14 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
+//import TextField from '@material-ui/core/TextField';
+//import Autocomplete from '@material-ui/lab/Autocomplete';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
+
+import Search from './layout/Search';
 
 //import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
@@ -77,7 +79,7 @@ export class Roster extends React.Component {
     this.setState({ year: parsed.year });
     this.season = parsed.year + '-' + (parsed.year - 1999);
     this.props.getRosters(parsed.year, parsed.league);
-    this.props.getPlayers();
+    //this.props.getPlayers();
     //console.log('TEST!!!');
   }
 
@@ -101,16 +103,16 @@ export class Roster extends React.Component {
   };
 
   render() {
-    const { classes, rosters, players } = this.props;
+    const { classes, rosters } = this.props;
     const clubs = _.groupBy(rosters, (value) => {
       return value.club + '#' + value.logo + '#' + value.club_id;
     });
     if (!rosters) {
       return <h1>WAIT!</h1>;
     }
-    if (!players) {
-      return <h1>WAIT!</h1>;
-    }
+    // if (!players) {
+    //   return <h1>WAIT!</h1>;
+    // }
 
     return (
       <React.Fragment>
@@ -123,7 +125,8 @@ export class Roster extends React.Component {
           <DialogTitle>Add player to</DialogTitle>
           <DialogContent>
             <h5>{this.state.nameClub}</h5>
-            <Autocomplete
+            <Search />
+            {/*       <Autocomplete
               id='free-solo-demo'
               freeSolo
               options={players}
@@ -143,7 +146,7 @@ export class Roster extends React.Component {
                   this.setState({ playerId: value.player_id });
                 }
               }}
-            />
+            /> */}
           </DialogContent>
           <DialogActions>
             <Button

@@ -18,3 +18,5 @@ export const ADD_PLAYER = 'ADD_PLAYER';
 export const GET_FREE_AGENTS = 'GET_FREE_AGENTS';
 
 export const GET_SEASONS = 'GET_SEASONS';
+
+export const SEARCH_PLAYER = 'SEARCH_PLAYER';

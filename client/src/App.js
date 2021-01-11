@@ -20,6 +20,8 @@ import Footer from './components/layout/Footer';
 import Players from './components/players/players';
 import FreeAgents from './components/players/FreeAgents';
 
+import SearchPlayers from './components/layout/Search';
+
 import LeaguesReport from './reports/leagues';
 
 class App extends Component {
@@ -42,6 +44,8 @@ class App extends Component {
           <Route exact path='/freeagents' component={FreeAgents} />
 
           <Route exact path='/reports/leagues' component={LeaguesReport} />
+
+          <Route exact path='/search' component={SearchPlayers} />
         </Switch>
         <Footer />
       </ThemeProvider>

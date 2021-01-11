@@ -33,7 +33,8 @@ const sqlInsertToRoster = {
 };
 
 const sqlGetNewPlayer = {
-  text: 'SELECT championship.championship_id, player.pos, player.num, player.first_name, player.last_name, country.flag, player.birth, \
+  text:
+    'SELECT championship.championship_id, player.pos, player.num, player.first_name, player.last_name, country.flag, player.birth, \
     player.height, player.weight, club.club_id, club.club, club_logo.logo, league_logo.logo AS league_logo, league.name AS league_name, \
     player.player_id AS pl_id, ($1 - player.birth) AS age \
     FROM championship \
@@ -70,7 +71,11 @@ router.post('/insert', async (req, res) => {
     req.body.club_id,
   ]);
 
-  const newRosterUser = await pool.query(sqlGetNewPlayer, [req.body.season, req.body.league, newPlayer.rows[0].championship_id])
+  const newRosterUser = await pool.query(sqlGetNewPlayer, [
+    req.body.season,
+    req.body.league,
+    newPlayer.rows[0].championship_id,
+  ]);
   res.send(newRosterUser.rows[0]);
 });
 

@@ -1,40 +1,44 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 
-class Search extends Component {
+import { getSearchPlayer } from '../../store/actions/searchActions';
+
+export class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
+      searchPlayer: [],
     };
-
-    this.onChange = this.onChange.bind(this);
   }
-
-  onChange(event) {
-    //console.log(event.target.value);
-    this.setState({
-      value: event.target.value,
-    });
+  componentDidMount() {
+    const strSearch = 'Sergei';
+    this.props.getSearchPlayer(strSearch);
   }
 
   render() {
+    const { searchPlayer } = this.props;
+
+    if (!searchPlayer) {
+      return <h1>WAIT!</h1>;
+    }
+
     return (
-      <div>
-        <div className='form-group form-inline my-2 my-lg-0'>
-          <input
-            className='form-control mr-sm-2'
-            type='search'
-            placeholder='Search'
-            aria-label='Search'
-            onChange={this.onChange}
-          ></input>
-          <button className='btn btn-success my-2 my-sm-0' type='submit'>
-            Search
-          </button>
-        </div>
-      </div>
+      <React.Fragment>
+        <h1>SEARCH</h1>
+        <ul>
+          {searchPlayer.map((player) => (
+            <li>{player.last_name}</li>
+          ))}
+        </ul>
+      </React.Fragment>
     );
   }
 }
 
-export default Search;
+const mapStateToProps = (state) => ({
+  searchPlayer: state.searchReducer.searchPlayer,
+});
+
+export default connect(mapStateToProps, {
+  getSearchPlayer,
+})(Search);

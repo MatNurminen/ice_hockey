@@ -42,5 +42,7 @@ const Chart = require('./routes/chart');
 app.use('/api/chart', Chart);
 const Season = require('./routes/season');
 app.use('/api/season', Season);
+const Search = require('./routes/search');
+app.use('/api/search', Search);
 
 module.exports = app;
