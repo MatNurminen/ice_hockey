@@ -9,15 +9,19 @@ export const getRosters = (year, league) => async (dispatch) => {
   dispatch({ type: actions.GET_ROSTERS, rosters: res.data });
 };
 
-export const insertPlayerToRoster = (season, player_id, club_id) => async (
-  dispatch
-) => {
+export const insertPlayerToRoster = (
+  season,
+  player_id,
+  club_id,
+  closeSearch
+) => async (dispatch) => {
   const { data } = await axios.post('/api/rosters/insert', {
     season,
     player_id,
     club_id,
     league: queryString.parse(window.location.search).league || 0,
   });
+  await closeSearch();
   dispatch({
     type: actions.INSERT_PLAYER_TO_ROSTER,
     payload: data,

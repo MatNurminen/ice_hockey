@@ -43,7 +43,10 @@ export class Search extends React.Component {
         <List component='nav'>
           {searchPlayer &&
             searchPlayer.map((player) => (
-              <ListItem button>
+              <ListItem
+                button
+                onClick={() => this.props.clickOnPlayer(player.player_id)}
+              >
                 <ListItemText
                   primary={
                     player.first_name +

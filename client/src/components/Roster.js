@@ -83,23 +83,28 @@ export class Roster extends React.Component {
     //console.log('TEST!!!');
   }
 
-  insertPlayerToRoster = () => {
+  insertPlayerToRoster = (player_id) => {
     //console.log(this.state.year, this.state.playerId, this.state.clubId);
     //this.props.insertPlayerToRoster(2020, 4493, 3);
     this.props.insertPlayerToRoster(
       this.state.year,
-      this.state.playerId,
-      this.state.clubId
+      player_id,
+      this.state.clubId,
+      () => this.setState({ setOpen: false })
       //this.props.history
     );
     //this.componentDidMount();
-    this.setState({ setOpen: false });
+
     //this.props.history.push('/rosters?league=1&year=2020');
     //this.componentDidMount();
   };
 
   deletePlayerFromRoster = (championship_id) => {
     this.props.deletePlayerFromRoster(championship_id, this.props.history);
+  };
+
+  hideSearchComponent = () => {
+    this.setState({ setOpen: false });
   };
 
   render() {
@@ -125,7 +130,7 @@ export class Roster extends React.Component {
           <DialogTitle>Add player to</DialogTitle>
           <DialogContent>
             <h5>{this.state.nameClub}</h5>
-            <Search />
+            <Search clickOnPlayer={this.insertPlayerToRoster} />
           </DialogContent>
           <DialogActions>
             <Button
