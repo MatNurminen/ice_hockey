@@ -126,27 +126,6 @@ export class Roster extends React.Component {
           <DialogContent>
             <h5>{this.state.nameClub}</h5>
             <Search />
-            {/*       <Autocomplete
-              id='free-solo-demo'
-              freeSolo
-              options={players}
-              getOptionLabel={(option) =>
-                option.first_name + ' ' + option.last_name
-              }
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label='Find Player'
-                  margin='normal'
-                  variant='outlined'
-                />
-              )}
-              onChange={(e, value) => {
-                if (value) {
-                  this.setState({ playerId: value.player_id });
-                }
-              }}
-            /> */}
           </DialogContent>
           <DialogActions>
             <Button

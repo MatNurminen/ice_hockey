@@ -13,7 +13,7 @@ const sqlSearch = {
 
 router.get('/', async (req, res) => {
   const listPlayers = await pool.query(sqlSearch, [
-    '%' + req.body.strSearch + '%',
+    '%' + req.query.strSearch + '%',
   ]);
   res.json(listPlayers.rows);
 });

@@ -1,5 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { DebounceInput } from 'react-debounce-input';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
 import { getSearchPlayer } from '../../store/actions/searchActions';
 
@@ -8,29 +12,51 @@ export class Search extends React.Component {
     super(props);
     this.state = {
       searchPlayer: [],
+      value: '',
     };
   }
-  componentDidMount() {
-    const strSearch = 'Sergei';
-    this.props.getSearchPlayer(strSearch);
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.value !== this.state.value && this.state.value.length > 2) {
+      const strSearch = this.state.value;
+      this.props.getSearchPlayer(strSearch);
+    } else if (
+      prevState.value !== this.state.value &&
+      this.state.value.length <= 2
+    ) {
+      this.props.getSearchPlayer();
+    }
   }
 
   render() {
     const { searchPlayer } = this.props;
 
-    if (!searchPlayer) {
-      return <h1>WAIT!</h1>;
-    }
-
     return (
-      <React.Fragment>
+      <>
         <h1>SEARCH</h1>
-        <ul>
-          {searchPlayer.map((player) => (
-            <li>{player.last_name}</li>
-          ))}
-        </ul>
-      </React.Fragment>
+        <DebounceInput
+          minLength={2}
+          debounceTimeout={300}
+          onChange={(event) => this.setState({ value: event.target.value })}
+        />
+
+        <List component='nav'>
+          {searchPlayer &&
+            searchPlayer.map((player) => (
+              <ListItem button>
+                <ListItemText
+                  primary={
+                    player.first_name +
+                    ' ' +
+                    player.last_name +
+                    ` (${player.birth})` +
+                    ` (${player.pos})`
+                  }
+                />
+              </ListItem>
+            ))}
+        </List>
+      </>
     );
   }
 }
