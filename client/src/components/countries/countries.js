@@ -16,6 +16,8 @@ import Container from '@material-ui/core/Container';
 import { getCountries } from '../../store/actions/countryActions';
 import { Button, Typography } from '@material-ui/core';
 
+import doc from '../../reports/countries';
+
 /* // IT'S WORKING!
 const useStyles = makeStyles({
   table: {
@@ -80,6 +82,7 @@ export class Countries extends Component {
     return (
       <Container>
         <Typography variant='h4'>Nations</Typography>
+        <Button onClick={() => doc.save('table.pdf')}>Print</Button>
         <TableContainer component={Paper}>
           <Table aria-label='simple table'>
             <TableHead>

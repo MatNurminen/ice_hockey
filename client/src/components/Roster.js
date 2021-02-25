@@ -140,13 +140,13 @@ export class Roster extends React.Component {
             >
               Close
             </Button>
-            <Button
+            {/* <Button
               onClick={() => this.insertPlayerToRoster()}
               className={classes.dialogBtn}
               variant='contained'
             >
               Add player to roster
-            </Button>
+            </Button> */}
           </DialogActions>
         </Dialog>
         <Container>

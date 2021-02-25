@@ -1,8 +1,68 @@
 import React, { Component } from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import Avatar from '@material-ui/core/Avatar';
 
 const axios = require('axios');
 
-export default class playerDetail extends Component {
+const styles = (theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+  player: {
+    padding: theme.spacing(2),
+    textAlign: 'left',
+    backgroundColor: '#0b3548',
+    color: '#fff',
+    height: '100%',
+  },
+  large: {
+    backgroundColor: '#fff',
+    width: theme.spacing(20),
+    height: theme.spacing(20),
+  },
+  imgAvatar: {
+    height: '80%',
+  },
+  tableHead: {
+    backgroundColor: '#0b3548',
+  },
+  tableCell: {
+    color: '#fff',
+  },
+  boxTable: {
+    fontStyle: 'italic',
+    fontSize: 16,
+  },
+  boxTblItem: {
+    fontSize: 16,
+    fontWeight: 600,
+  },
+  redHeader: {
+    backgroundColor: '#ca3136',
+  },
+  boxRedItem: {
+    fontSize: 14,
+    fontWeight: 600,
+  },
+});
+
+export class playerDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,6 +80,7 @@ export default class playerDetail extends Component {
         pl_last_name: player[last].last_name,
         pl_num: player[last].num,
         pl_flag: player[last].flag,
+        pl_jersey: player[last].jersey,
         pl_club: player[last].club,
         pl_sname: player[last].s_name,
         pl_season: player[last].season,
@@ -41,114 +102,220 @@ export default class playerDetail extends Component {
 
   render() {
     const player = this.state.player;
+    const { classes } = this.props;
     return (
-      <div>
-        <div className='container bg-white mt-4'>
-          <div className='row'>
-            <div className='col-6 text-white mainNav m-3 py-3'>
-              <div className='row'>
-                <div className='col-2'>
-                  <img
-                    className='mx-auto d-block'
-                    width='60px'
-                    src={'../' + this.state.pl_flag}
-                    alt=''
-                  ></img>
-                </div>
-                <div className='col-1'>
-                  <h2>{this.state.pl_num}</h2>
-                </div>
-                <div className='col-9'>
-                  <h2>
-                    {this.state.pl_first_name} {this.state.pl_last_name}
-                  </h2>
-                </div>
-              </div>
+      <Container>
+        <div className={classes.root}>
+          <Paper className={classes.paper}>
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={6}>
+                <Paper className={classes.player}>
+                  <Grid container spacing={3}>
+                    <Grid item md={2}>
+                      <img
+                        className='mx-auto d-block'
+                        width='60px'
+                        src={'../' + this.state.pl_flag}
+                        alt=''
+                      ></img>
+                    </Grid>
+                    <Grid item md={1}>
+                      <h2>{this.state.pl_num}</h2>
+                    </Grid>
+                    <Grid item>
+                      <h2>
+                        {this.state.pl_first_name} {this.state.pl_last_name}
+                      </h2>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <h5>
+                        {this.state.pl_club} / {this.state.pl_sname} -{' '}
+                        {this.state.pl_season}-{this.state.pl_season - 1999}
+                      </h5>
+                    </Grid>
+                    <Grid item container justify='center' my={5}>
+                      <Avatar className={classes.large}>
+                        <img
+                          className={classes.imgAvatar}
+                          src={'../' + this.state.pl_jersey}
+                          alt=''
+                        ></img>
+                      </Avatar>
+                    </Grid>
+                  </Grid>
+                </Paper>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <TableContainer component={Paper}>
+                  <Table>
+                    <TableHead className={classes.tableHead}>
+                      <TableRow>
+                        <TableCell className={classes.tableCell}>
+                          <Typography variant='h6'>Player Facts</Typography>
+                        </TableCell>
+                        <TableCell></TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell>
+                          <Box className={classes.boxTable}>Nation</Box>
+                        </TableCell>
+                        <TableCell>
+                          <Box className={classes.boxTblItem}>
+                            {this.state.pl_country}
+                          </Box>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <Box className={classes.boxTable}>Position</Box>
+                        </TableCell>
+                        <TableCell>
+                          <Box className={classes.boxTblItem}>
+                            {this.state.pl_pos}
+                          </Box>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <Box className={classes.boxTable}>Year of Birth</Box>
+                        </TableCell>
+                        <TableCell>
+                          <Box className={classes.boxTblItem}>
+                            {this.state.pl_birth}
+                          </Box>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <Box className={classes.boxTable}>Age</Box>
+                        </TableCell>
+                        <TableCell>
+                          <Box className={classes.boxTblItem}>
+                            {this.state.pl_age}
+                          </Box>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <Box className={classes.boxTable}>Height</Box>
+                        </TableCell>
+                        <TableCell>
+                          <Box className={classes.boxTblItem}>
+                            {this.state.pl_height}
+                          </Box>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <Box className={classes.boxTable}>Weight</Box>
+                        </TableCell>
+                        <TableCell>
+                          <Box className={classes.boxTblItem}>
+                            {this.state.pl_weight}
+                          </Box>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <Box className={classes.boxTable}>Retires</Box>
+                        </TableCell>
+                        <TableCell>
+                          <Box className={classes.boxTblItem}>
+                            {this.state.pl_retires}
+                          </Box>
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </Grid>
+            </Grid>
+          </Paper>
+          <Paper className={classes.paper}>
+            <TableContainer component={Paper}>
+              <Table>
+                <TableHead className={classes.tableHead}>
+                  <TableRow>
+                    <TableCell className={classes.tableCell}>
+                      <Typography noWrap variant='h6'>
+                        Player Statistics
+                      </Typography>
+                    </TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableHead className={classes.redHeader}>
+                  <TableRow>
+                    <TableCell className={classes.tableCell}>
+                      <Typography
+                        variant='overline'
+                        className={classes.redTxtHeader}
+                      >
+                        <Box className={classes.boxRedItem}>Age</Box>
+                      </Typography>
+                    </TableCell>
+                    <TableCell className={classes.tableCell}>
+                      <Typography
+                        variant='overline'
+                        className={classes.redTxtHeader}
+                      >
+                        <Box className={classes.boxRedItem}>Season</Box>
+                      </Typography>
+                    </TableCell>
 
-              <h5 className='mt-2'>
-                {this.state.pl_club} / {this.state.pl_sname} -{' '}
-                {this.state.pl_season}-{this.state.pl_season - 1999}
-              </h5>
-            </div>
-
-            <div className='col-5 mt-3'>
-              <div className='text-white mainNav'>
-                <h6 className='font-weight-bold my-0 py-3 pl-2'>
-                  Player Facts
-                </h6>
-              </div>
-              <table className='table table-bordered mb-4'>
-                <tbody className='h6'>
-                  <tr>
-                    <th className='font-weight-normal font-italic col-5'>
-                      Nation
-                    </th>
-                    <td>{this.state.pl_country}</td>
-                  </tr>
-                  <tr>
-                    <th className='font-weight-normal font-italic'>Position</th>
-                    <td>{this.state.pl_pos}</td>
-                  </tr>
-                  <tr>
-                    <th className='font-weight-normal font-italic'>
-                      Year of Birth
-                    </th>
-                    <td>{this.state.pl_birth}</td>
-                  </tr>
-                  <tr>
-                    <th className='font-weight-normal font-italic'>Age</th>
-                    <td>{this.state.pl_age}</td>
-                  </tr>
-                  <tr>
-                    <th className='font-weight-normal font-italic'>Height</th>
-                    <td>{this.state.pl_height}</td>
-                  </tr>
-                  <tr>
-                    <th className='font-weight-normal font-italic'>Weight</th>
-                    <td>{this.state.pl_weight}</td>
-                  </tr>
-                  <tr>
-                    <th className='font-weight-normal font-italic'>Retires</th>
-                    <td>{this.state.pl_retires}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div className='text-white mainNav'>
-            <h6 className='font-weight-bold my-0 py-3 pl-2'>
-              Player Statistics
-            </h6>
-          </div>
-          <table className='table table-striped table-bordered mb-4'>
-            <thead className='adminNav h6 text-white'>
-              <tr>
-                <th className='col-2'>Season</th>
-                <th className='col-1 text-center'>Age</th>
-                <th className='col-4'>Team</th>
-                <th className='col-2'>League</th>
-                <th className='col-2 text-center'>Goals</th>
-              </tr>
-            </thead>
-            <tbody>
-              {player.map((details, idx) => {
-                return (
-                  <tr key={idx}>
-                    <td>
-                      {details.season} - {details.season - 1999}
-                    </td>
-                    <td className='text-center'>{details.age}</td>
-                    <td>{details.club}</td>
-                    <td>{details.s_name}</td>
-                    <td className='text-center'>{details.goals}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                    <TableCell className={classes.tableCell}>
+                      <Typography
+                        variant='overline'
+                        className={classes.redTxtHeader}
+                      >
+                        <Box className={classes.boxRedItem}>Team</Box>
+                      </Typography>
+                    </TableCell>
+                    <TableCell className={classes.tableCell}>
+                      <Typography
+                        variant='overline'
+                        className={classes.redTxtHeader}
+                      >
+                        <Box className={classes.boxRedItem}>League</Box>
+                      </Typography>
+                    </TableCell>
+                    <TableCell className={classes.tableCell}>
+                      <Typography
+                        variant='overline'
+                        className={classes.redTxtHeader}
+                      >
+                        <Box className={classes.boxRedItem}>Goals</Box>
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {player.map((details, idx) => {
+                    return (
+                      <TableRow key={idx}>
+                        <TableCell width='10%'>{details.age}</TableCell>
+                        <TableCell width='20%'>
+                          {details.season} - {details.season - 1999}
+                        </TableCell>
+                        <TableCell width='30%'>{details.club}</TableCell>
+                        <TableCell width='20%'>{details.s_name}</TableCell>
+                        <TableCell width='20%'>{details.goals}</TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Paper>
         </div>
-      </div>
+      </Container>
     );
   }
 }
+
+export default withStyles(styles)(playerDetail);

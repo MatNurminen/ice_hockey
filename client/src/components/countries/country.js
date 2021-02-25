@@ -18,6 +18,7 @@ import Chart from './chart';
 const styles = (theme) => ({
   root: {
     flexGrow: 1,
+    margin: 10,
   },
   img: {
     width: '80%',
@@ -30,6 +31,9 @@ const styles = (theme) => ({
   },
   headText: {
     color: '#ffffff',
+  },
+  jerseyAva: {
+    display: 'flex',
   },
 });
 
@@ -55,51 +59,66 @@ export class Country extends Component {
 
     return (
       <Container>
-        <hr />
-        <div className={classes.root}>
-          {country.map((onecountry) => (
-            <Grid container direction='row' justify='space-evenly'>
-              <Grid align='center' item sm={6}>
-                <Grid container direction='row'>
-                  <Grid align='center' item xs={2}>
-                    <img
-                      className={classes.img}
-                      src={'../' + onecountry.flag}
-                      alt=''
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Typography variant='h4'>
-                      <Box fontWeight='fontWeightBold'>{onecountry.name}</Box>
-                    </Typography>
+        <Paper>
+          <hr />
+          <div className={classes.root}>
+            {country.map((onecountry) => (
+              <Grid container direction='row' justify='space-evenly'>
+                <Grid align='center' item sm={6}>
+                  <Grid alignItems='center' container direction='row'>
+                    <Grid align='center' item xs={2}>
+                      <img
+                        className={classes.img}
+                        src={'../' + onecountry.flag}
+                        alt=''
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Typography variant='h4'>
+                        <Box fontWeight='fontWeightBold'>{onecountry.name}</Box>
+                      </Typography>
+                    </Grid>
+                    <Grid align='center' item xs={2}>
+                      <img
+                        className={classes.img}
+                        src={'../' + onecountry.jersey}
+                        alt=''
+                      />
+                    </Grid>
                   </Grid>
                 </Grid>
+                <Grid
+                  container
+                  direction='row'
+                  alignItems='center'
+                  sm={6}
+                  xs={12}
+                >
+                  <TableContainer component={Paper}>
+                    <Table aria-label='simple table' size='small'>
+                      <TableHead className={classes.tableHead}>
+                        <TableRow>
+                          <TableCell>
+                            <Typography className={classes.headText}>
+                              Database Stats - {onecountry.name}
+                            </Typography>
+                          </TableCell>
+                          <TableCell></TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        <TableCell>Players in database</TableCell>
+                        <TableCell>{onecountry.country}</TableCell>
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </Grid>
               </Grid>
-              <Grid item sm={6} xs={12}>
-                <TableContainer component={Paper}>
-                  <Table aria-label='simple table' size='small'>
-                    <TableHead className={classes.tableHead}>
-                      <TableRow>
-                        <TableCell>
-                          <Typography className={classes.headText}>
-                            Database Stats - {onecountry.name}
-                          </Typography>
-                        </TableCell>
-                        <TableCell></TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      <TableCell>Players in database</TableCell>
-                      <TableCell>{onecountry.country}</TableCell>
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </Grid>
-            </Grid>
-          ))}
-        </div>
-        <hr />
-        <Chart />
+            ))}
+          </div>
+          <hr />
+          <Chart />
+        </Paper>
       </Container>
     );
   }

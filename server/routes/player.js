@@ -17,7 +17,7 @@ const sqlPlayerForSearch = {
 
 const sqlPlayerById = {
   text:
-    'SELECT player.*, championship.*, club.club, league.s_name, country.flag, country.name AS country_name, \
+    'SELECT player.*, championship.*, club.club, league.s_name, country.flag, country.jersey, country.name AS country_name, \
     (championship.season - player.birth) AS age, (championship.season - 1999) AS year FROM player \
     INNER JOIN championship ON (player.player_id = championship.player_id) \
     INNER JOIN club ON (championship.club_id = club.club_id) \

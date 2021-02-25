@@ -1,19 +1,19 @@
 const { Pool } = require('pg');
 
-const CONNECTION_STRING =
-  process.env.DATABASE_URL ||
-  'postgres://qqghdctk:nD-lGymF_0jbyMyGhDxo_WjfFNfh9WLi@hattie.db.elephantsql.com:5432/qqghdctk';
-const pool = new Pool({
-  connectionString: CONNECTION_STRING,
-});
-//const SSL = process.env.NODE_ENV === 'production';
-
 // const CONNECTION_STRING =
-//   process.env.DATABASE_URL || 'postgres://user:user@192.168.10.23:5432/hockey';
-
+//   process.env.DATABASE_URL ||
+//   'postgres://tipcealo:TlLI6WiUUyM3FGQrUxgXk7gFtg4O3zsu@hattie.db.elephantsql.com:5432/tipcealo';
 // const pool = new Pool({
 //   connectionString: CONNECTION_STRING,
 // });
+// //const SSL = process.env.NODE_ENV === 'production';
+
+const CONNECTION_STRING =
+  process.env.DATABASE_URL || 'postgres://user:user@192.168.10.23:5432/hockey';
+
+const pool = new Pool({
+  connectionString: CONNECTION_STRING,
+});
 
 // class Database {
 //   constructor() {

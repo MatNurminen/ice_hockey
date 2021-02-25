@@ -37,6 +37,10 @@ const styles = (theme) => ({
     backgroundColor: '#ca3136',
     color: '#ffffff',
   },
+  tblMargin: {
+    marginTop: 20,
+    marginBottom: 30,
+  },
 });
 
 export class CountryChart extends Component {
@@ -115,7 +119,7 @@ export class CountryChart extends Component {
                 </Select>
               </FormControl>
 
-              <TableContainer component={Paper}>
+              <TableContainer className={classes.tblMargin} component={Paper}>
                 <Table aria-label='simple table' size='small'>
                   <TableHead className={classes.tableHead}>
                     <TableRow>
@@ -151,7 +155,13 @@ export class CountryChart extends Component {
                 </Table>
               </TableContainer>
             </Grid>
-            <Grid align='center' item sm={7} xs={12}>
+            <Grid
+              className={classes.tblMargin}
+              align='center'
+              item
+              sm={7}
+              xs={12}
+            >
               <Pie data={data} />
             </Grid>
           </Grid>

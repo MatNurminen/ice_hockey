@@ -16,7 +16,7 @@ const sqlCountry = {
 
 const sqlCountryCount = {
   text:
-    'SELECT country.country_id, country."name", country.s_name, country."flag", \
+    'SELECT country.country_id, country."name", country.s_name, country."flag", country.jersey, \
   COUNT(*) AS "country" FROM country INNER JOIN player \
   ON player.country_id = country.country_id WHERE country.country_id = $1 \
   GROUP BY country.country_id',

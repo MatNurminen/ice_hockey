@@ -23,6 +23,7 @@ import FreeAgents from './components/players/FreeAgents';
 import SearchPlayers from './components/layout/Search';
 
 import LeaguesReport from './reports/leagues';
+import WorkBookPlayers from './reports/workbook';
 
 class App extends Component {
   render() {
@@ -44,6 +45,7 @@ class App extends Component {
           <Route exact path='/freeagents' component={FreeAgents} />
 
           <Route exact path='/reports/leagues' component={LeaguesReport} />
+          <Route exact path='/reports/workbook' component={WorkBookPlayers} />
 
           <Route exact path='/search' component={SearchPlayers} />
         </Switch>
