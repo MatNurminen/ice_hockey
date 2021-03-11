@@ -6,7 +6,6 @@ const router = express.Router();
 app.use(express.json());
 
 const sqlLeagues = {
-  //text: 'SELECT * FROM league ORDER BY name',
   text:
     'SELECT league.*, league_logo.logo FROM league INNER JOIN league_logo ON league.league_id = league_logo.league_logo_id \
     ORDER BY league.name',
@@ -20,8 +19,13 @@ const sqlLeaguesForMain = {
 
 const sqlLeagueById = {
   text:
-    'SELECT league.name, league_logo.logo FROM league inner join league_logo on (league.league_id = league_logo.league_id) \
-    WHERE league.league_id = $2 AND league_logo.start_year <= $1 AND (league_logo.end_year >= $1 OR league_logo.end_year IS NULL)',
+    'SELECT league.*, league_logo.logo, league_logo.start_year as logo_start, league_logo.end_year as logo_end  FROM league \
+    INNER JOIN league_logo ON league.league_id = league_logo.league_id \
+    WHERE league.league_id = $1',
+};
+
+const sqlClubsByLeague = {
+  text: 'SELECT * FROM club WHERE league_id = $1 ORDER BY club',
 };
 
 router.get('/', async (req, res) => {
@@ -34,12 +38,16 @@ router.get('/formain', async (req, res) => {
   res.json(allLeaguesForMain.rows);
 });
 
-router.get('/leaguebyid', async (req, res) => {
-  const leagueById = await pool.query(sqlLeagueById, [
-    req.query.year,
-    req.query.league,
+router.get('/:league_id', async (req, res) => {
+  const league = await pool.query(sqlLeagueById, [req.params.league_id]);
+  res.json(league.rows);
+});
+
+router.get('/clubs/:league_id', async (req, res) => {
+  const clubsByLeague = await pool.query(sqlClubsByLeague, [
+    req.params.league_id,
   ]);
-  res.json(leagueById.rows);
+  res.json(clubsByLeague.rows);
 });
 
 // router.get('/leaguesByYears', (req, res) => {

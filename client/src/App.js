@@ -10,8 +10,10 @@ import Login from './components/login/Login';
 import Roster from './components/Roster';
 import PlayerDetail from './components/players/PlayerDetail';
 import Leagues from './components/leagues/leagues';
+import League from './components/leagues/league';
 import Countries from './components/countries/countries';
 import Country from './components/countries/country';
+import Club from './components/clubs/club';
 import AddPlayer from './components/players/addPlayer';
 import SearchPlayer from './components/players/searchPlayer';
 import AdminNavbar from './components/layout/AdminNavbar';
@@ -39,8 +41,10 @@ class App extends Component {
           <Route exact path='/players/:player_id' component={PlayerDetail} />
           <Route exact path='/players/create/new' component={AddPlayer} />
           <Route exact path='/leagues' component={Leagues} />
+          <Route exact path='/leagues/:league_id' component={League} />
           <Route exact path='/countries' component={Countries} />
           <Route exact path='/countries/:country_id' component={Country} />
+          <Route exact path='/clubs/:club_id' component={Club} />
           <Route exact path='/players' component={Players} />
           <Route exact path='/freeagents' component={FreeAgents} />
 

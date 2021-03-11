@@ -114,7 +114,10 @@ class Leagues extends Component {
                   <TableCell align='center'>
                     <img className={classes.logo} alt='' src={league.logo} />
                   </TableCell>
-                  <TableCell component={Link} to='/'>
+                  <TableCell
+                    component={Link}
+                    to={'leagues/' + league.league_id}
+                  >
                     {league.name}
                   </TableCell>
                   <TableCell>{league.s_name}</TableCell>

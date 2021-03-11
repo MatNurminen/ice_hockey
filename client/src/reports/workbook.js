@@ -38,9 +38,7 @@ export class workBookPlayers extends Component {
     this.props.getRosters(parsed.year, parsed.league);
   }
   render() {
-    console.log('TEST');
     const { rosters } = this.props;
-    console.log(rosters);
     if (!rosters) {
       return <h1>WAIT!</h1>;
     }
@@ -49,15 +47,17 @@ export class workBookPlayers extends Component {
         <Document>
           <Page style={styles.body}>
             <View style={styles.table}>
-              {rosters.map((roster) => (
-                <View style={styles.tableRow} key={roster.championship_id}>
-                  <View style={styles.tableCol}>
-                    <Text style={styles.tableCell}>
-                      {roster.pos} {'. '} {roster.last_name}
-                    </Text>
+              {rosters.map((roster) =>
+                roster.pos !== 'G' ? (
+                  <View style={styles.tableRow} key={roster.championship_id}>
+                    <View style={styles.tableCol}>
+                      <Text style={styles.tableCell}>
+                        {roster.pos} {'. '} {roster.last_name}
+                      </Text>
+                    </View>
                   </View>
-                </View>
-              ))}
+                ) : null
+              )}
             </View>
           </Page>
         </Document>

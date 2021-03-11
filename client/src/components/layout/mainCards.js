@@ -54,13 +54,13 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#fff',
   },
   boxMain: {
+    borderRadius: 10,
     margin: 10,
     position: 'relative',
     display: 'inline - block',
     overflow: 'hidden',
   },
   imgMain: {
-    borderRadius: 10,
     width: '100%',
     transition: '0.3s',
     display: 'block',

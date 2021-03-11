@@ -1,10 +1,15 @@
 export const SET_USER = 'SET_USER';
 
 export const GET_LEAGUES = 'GET_LEAGUES';
+export const GET_LEAGUE = 'GET_LEAGUE';
+export const GET_CLUBS_BY_LEAGUE = 'GET_CLUBS_BY_LEAGUE';
 
 export const GET_COUNTRIES = 'GET_COUNTRIES';
 export const GET_COUNTRY = 'GET_COUNTRY';
 export const GET_COUNTRY_BY_LEAGUE = 'GET_COUNTRY_BY_LEAGUE';
+
+export const GET_CLUBS = 'GET_CLUBS';
+export const GET_CLUB = 'GET_CLUB';
 
 export const GET_ROSTERS = 'GET_ROSTERS';
 export const INSERT_PLAYER_TO_ROSTER = 'INSERT_PLAYER_TO_ROSTER';

@@ -64,12 +64,28 @@ export class leaguesReport extends Component {
     return (
       <PDFViewer width='100%' height='800px'>
         <Document>
-          <Page size='A4' style={styles.page}>
-            <View style={styles.section}>
-              <Text>Hello World!</Text>
-            </View>
-            <View style={styles.section}>
-              <Text>Hello World!</Text>
+          <Page style={styles.body}>
+            <Text style={styles.title}>Leagues</Text>
+            <View style={styles.table}>
+              <View style={styles.tableRow}>
+                <View style={styles.tableCol}>
+                  <Text style={styles.tableCell}>Name</Text>
+                </View>
+                <View style={styles.tableCol}>
+                  <Text style={styles.tableCell}>Short Name</Text>
+                </View>
+              </View>
+
+              {leagues.map((league) => (
+                <View style={styles.tableRow} key={league.league_id}>
+                  <View style={styles.tableCol}>
+                    <Text style={styles.tableCell}>{league.name}</Text>
+                  </View>
+                  <View style={styles.tableCol}>
+                    <Text style={styles.tableCell}>{league.s_name}</Text>
+                  </View>
+                </View>
+              ))}
             </View>
           </Page>
         </Document>
@@ -83,14 +99,3 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { getLeagues })(leaguesReport);
-
-// <Document>
-//   <Page size='A4' style={styles.page}>
-//     <View style={styles.section}>
-//       <Text>Hello World!</Text>
-//     </View>
-//     <View style={styles.section}>
-//       <Text>We're inside a PDF!</Text>
-//     </View>
-//   </Page>
-// </Document>

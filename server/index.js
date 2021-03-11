@@ -28,6 +28,8 @@ const Leagues = require('./routes/leagues');
 app.use('/api/leagues', Leagues);
 const Countries = require('./routes/countries');
 app.use('/api/countries', Countries);
+const Clubs = require('./routes/clubs');
+app.use('/api/clubs', Clubs);
 const Players = require('./routes/player');
 app.use('/api/players', Players);
 const Rosters = require('./routes/rosters');

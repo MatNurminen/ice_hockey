@@ -7,6 +7,7 @@ import playersReducer from './playersReducer';
 import countryReducer from './countryReducer';
 import seasonReducer from './seasonReducer';
 import searchReducer from './searchReducer';
+import clubReducer from './clubReducer';
 
 export default combineReducers({
   authReducer,
@@ -16,4 +17,5 @@ export default combineReducers({
   playersReducer,
   seasonReducer,
   searchReducer,
+  clubReducer,
 });
