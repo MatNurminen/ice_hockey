@@ -9,9 +9,7 @@ export default (state = initialState, action) => {
     case actions.GET_LEAGUES:
       return { ...state, leagues: action.leagues };
     case actions.GET_LEAGUE:
-      return { ...state, league: action.league };
-    case actions.GET_CLUBS_BY_LEAGUE:
-      return { ...state, clubsByLeague: action.clubsByLeague };
+      return { ...state, league: action.leagueAndClubs.league, clubsByLeague: action.leagueAndClubs.clubs };
     default:
       return state;
   }

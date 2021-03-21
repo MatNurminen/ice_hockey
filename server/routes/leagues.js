@@ -40,7 +40,10 @@ router.get('/formain', async (req, res) => {
 
 router.get('/:league_id', async (req, res) => {
   const league = await pool.query(sqlLeagueById, [req.params.league_id]);
-  res.json(league.rows);
+  const clubsByLeague = await pool.query(sqlClubsByLeague, [
+    req.params.league_id,
+  ]);
+  res.json({"league": league.rows, "clubs": clubsByLeague.rows});
 });
 
 router.get('/clubs/:league_id', async (req, res) => {

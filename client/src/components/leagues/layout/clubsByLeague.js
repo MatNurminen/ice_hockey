@@ -5,7 +5,7 @@ import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import { withStyles } from '@material-ui/core/styles';
-import { getClubsByLeague } from '../../../store/actions/leagueActions';
+//import { getClubsByLeague } from '../../../store/actions/leagueActions';
 
 const styles = (theme) => ({
   root: {
@@ -24,12 +24,12 @@ export class ClubsByLeague extends Component {
       clubs: [],
     };
   }
-  componentDidMount() {
-    //const league_id = this.props.match.params.league_id;
-    //console.log('TEST: ' + this.props.match.params.league_id);
-    const league_id = 2;
-    this.props.getClubsByLeague(league_id);
-  }
+  // componentDidMount() {
+  //   //const league_id = this.props.match.params.league_id;
+  //   //console.log('TEST: ' + this.props.match.params.league_id);
+  //   const league_id = 2;
+  //   this.props.getClubsByLeague(league_id);
+  // }
   render() {
     const { clubs, classes } = this.props;
 
@@ -55,6 +55,6 @@ const mapStateToProps = (state) => ({
   clubs: state.leagueReducer.clubsByLeague,
 });
 
-export default connect(mapStateToProps, { getClubsByLeague })(
+export default connect(mapStateToProps)(
   withStyles(styles)(ClubsByLeague)
 );
