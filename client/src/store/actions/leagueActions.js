@@ -7,7 +7,7 @@ export const getLeagues = () => async (dispatch) => {
 };
 
 export const getLeague = (league_id, season) => async (dispatch) => {
-  const { data } = await axios.get(`/api/leagues/${league_id}`);
+  const { data } = await axios.get(`/api/leagues/${league_id}/${season}`);
   dispatch({
     type: actions.GET_LEAGUE,
     leagueAndClubs: {

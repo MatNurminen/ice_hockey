@@ -48,8 +48,7 @@ export class League extends Component {
   componentDidMount() {
     this.props.getSeasons();
     const league_id = this.props.match.params.league_id;
-    this.props.getLeague(league_id);
-    //console.log('TEST!!! ' + this.props.getLeague(league_id));
+    this.props.getLeague(league_id, this.state.season);
   }
   render() {
     const { seasons, season, league, classes } = this.props;

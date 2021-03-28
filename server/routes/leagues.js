@@ -1,4 +1,5 @@
 const express = require('express');
+const url = require('url');
 const app = express();
 const pool = require('../database');
 const router = express.Router();
@@ -29,11 +30,10 @@ const sqlClubsByLeague = {
 };
 
 const sqlLeagueTable = {
-  text:
-    'SELECT champ.*, club.club FROM champ \
-    INNER JOIN club ON champ.club_id = club.club_id \
-    WHERE champ.league_id = $1 AND champ.season = 2020 \
-    ORDER BY points DESC',
+  text: `SELECT champ.*, club.club FROM champ
+    INNER JOIN club ON champ.club_id = club.club_id
+    WHERE champ.league_id = $1 AND champ.season = $2
+    ORDER BY points DESC`,
 };
 
 const sqlLeagueStats = {
@@ -46,6 +46,16 @@ const sqlLeagueStats = {
     ORDER BY championship.goas LIMIT 5',
 };
 
+const sqlLeagueCountries = {
+  text:
+    'SELECT country.flag, country.name, COUNT (country.country_id) FROM championship \
+    INNER JOIN club ON championship.club_id = club.club_id \
+    INNER JOIN player ON championship.player_id = player.player_id \
+    INNER JOIN country ON player.country_id = country.country_id \
+    WHERE championship.season = 2020 AND club.league_id = 14 \
+    GROUP BY country.country_id ORDER BY count DESC',
+};
+
 router.get('/', async (req, res) => {
   const allLeagues = await pool.query(sqlLeagues);
   res.json(allLeagues.rows);
@@ -56,13 +66,14 @@ router.get('/formain', async (req, res) => {
   res.json(allLeaguesForMain.rows);
 });
 
-router.get('/:league_id', async (req, res) => {
+router.get('/:league_id/:season', async (req, res) => {
   const league = await pool.query(sqlLeagueById, [req.params.league_id]);
   const clubsByLeague = await pool.query(sqlClubsByLeague, [
     req.params.league_id,
   ]);
   const tableByLeague = await pool.query(sqlLeagueTable, [
     req.params.league_id,
+    req.params.season,
   ]);
   res.json({
     league: league.rows,
