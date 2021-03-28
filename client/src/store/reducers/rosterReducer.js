@@ -1,14 +1,18 @@
 import * as actions from '../actions';
 const initialState = {
   rosters: null,
+  clubsByRoster: null,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case actions.GET_ROSTERS:
-      return { ...state, rosters: action.rosters };
+      return {
+        ...state,
+        rosters: action.rostersAndClubs.rosters,
+        clubsByRoster: action.rostersAndClubs.clubs,
+      };
     case actions.INSERT_PLAYER_TO_ROSTER:
-      //return { ...state, rosters: null };
       return {
         ...state,
         rosters: [...state.rosters, action.payload],

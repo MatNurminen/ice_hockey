@@ -1,5 +1,4 @@
 import React from 'react';
-// import SearchPlayer from './players/searchPlayer';
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
@@ -12,16 +11,12 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
-//import TextField from '@material-ui/core/TextField';
-//import Autocomplete from '@material-ui/lab/Autocomplete';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 
 import Search from './layout/Search';
-
-//import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 import { connect } from 'react-redux';
 import {
@@ -31,15 +26,12 @@ import {
 } from '../store/actions/rosterActions';
 import { getPlayers } from '../store/actions/playersActions';
 
-const _ = require('underscore');
 const queryString = require('query-string');
 
 const styles = (theme) => ({
-  mainTable: {
-    marginBottom: 40,
-  },
   clubHead: {
     backgroundColor: '#fff',
+    height: '80px',
   },
   mainHead: {
     backgroundColor: '#000',
@@ -49,7 +41,6 @@ const styles = (theme) => ({
   },
   teamlogo: {
     height: 60,
-    //marginLeft: 50,
   },
   tblRow: {
     backgroundColor: '#fff',
@@ -59,6 +50,13 @@ const styles = (theme) => ({
   },
   dialogBtn: {
     margin: 10,
+  },
+  centerDiv: {
+    textAlign: 'center',
+  },
+  endDiv: {
+    marginRight: 50,
+    textAlign: 'end',
   },
 });
 
@@ -71,6 +69,8 @@ export class Roster extends React.Component {
       year: 0,
       clubId: 0,
       playerId: 0,
+      clubs: [],
+      clubCount: 0,
     };
   }
 
@@ -79,24 +79,15 @@ export class Roster extends React.Component {
     this.setState({ year: parsed.year });
     this.season = parsed.year + '-' + (parsed.year - 1999);
     this.props.getRosters(parsed.year, parsed.league);
-    //this.props.getPlayers();
-    //console.log('TEST!!!');
   }
 
   insertPlayerToRoster = (player_id) => {
-    //console.log(this.state.year, this.state.playerId, this.state.clubId);
-    //this.props.insertPlayerToRoster(2020, 4493, 3);
     this.props.insertPlayerToRoster(
       this.state.year,
       player_id,
       this.state.clubId,
       () => this.setState({ setOpen: false })
-      //this.props.history
     );
-    //this.componentDidMount();
-
-    //this.props.history.push('/rosters?league=1&year=2020');
-    //this.componentDidMount();
   };
 
   deletePlayerFromRoster = (championship_id) => {
@@ -107,17 +98,18 @@ export class Roster extends React.Component {
     this.setState({ setOpen: false });
   };
 
+  incrementCounter = () =>
+    this.setState({ clubsCount: this.state.clubsCount + 1 });
+
   render() {
-    const { classes, rosters } = this.props;
-    const clubs = _.groupBy(rosters, (value) => {
-      return value.club + '#' + value.logo + '#' + value.club_id;
-    });
+    const { classes, rosters, clubs } = this.props;
+
     if (!rosters) {
       return <h1>WAIT!</h1>;
     }
-    // if (!players) {
-    //   return <h1>WAIT!</h1>;
-    // }
+    if (!clubs) {
+      return <h1>WAIT!</h1>;
+    }
 
     return (
       <React.Fragment>
@@ -140,137 +132,145 @@ export class Roster extends React.Component {
             >
               Close
             </Button>
-            {/* <Button
-              onClick={() => this.insertPlayerToRoster()}
-              className={classes.dialogBtn}
-              variant='contained'
-            >
-              Add player to roster
-            </Button> */}
           </DialogActions>
         </Dialog>
         <Container>
           <Grid container>
             <Grid item xs={6}>
-              <img src={rosters.league_logo} alt='' width='80'></img>
               <Typography variant='h4'>Season {this.season}</Typography>
+              <Typography variant='h4'>Clubs {this.clubsCount}</Typography>
             </Grid>
             <Grid item xs={6}>
               <Button variant='contained'>Print</Button>
             </Grid>
           </Grid>
-          {Object.entries(clubs).map(([club, player]) => {
-            return (
-              <Table className={classes.mainTable}>
-                <TableHead>
-                  <TableRow className={classes.clubHead}>
-                    <TableCell width='8%'></TableCell>
-                    <TableCell width='8%' align='center'>
+          {clubs.map((club) => (
+            <div style={{ paddingTop: 40 }}>
+              <Grid container>
+                <Grid
+                  container
+                  display='flex'
+                  alignItems='center'
+                  className={classes.clubHead}
+                >
+                  <Grid item xs={3}>
+                    <div className={classes.centerDiv}>
                       <img
                         className={classes.teamlogo}
-                        src={club.split('#')[1]}
+                        src={club.logo}
                         alt=''
                       />
-                    </TableCell>
-                    <TableCell>
-                      <Typography width='36%' variant='h5'>
-                        <Box fontWeight={500}>{club.split('#')[0]}</Box>
-                      </Typography>
-                    </TableCell>
-                    <TableCell width='8%'></TableCell>
-                    <TableCell width='8%'></TableCell>
-                    <TableCell width='8%'></TableCell>
-                    <TableCell width='8%'></TableCell>
-                    <TableCell width='8%'></TableCell>
-                    <TableCell width='8%' align='right'>
+                    </div>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography width='36%' variant='h5'>
+                      <Box fontWeight={500}>{club.club}</Box>
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <div className={classes.endDiv}>
                       <Button
                         variant='contained'
                         onClick={() =>
                           this.setState({
                             setOpen: true,
-                            nameClub: club.split('#')[0],
-                            clubId: club.split('#')[2],
+                            nameClub: club.club,
+                            clubId: club.club_id,
                           })
                         }
                       >
                         Add
                       </Button>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow className={classes.mainHead}>
-                    <TableCell align='center'>
-                      <Typography className={classes.headText}>Pos</Typography>
-                    </TableCell>
-                    <TableCell align='center'>
-                      <Typography className={classes.headText}>
-                        Number
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography className={classes.headText}>Name</Typography>
-                    </TableCell>
-                    <TableCell align='center'>
-                      <Typography className={classes.headText}>
-                        Country
-                      </Typography>
-                    </TableCell>
-                    <TableCell align='center'>
-                      <Typography className={classes.headText}>Born</Typography>
-                    </TableCell>
-                    <TableCell align='center'>
-                      <Typography className={classes.headText}>Age</Typography>
-                    </TableCell>
-                    <TableCell align='center'>
-                      <Typography className={classes.headText}>
-                        Height
-                      </Typography>
-                    </TableCell>
-                    <TableCell align='center'>
-                      <Typography className={classes.headText}>
-                        Weight
-                      </Typography>
-                    </TableCell>
-                    <TableCell></TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {player.map((playerName) => (
-                    <TableRow className={classes.tblRow} key={playerName.pl_id}>
-                      <TableCell align='center'>{playerName.pos}</TableCell>
-                      <TableCell align='center'>{playerName.num}</TableCell>
-                      <TableCell
-                        width='60%'
-                        component={Link}
-                        to={'/players/' + playerName.pl_id}
-                      >
-                        {playerName.first_name} {playerName.last_name}
+                    </div>
+                  </Grid>
+                </Grid>
+                <Table>
+                  <TableHead>
+                    <TableRow className={classes.mainHead}>
+                      <TableCell align='center'>
+                        <Typography className={classes.headText}>
+                          Pos
+                        </Typography>
                       </TableCell>
                       <TableCell align='center'>
-                        <img alt='' src={playerName.flag} width='30'></img>
+                        <Typography className={classes.headText}>
+                          Number
+                        </Typography>
                       </TableCell>
-                      <TableCell align='center'>{playerName.birth}</TableCell>
-                      <TableCell align='center'>{playerName.age}</TableCell>
-                      <TableCell align='center'>{playerName.height}</TableCell>
-                      <TableCell align='center'>{playerName.weight}</TableCell>
+                      <TableCell>
+                        <Typography className={classes.headText}>
+                          Name
+                        </Typography>
+                      </TableCell>
                       <TableCell align='center'>
-                        <Button
-                          variant='contained'
-                          color='secondary'
-                          onClick={() =>
-                            this.deletePlayerFromRoster(
-                              playerName.championship_id
-                            )
-                          }
-                        >
-                          Delete
-                        </Button>
+                        <Typography className={classes.headText}>
+                          Country
+                        </Typography>
                       </TableCell>
+                      <TableCell align='center'>
+                        <Typography className={classes.headText}>
+                          Born
+                        </Typography>
+                      </TableCell>
+                      <TableCell align='center'>
+                        <Typography className={classes.headText}>
+                          Age
+                        </Typography>
+                      </TableCell>
+                      <TableCell align='center'>
+                        <Typography className={classes.headText}>
+                          Height
+                        </Typography>
+                      </TableCell>
+                      <TableCell align='center'>
+                        <Typography className={classes.headText}>
+                          Weight
+                        </Typography>
+                      </TableCell>
+                      <TableCell></TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            );
-          })}
+                  </TableHead>
+                  <TableBody>
+                    {rosters.map((roster) =>
+                      roster.club_id === club.club_id ? (
+                        <TableRow className={classes.tblRow}>
+                          <TableCell align='center'>{roster.pos}</TableCell>
+                          <TableCell align='center'>{roster.num}</TableCell>
+                          <TableCell
+                            width='60%'
+                            component={Link}
+                            to={'/players/' + roster.pl_id}
+                          >
+                            {roster.first_name} {roster.last_name}
+                          </TableCell>
+                          <TableCell align='center'>
+                            <img alt='' src={roster.flag} width='30'></img>
+                          </TableCell>
+                          <TableCell align='center'>{roster.birth}</TableCell>
+                          <TableCell align='center'>{roster.age}</TableCell>
+                          <TableCell align='center'>{roster.height}</TableCell>
+                          <TableCell align='center'>{roster.weight}</TableCell>
+                          <TableCell align='center'>
+                            <Button
+                              variant='contained'
+                              color='secondary'
+                              onClick={() =>
+                                this.deletePlayerFromRoster(
+                                  roster.championship_id
+                                )
+                              }
+                            >
+                              Delete
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      ) : null
+                    )}
+                  </TableBody>
+                </Table>
+              </Grid>
+            </div>
+          ))}
         </Container>
       </React.Fragment>
     );
@@ -278,6 +278,7 @@ export class Roster extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+  clubs: state.rosterReducer.clubsByRoster,
   rosters: state.rosterReducer.rosters,
   players: state.playersReducer.players,
 });

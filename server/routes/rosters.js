@@ -51,12 +51,26 @@ const sqlGetNewPlayer = {
     ORDER BY club.club, player.pos_num',
 };
 
+const sqlClubsForRoster = {
+  text:
+    'SELECT champ.*, club.club, club_logo.logo FROM champ \
+    INNER JOIN club ON champ.club_id = club.club_id \
+    INNER JOIN club_logo ON champ.club_id = club_logo.club_id \
+    WHERE champ.season = $1 AND champ.league_id = $2 \
+    AND club_logo.start_year <= $1 AND (club_logo.end_year >= $1 OR club_logo.end_year IS NULL) \
+    ORDER BY club',
+};
+
 router.get('/', async (req, res) => {
   const allRoster = await pool.query(sqlRoster, [
     req.query.year,
     req.query.league,
   ]);
-  res.json(allRoster.rows);
+  const clubsForRoster = await pool.query(sqlClubsForRoster, [
+    req.query.year,
+    req.query.league,
+  ]);
+  res.json({ rosters: allRoster.rows, clubs: clubsForRoster.rows });
 });
 
 router.delete('/:championship_id', async (req, res) => {

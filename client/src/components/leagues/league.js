@@ -5,10 +5,17 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core/styles';
 import { getLeague } from '../../store/actions/leagueActions';
-
+import { getSeasons } from '../../store/actions/seasonActions';
 import ClubsByLeague from '../leagues/layout/clubsByLeague';
+import TableByLeague from '../leagues/layout/tableByLeague';
+import StatsByLeague from '../leagues/layout/statsByLeague';
 
 const _ = require('underscore');
 
@@ -20,6 +27,13 @@ const styles = (theme) => ({
   logo: {
     width: 80,
   },
+  rowHeader: {
+    backgroundColor: '#0b3548',
+  },
+  headText: {
+    color: '#ffffff',
+    textTransform: 'uppercase',
+  },
 });
 
 export class League extends Component {
@@ -27,18 +41,22 @@ export class League extends Component {
     super(props);
     this.state = {
       league: [],
+      seasons: [],
+      season: 2020,
     };
   }
   componentDidMount() {
+    this.props.getSeasons();
     const league_id = this.props.match.params.league_id;
     this.props.getLeague(league_id);
+    //console.log('TEST!!! ' + this.props.getLeague(league_id));
   }
   render() {
-    const { league, classes } = this.props;
+    const { seasons, season, league, classes } = this.props;
     const oneLeague = _.groupBy(league, (value) => {
       return value.name + '#' + value.s_name;
     });
-
+    console.log('TEST2 ' + league);
     if (!league) {
       return <h1>WAIT!</h1>;
     }
@@ -108,6 +126,38 @@ export class League extends Component {
                   <Box fontWeight={700}>TEAMS</Box>
                 </Typography>
                 <ClubsByLeague />
+                <hr />
+                <Container>
+                  <Card>
+                    <CardContent className={classes.rowHeader}>
+                      <Typography className={classes.headText}>
+                        <Box fontWeight='fontWeightBold'>
+                          2020-2021 Standings
+                        </Box>
+                      </Typography>
+                    </CardContent>
+                    <CardContent>
+                      <FormControl className={classes.formControl}>
+                        <Select
+                          labelId='season-label'
+                          defaultValue={2020}
+                          value={season}
+                          onChange={this.seasonChange}
+                        >
+                          {seasons.map((season) => (
+                            <MenuItem key={this.id} value={season.year}>
+                              {season.season}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </CardContent>
+                  </Card>
+                </Container>
+                <TableByLeague />
+                <hr />
+                <StatsByLeague />
+                <hr />
               </Grid>
             </Grid>
           </div>
@@ -118,9 +168,10 @@ export class League extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  seasons: state.seasonReducer.seasons,
   league: state.leagueReducer.league,
 });
 
-export default connect(mapStateToProps, { getLeague })(
+export default connect(mapStateToProps, { getLeague, getSeasons })(
   withStyles(styles)(League)
 );

@@ -11,7 +11,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Avatar from '@material-ui/core/Avatar';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 
 const axios = require('axios');
 
@@ -25,19 +26,8 @@ const styles = (theme) => ({
     color: theme.palette.text.secondary,
   },
   player: {
-    padding: theme.spacing(2),
-    textAlign: 'left',
     backgroundColor: '#0b3548',
     color: '#fff',
-    height: '100%',
-  },
-  large: {
-    backgroundColor: '#fff',
-    width: theme.spacing(20),
-    height: theme.spacing(20),
-  },
-  imgAvatar: {
-    height: '80%',
   },
   tableHead: {
     backgroundColor: '#0b3548',
@@ -59,6 +49,13 @@ const styles = (theme) => ({
   boxRedItem: {
     fontSize: 14,
     fontWeight: 600,
+  },
+  cardHeight: {
+    height: '100%',
+  },
+  imgFlag: {
+    height: theme.spacing(15),
+    width: 'auto',
   },
 });
 
@@ -109,45 +106,45 @@ export class playerDetail extends Component {
           <Paper className={classes.paper}>
             <Grid container spacing={3}>
               <Grid item xs={12} md={6}>
-                <Paper className={classes.player}>
-                  <Grid container spacing={3}>
-                    <Grid item md={2}>
-                      <img
-                        className='mx-auto d-block'
-                        width='60px'
-                        src={'../' + this.state.pl_flag}
-                        alt=''
-                      ></img>
-                    </Grid>
-                    <Grid item md={1}>
-                      <h2>{this.state.pl_num}</h2>
-                    </Grid>
-                    <Grid item>
-                      <h2>
-                        {this.state.pl_first_name} {this.state.pl_last_name}
-                      </h2>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <h5>
-                        {this.state.pl_club} / {this.state.pl_sname} -{' '}
-                        {this.state.pl_season}-{this.state.pl_season - 1999}
-                      </h5>
-                    </Grid>
-                    <Grid item container justify='center' my={5}>
-                      <Avatar className={classes.large}>
+                <Card className={classes.cardHeight}>
+                  <CardContent className={classes.player}>
+                    <Grid container spacing={3}>
+                      <Grid item md={2}>
                         <img
-                          className={classes.imgAvatar}
-                          src={'../' + this.state.pl_jersey}
+                          className='mx-auto d-block'
+                          width='60px'
+                          src={'../' + this.state.pl_flag}
                           alt=''
                         ></img>
-                      </Avatar>
+                      </Grid>
+                      <Grid item md={1}>
+                        <h2>{this.state.pl_num}</h2>
+                      </Grid>
+                      <Grid item>
+                        <h2>
+                          {this.state.pl_first_name} {this.state.pl_last_name}
+                        </h2>
+                      </Grid>
+                      <Grid item>
+                        <h5>
+                          {this.state.pl_club} / {this.state.pl_sname} -{' '}
+                          {this.state.pl_season}-{this.state.pl_season - 1999}
+                        </h5>
+                      </Grid>
                     </Grid>
-                  </Grid>
-                </Paper>
+                  </CardContent>
+                  <CardContent className={classes.flagBox}>
+                    <img
+                      className={classes.imgFlag}
+                      src={'../' + this.state.pl_jersey}
+                      alt=''
+                    ></img>
+                  </CardContent>
+                </Card>
               </Grid>
               <Grid item xs={12} md={6}>
                 <TableContainer component={Paper}>
-                  <Table>
+                  <Table size='small'>
                     <TableHead className={classes.tableHead}>
                       <TableRow>
                         <TableCell className={classes.tableCell}>
@@ -235,7 +232,7 @@ export class playerDetail extends Component {
           </Paper>
           <Paper className={classes.paper}>
             <TableContainer component={Paper}>
-              <Table>
+              <Table size='small'>
                 <TableHead className={classes.tableHead}>
                   <TableRow>
                     <TableCell className={classes.tableCell}>

@@ -3,10 +3,13 @@ import * as actions from './index';
 const queryString = require('query-string');
 
 export const getRosters = (year, league) => async (dispatch) => {
-  const res = await axios.get('/api/rosters', {
+  const { data } = await axios.get('/api/rosters', {
     params: { year, league },
   });
-  dispatch({ type: actions.GET_ROSTERS, rosters: res.data });
+  dispatch({
+    type: actions.GET_ROSTERS,
+    rostersAndClubs: { rosters: data.rosters, clubs: data.clubs },
+  });
 };
 
 export const insertPlayerToRoster = (
