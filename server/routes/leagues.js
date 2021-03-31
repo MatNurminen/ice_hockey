@@ -30,7 +30,7 @@ const sqlClubsByLeague = {
 };
 
 const sqlLeagueTable = {
-  text: `SELECT champ.*, club.club FROM champ
+  text: `SELECT champ.*, club.club, (gf-ga) as gdif, (wings*2+ties) as points FROM champ
     INNER JOIN club ON champ.club_id = club.club_id
     WHERE champ.league_id = $1 AND champ.season = $2
     ORDER BY points DESC`,
@@ -38,12 +38,12 @@ const sqlLeagueTable = {
 
 const sqlLeagueStats = {
   text:
-    'SELECT player.first_name, player.last_name, club.club, championship.* \
+    'SELECT player.*, club.club, championship.*, country.flag \
     FROM championship \
     INNER JOIN club ON championship.club_id = club.club_id \
     INNER JOIN player ON championship.player_id = player.player_id \
-    WHERE championship.season = 2020 AND club.league_id = 14 \
-    ORDER BY championship.goas LIMIT 5',
+    INNER JOIN country ON (player.country_id = country.country_id) \
+    WHERE club.league_id = $1 AND championship.season = $2',
 };
 
 const sqlLeagueCountries = {
@@ -52,7 +52,7 @@ const sqlLeagueCountries = {
     INNER JOIN club ON championship.club_id = club.club_id \
     INNER JOIN player ON championship.player_id = player.player_id \
     INNER JOIN country ON player.country_id = country.country_id \
-    WHERE championship.season = 2020 AND club.league_id = 14 \
+    WHERE club.league_id = $1 AND championship.season = $2 \
     GROUP BY country.country_id ORDER BY count DESC',
 };
 
@@ -75,10 +75,20 @@ router.get('/:league_id/:season', async (req, res) => {
     req.params.league_id,
     req.params.season,
   ]);
+  const statsByLeague = await pool.query(sqlLeagueStats, [
+    req.params.league_id,
+    req.params.season,
+  ]);
+  const countriesByLeague = await pool.query(sqlLeagueCountries, [
+    req.params.league_id,
+    req.params.season,
+  ]);
   res.json({
     league: league.rows,
     clubs: clubsByLeague.rows,
     table: tableByLeague.rows,
+    stats: statsByLeague.rows,
+    countries: countriesByLeague.rows,
   });
 });
 

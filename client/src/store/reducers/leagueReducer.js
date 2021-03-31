@@ -3,6 +3,8 @@ const initialState = {
   leagues: null,
   clubsByLeague: null,
   tableByLeague: null,
+  statsByLeague: null,
+  countriesByLeague: null,
 };
 
 export default (state = initialState, action) => {
@@ -15,6 +17,8 @@ export default (state = initialState, action) => {
         league: action.leagueAndClubs.league,
         clubsByLeague: action.leagueAndClubs.clubs,
         tableByLeague: action.leagueAndClubs.table,
+        statsByLeague: action.leagueAndClubs.stats,
+        countriesByLeague: action.leagueAndClubs.countries,
       };
     default:
       return state;

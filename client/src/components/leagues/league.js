@@ -16,6 +16,8 @@ import { getSeasons } from '../../store/actions/seasonActions';
 import ClubsByLeague from '../leagues/layout/clubsByLeague';
 import TableByLeague from '../leagues/layout/tableByLeague';
 import StatsByLeague from '../leagues/layout/statsByLeague';
+import CountriesByLeague from '../leagues/layout/countriesByLeague';
+import FactsByLeague from '../leagues/layout/factsByLeague';
 
 const _ = require('underscore');
 
@@ -47,15 +49,22 @@ export class League extends Component {
   }
   componentDidMount() {
     this.props.getSeasons();
-    const league_id = this.props.match.params.league_id;
-    this.props.getLeague(league_id, this.state.season);
+    this.props.getLeague(this.props.match.params.league_id, this.state.season);
   }
+
+  seasonChange = (e) => {
+    this.setState({ season: e.target.value });
+    this.props.getLeague(this.props.match.params.league_id, e.target.value);
+  };
+
   render() {
     const { seasons, season, league, classes } = this.props;
     const oneLeague = _.groupBy(league, (value) => {
       return value.name + '#' + value.s_name;
     });
-    console.log('TEST2 ' + league);
+    if (!seasons) {
+      return <h1>WAIT!</h1>;
+    }
     if (!league) {
       return <h1>WAIT!</h1>;
     }
@@ -131,7 +140,7 @@ export class League extends Component {
                     <CardContent className={classes.rowHeader}>
                       <Typography className={classes.headText}>
                         <Box fontWeight='fontWeightBold'>
-                          2020-2021 Standings
+                          {this.state.season}-{this.state.season + 1} Standings
                         </Box>
                       </Typography>
                     </CardContent>
@@ -156,6 +165,10 @@ export class League extends Component {
                 <TableByLeague />
                 <hr />
                 <StatsByLeague />
+                <hr />
+                <CountriesByLeague />
+                <hr />
+                <FactsByLeague />
                 <hr />
               </Grid>
             </Grid>

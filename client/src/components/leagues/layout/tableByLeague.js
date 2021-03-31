@@ -61,7 +61,47 @@ export class TableByLeague extends Component {
                 </TableCell>
                 <TableCell>
                   <Typography className={classes.headText}>
-                    <Box fontWeight='fontWeightBold'>Points</Box>
+                    <Box fontWeight='fontWeightBold'>gp</Box>
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography className={classes.headText}>
+                    <Box fontWeight='fontWeightBold'>w</Box>
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography className={classes.headText}>
+                    <Box fontWeight='fontWeightBold'>t</Box>
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography className={classes.headText}>
+                    <Box fontWeight='fontWeightBold'>l</Box>
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography className={classes.headText}>
+                    <Box fontWeight='fontWeightBold'>gf</Box>
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography className={classes.headText}>
+                    <Box fontWeight='fontWeightBold'>ga</Box>
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography className={classes.headText}>
+                    <Box fontWeight='fontWeightBold'>+/-</Box>
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography className={classes.headText}>
+                    <Box fontWeight='fontWeightBold'>tp</Box>
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography className={classes.headText}>
+                    <Box fontWeight='fontWeightBold'>Postseason</Box>
                   </Typography>
                 </TableCell>
               </TableRow>
@@ -71,7 +111,15 @@ export class TableByLeague extends Component {
                 <TableRow key={index}>
                   <TableCell>{index + 1}</TableCell>
                   <TableCell>{tbl.club}</TableCell>
+                  <TableCell>{tbl.games}</TableCell>
+                  <TableCell>{tbl.wings}</TableCell>
+                  <TableCell>{tbl.ties}</TableCell>
+                  <TableCell>{tbl.losts}</TableCell>
+                  <TableCell>{tbl.gf}</TableCell>
+                  <TableCell>{tbl.ga}</TableCell>
+                  <TableCell>{tbl.gdif}</TableCell>
                   <TableCell>{tbl.points}</TableCell>
+                  <TableCell>{tbl.postseason}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

@@ -13,6 +13,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
+import {
+  getForwards,
+  getDefensemen,
+  getGoaltending,
+} from '../../../store/selectors/leagueStatsSelector';
 
 const styles = (theme) => ({
   root: {
@@ -38,30 +43,38 @@ const styles = (theme) => ({
       background: '#118442',
     },
   },
+  flag: {
+    width: '22px',
+    marginRight: '10px',
+  },
 });
 export class StatsByLeague extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      table: [],
+      forwards: [],
+      defensemen: [],
+      goaltending: [],
     };
   }
 
   render() {
-    const { table, classes } = this.props;
+    const { forwards, defensemen, goaltending, classes } = this.props;
 
-    if (!table) {
+    if (!forwards) {
       return <h1>WAIT!</h1>;
     }
 
     return (
       <Container>
-        <Grid container spacing={3}>
-          <Grid item xs={6}>
+        <Grid container spacing={2}>
+          <Grid item xs={4}>
             <Card>
               <CardContent className={classes.rowHeader}>
                 <Typography className={classes.headText}>
-                  <Box fontWeight='fontWeightBold'>2020-2021 Player Stats</Box>
+                  <Box fontWeight='fontWeightBold'>
+                    2020-2021 Forwards Stats
+                  </Box>
                 </Typography>
               </CardContent>
               <Table size='small'>
@@ -90,12 +103,19 @@ export class StatsByLeague extends Component {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {table.map((tbl, index) => (
+                  {forwards.map((stat, index) => (
                     <TableRow key={index}>
                       <TableCell>{index + 1}</TableCell>
-                      <TableCell>{tbl.club}</TableCell>
-                      <TableCell></TableCell>
-                      <TableCell>{tbl.points}</TableCell>
+                      <TableCell>
+                        <img
+                          className={classes.flag}
+                          src={'/' + stat.flag}
+                          alt=''
+                        />
+                        {stat.first_name} {stat.last_name} ({stat.pos})
+                      </TableCell>
+                      <TableCell>{stat.games}</TableCell>
+                      <TableCell>{stat.goals}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -107,7 +127,66 @@ export class StatsByLeague extends Component {
               </Button>
             </Box>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={4}>
+            <Card>
+              <CardContent className={classes.rowHeader}>
+                <Typography className={classes.headText}>
+                  <Box fontWeight='fontWeightBold'>
+                    2020-2021 Defensemen Stats
+                  </Box>
+                </Typography>
+              </CardContent>
+              <Table size='small'>
+                <TableHead className={classes.tableHead}>
+                  <TableRow>
+                    <TableCell>
+                      <Typography className={classes.headText}>
+                        <Box fontWeight='fontWeightBold'>#</Box>
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography className={classes.headText}>
+                        <Box fontWeight='fontWeightBold'>Player</Box>
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography className={classes.headText}>
+                        <Box fontWeight='fontWeightBold'>GP</Box>
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography className={classes.headText}>
+                        <Box fontWeight='fontWeightBold'>G</Box>
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {defensemen.map((stat, index) => (
+                    <TableRow key={index}>
+                      <TableCell>{index + 1}</TableCell>
+                      <TableCell>
+                        <img
+                          className={classes.flag}
+                          src={'/' + stat.flag}
+                          alt=''
+                        />
+                        {stat.first_name} {stat.last_name}
+                      </TableCell>
+                      <TableCell>{stat.games}</TableCell>
+                      <TableCell>{stat.goals}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </Card>
+            <Box mt={2}>
+              <Button className={classes.btn} variant='contained' fullWidth>
+                Show more
+              </Button>
+            </Box>
+          </Grid>
+          <Grid item xs={4}>
             <Card>
               <CardContent className={classes.rowHeader}>
                 <Typography className={classes.headText}>
@@ -136,18 +215,25 @@ export class StatsByLeague extends Component {
                     </TableCell>
                     <TableCell>
                       <Typography className={classes.headText}>
-                        <Box fontWeight='fontWeightBold'>MM</Box>
+                        <Box fontWeight='fontWeightBold'>MG</Box>
                       </Typography>
                     </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {table.map((tbl, index) => (
+                  {goaltending.map((stat, index) => (
                     <TableRow key={index}>
                       <TableCell>{index + 1}</TableCell>
-                      <TableCell>{tbl.club}</TableCell>
-                      <TableCell></TableCell>
-                      <TableCell>{tbl.points}</TableCell>
+                      <TableCell>
+                        <img
+                          className={classes.flag}
+                          src={'/' + stat.flag}
+                          alt=''
+                        />
+                        {stat.first_name} {stat.last_name}
+                      </TableCell>
+                      <TableCell>{stat.games}</TableCell>
+                      <TableCell>{stat.goals}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -166,7 +252,10 @@ export class StatsByLeague extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  table: state.leagueReducer.tableByLeague,
+  //stats: state.leagueReducer.statsByLeague,
+  forwards: getForwards(state),
+  defensemen: getDefensemen(state),
+  goaltending: getGoaltending(state),
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(StatsByLeague));

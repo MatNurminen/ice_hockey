@@ -40,8 +40,11 @@ class App extends Component {
           <Route path='/players/search' component={SearchPlayer} />
           <Route exact path='/players/:player_id' component={PlayerDetail} />
           <Route exact path='/players/create/new' component={AddPlayer} />
+
           <Route exact path='/leagues' component={Leagues} />
           <Route exact path='/leagues/:league_id' component={League} />
+          <Route exact path='/leagues/:league_id/:season' component={League} />
+
           <Route exact path='/countries' component={Countries} />
           <Route exact path='/countries/:country_id' component={Country} />
           <Route exact path='/clubs/:club_id' component={Club} />

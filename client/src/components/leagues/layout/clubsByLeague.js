@@ -5,7 +5,6 @@ import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import { withStyles } from '@material-ui/core/styles';
-//import { getClubsByLeague } from '../../../store/actions/leagueActions';
 
 const styles = (theme) => ({
   root: {
@@ -24,12 +23,6 @@ export class ClubsByLeague extends Component {
       clubs: [],
     };
   }
-  // componentDidMount() {
-  //   //const league_id = this.props.match.params.league_id;
-  //   //console.log('TEST: ' + this.props.match.params.league_id);
-  //   const league_id = 2;
-  //   this.props.getClubsByLeague(league_id);
-  // }
   render() {
     const { clubs, classes } = this.props;
 
@@ -39,7 +32,7 @@ export class ClubsByLeague extends Component {
 
     return (
       <Container>
-        <List>
+        <List dense={true}>
           {clubs.map((club) => (
             <ListItem component={Link} to={'/clubs/' + club.club_id}>
               {club.club}
@@ -55,6 +48,4 @@ const mapStateToProps = (state) => ({
   clubs: state.leagueReducer.clubsByLeague,
 });
 
-export default connect(mapStateToProps)(
-  withStyles(styles)(ClubsByLeague)
-);
+export default connect(mapStateToProps)(withStyles(styles)(ClubsByLeague));
