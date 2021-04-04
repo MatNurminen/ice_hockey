@@ -12,6 +12,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import {
   getForwards,
@@ -106,7 +107,10 @@ export class StatsByLeague extends Component {
                   {forwards.map((stat, index) => (
                     <TableRow key={index}>
                       <TableCell>{index + 1}</TableCell>
-                      <TableCell>
+                      <TableCell
+                        component={Link}
+                        to={'/players/' + stat.player_id}
+                      >
                         <img
                           className={classes.flag}
                           src={'/' + stat.flag}
@@ -165,7 +169,10 @@ export class StatsByLeague extends Component {
                   {defensemen.map((stat, index) => (
                     <TableRow key={index}>
                       <TableCell>{index + 1}</TableCell>
-                      <TableCell>
+                      <TableCell
+                        component={Link}
+                        to={'/players/' + stat.player_id}
+                      >
                         <img
                           className={classes.flag}
                           src={'/' + stat.flag}
@@ -224,7 +231,10 @@ export class StatsByLeague extends Component {
                   {goaltending.map((stat, index) => (
                     <TableRow key={index}>
                       <TableCell>{index + 1}</TableCell>
-                      <TableCell>
+                      <TableCell
+                        component={Link}
+                        to={'/players/' + stat.player_id}
+                      >
                         <img
                           className={classes.flag}
                           src={'/' + stat.flag}

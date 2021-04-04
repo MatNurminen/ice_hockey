@@ -18,6 +18,7 @@ import TableByLeague from '../leagues/layout/tableByLeague';
 import StatsByLeague from '../leagues/layout/statsByLeague';
 import CountriesByLeague from '../leagues/layout/countriesByLeague';
 import FactsByLeague from '../leagues/layout/factsByLeague';
+import ComparisonByLeague from '../leagues/layout/comparisonByLeague';
 
 const _ = require('underscore');
 
@@ -167,6 +168,8 @@ export class League extends Component {
                 <StatsByLeague />
                 <hr />
                 <CountriesByLeague />
+                <hr />
+                <ComparisonByLeague />
                 <hr />
                 <FactsByLeague />
                 <hr />

@@ -104,7 +104,7 @@ export class FactsByLeague extends Component {
                         />
                         {stat.first_name} {stat.last_name} ({stat.pos})
                       </TableCell>
-                      <TableCell>{stat.birth}</TableCell>
+                      <TableCell>{stat.age} yrs</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -203,7 +203,7 @@ export class FactsByLeague extends Component {
                         />
                         {stat.first_name} {stat.last_name} ({stat.pos})
                       </TableCell>
-                      <TableCell>{stat.birth}</TableCell>
+                      <TableCell>{stat.age} yrs</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

@@ -5,6 +5,7 @@ const initialState = {
   tableByLeague: null,
   statsByLeague: null,
   countriesByLeague: null,
+  comparisonByLeague: null,
 };
 
 export default (state = initialState, action) => {
@@ -19,6 +20,7 @@ export default (state = initialState, action) => {
         tableByLeague: action.leagueAndClubs.table,
         statsByLeague: action.leagueAndClubs.stats,
         countriesByLeague: action.leagueAndClubs.countries,
+        comparisonByLeague: action.leagueAndClubs.comparison,
       };
     default:
       return state;

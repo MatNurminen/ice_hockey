@@ -28,7 +28,11 @@ export const getGoaltending = createSelector(stats, (player) => {
 });
 
 export const getOldest = createSelector(stats, (player) => {
-  return player.slice(0, 5);
+  return player
+    .sort(function (a, b) {
+      return b.age - a.age;
+    })
+    .slice(0, 5);
 });
 export const getTallest = createSelector(stats, (player) => {
   return player
@@ -45,7 +49,11 @@ export const getHeaviest = createSelector(stats, (player) => {
     .slice(0, 5);
 });
 export const getYoungest = createSelector(stats, (player) => {
-  return player.slice(0, 5);
+  return player
+    .sort(function (a, b) {
+      return a.age - b.age;
+    })
+    .slice(0, 5);
 });
 export const getShortest = createSelector(stats, (player) => {
   return player
