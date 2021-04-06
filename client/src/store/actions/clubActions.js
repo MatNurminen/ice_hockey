@@ -6,7 +6,13 @@ export const getClubs = () => async (dispatch) => {
   dispatch({ type: actions.GET_CLUBS, clubs: res.data });
 };
 
-export const getClub = (club_id) => async (dispatch) => {
-  const res = await axios.get(`/api/clubs/${club_id}`);
-  dispatch({ type: actions.GET_CLUB, club: res.data });
+export const getClub = (club_id, season) => async (dispatch) => {
+  const { data } = await axios.get(`/api/clubs/${club_id}/${season}`);
+  dispatch({
+    type: actions.GET_CLUB,
+    clubAndStats: {
+      club: data.club,
+      roster: data.roster,
+    },
+  });
 };

@@ -45,9 +45,11 @@ class App extends Component {
           <Route exact path='/leagues/:league_id' component={League} />
           <Route exact path='/leagues/:league_id/:season' component={League} />
 
+          <Route exact path='/clubs/:club_id' component={Club} />
+          <Route exact path='/clubs/:club_id/:season' component={Club} />
+
           <Route exact path='/countries' component={Countries} />
           <Route exact path='/countries/:country_id' component={Country} />
-          <Route exact path='/clubs/:club_id' component={Club} />
           <Route exact path='/players' component={Players} />
           <Route exact path='/freeagents' component={FreeAgents} />
 

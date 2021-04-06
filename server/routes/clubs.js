@@ -10,10 +10,18 @@ const sqlClubs = {
 };
 
 const sqlClub = {
-  text:
-    'SELECT club.*, club_logo.* FROM club \
-  INNER JOIN club_logo ON club.club_id = club_logo.club_id \
-  WHERE club.club_id = $1',
+  text: `SELECT club.*, club_logo.*, league.* FROM club
+    INNER JOIN club_logo ON club.club_id = club_logo.club_id
+    INNER JOIN league ON club.league_id = league.league_id
+    WHERE club.club_id = $1`,
+};
+
+const sqlClubBySeason = {
+  text: `SELECT championship.*, player.*, country.flag, 
+    (championship.season-player.birth) as age FROM championship
+    INNER JOIN player ON championship.player_id = player.player_id
+    INNER JOIN country ON player.country_id = country.country_id
+    WHERE club_id = $1 AND season = $2 ORDER BY last_name`,
 };
 
 router.get('/', async (req, res) => {
@@ -21,9 +29,13 @@ router.get('/', async (req, res) => {
   res.json(allClubs.rows);
 });
 
-router.get('/:club_id', async (req, res) => {
+router.get('/:club_id/:season', async (req, res) => {
   const club = await pool.query(sqlClub, [req.params.club_id]);
-  res.json(club.rows);
+  const roster = await pool.query(sqlClubBySeason, [
+    req.params.club_id,
+    req.params.season,
+  ]);
+  res.json({ club: club.rows, roster: roster.rows });
 });
 
 module.exports = router;

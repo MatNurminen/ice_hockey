@@ -17,6 +17,8 @@ export const getLeague = (league_id, season) => async (dispatch) => {
       stats: data.stats,
       countries: data.countries,
       comparison: data.comparison,
+      statsPerSeason: data.statsPerSeason,
+      statsAllTime: data.statsAllTime,
     },
   });
 };

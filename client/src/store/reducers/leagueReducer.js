@@ -6,6 +6,8 @@ const initialState = {
   statsByLeague: null,
   countriesByLeague: null,
   comparisonByLeague: null,
+  statsPerSeasonByLeague: null,
+  statsAllTimeByLeague: null,
 };
 
 export default (state = initialState, action) => {
@@ -21,6 +23,8 @@ export default (state = initialState, action) => {
         statsByLeague: action.leagueAndClubs.stats,
         countriesByLeague: action.leagueAndClubs.countries,
         comparisonByLeague: action.leagueAndClubs.comparison,
+        statsPerSeasonByLeague: action.leagueAndClubs.statsPerSeason,
+        statsAllTimeByLeague: action.leagueAndClubs.statsAllTime,
       };
     default:
       return state;

@@ -15,9 +15,9 @@ import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import {
-  getForwards,
-  getDefensemen,
-  getGoaltending,
+  getForwardsAllTime,
+  getDefensemenAllTime,
+  getGoaltendingAllTime,
 } from '../../../store/selectors/leagueStatsSelector';
 
 const styles = (theme) => ({
@@ -49,7 +49,7 @@ const styles = (theme) => ({
     marginRight: '10px',
   },
 });
-export class StatsByLeague extends Component {
+export class AllTimeByLeague extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -60,14 +60,7 @@ export class StatsByLeague extends Component {
   }
 
   render() {
-    const {
-      forwards,
-      defensemen,
-      goaltending,
-      season,
-      league_id,
-      classes,
-    } = this.props;
+    const { forwards, defensemen, goaltending, classes } = this.props;
 
     if (!forwards) {
       return <h1>WAIT!</h1>;
@@ -76,23 +69,12 @@ export class StatsByLeague extends Component {
     return (
       <Container>
         <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Button
-              className={classes.btn}
-              variant='contained'
-              fullWidth
-              component={Link}
-              to={'/rosters?league=' + league_id + '&year=' + season}
-            >
-              {season}-{season + 1} Teams Rosters
-            </Button>
-          </Grid>
           <Grid item xs={4}>
             <Card>
               <CardContent className={classes.rowHeader}>
                 <Typography className={classes.headText}>
                   <Box fontWeight='fontWeightBold'>
-                    {season}-{season + 1} Forwards Stats
+                    League All-Time Forwards Stats
                   </Box>
                 </Typography>
               </CardContent>
@@ -136,8 +118,8 @@ export class StatsByLeague extends Component {
                         />
                         {stat.first_name} {stat.last_name} ({stat.pos})
                       </TableCell>
-                      <TableCell>{stat.games}</TableCell>
-                      <TableCell>{stat.goals}</TableCell>
+                      <TableCell>{stat.allgm}</TableCell>
+                      <TableCell>{stat.allg}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -154,7 +136,7 @@ export class StatsByLeague extends Component {
               <CardContent className={classes.rowHeader}>
                 <Typography className={classes.headText}>
                   <Box fontWeight='fontWeightBold'>
-                    {season}-{season + 1} Defensemen Stats
+                    League All-Time Defensemen Stats
                   </Box>
                 </Typography>
               </CardContent>
@@ -198,8 +180,8 @@ export class StatsByLeague extends Component {
                         />
                         {stat.first_name} {stat.last_name}
                       </TableCell>
-                      <TableCell>{stat.games}</TableCell>
-                      <TableCell>{stat.goals}</TableCell>
+                      <TableCell>{stat.allgm}</TableCell>
+                      <TableCell>{stat.allg}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -216,7 +198,7 @@ export class StatsByLeague extends Component {
               <CardContent className={classes.rowHeader}>
                 <Typography className={classes.headText}>
                   <Box fontWeight='fontWeightBold'>
-                    {season}-{season + 1} Goaltending Stats
+                    League All-Time Goaltending Stats
                   </Box>
                 </Typography>
               </CardContent>
@@ -260,8 +242,8 @@ export class StatsByLeague extends Component {
                         />
                         {stat.first_name} {stat.last_name}
                       </TableCell>
-                      <TableCell>{stat.games}</TableCell>
-                      <TableCell>{stat.goals}</TableCell>
+                      <TableCell>{stat.allgm}</TableCell>
+                      <TableCell>{stat.allg}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -280,9 +262,9 @@ export class StatsByLeague extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  forwards: getForwards(state),
-  defensemen: getDefensemen(state),
-  goaltending: getGoaltending(state),
+  forwards: getForwardsAllTime(state),
+  defensemen: getDefensemenAllTime(state),
+  goaltending: getGoaltendingAllTime(state),
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(StatsByLeague));
+export default connect(mapStateToProps)(withStyles(styles)(AllTimeByLeague));

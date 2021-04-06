@@ -67,6 +67,31 @@ const sqlLeagueComparison = {
   ORDER BY club.club`,
 };
 
+const sqlStatsPerSeason = {
+  text: `SELECT championship.*, club.club, player.pos, player.first_name, 
+  player.last_name, country.flag FROM championship
+  INNER JOIN club ON championship.club_id = club.club_id
+  INNER JOIN league ON club.league_id = league.league_id
+  INNER JOIN player ON championship.player_id = player.player_id
+  INNER JOIN country ON player.country_id = country.country_id
+  WHERE league.league_id = $1
+  ORDER BY goals DESC`,
+};
+
+const sqlStatsAllTime = {
+  text: `SELECT championship.player_id, player.pos, player.first_name, 
+  player.last_name, country.flag, SUM(games) as allgm, SUM(goals) as allg 
+  FROM championship
+  INNER JOIN club ON championship.club_id = club.club_id
+  INNER JOIN league ON club.league_id = league.league_id
+  INNER JOIN player ON championship.player_id = player.player_id
+  INNER JOIN country ON player.country_id = country.country_id
+  WHERE league.league_id = $1
+  GROUP BY championship.player_id, player.pos, player.first_name, 
+  player.last_name, country.flag
+  ORDER BY allg DESC`,
+};
+
 router.get('/', async (req, res) => {
   const allLeagues = await pool.query(sqlLeagues);
   res.json(allLeagues.rows);
@@ -98,6 +123,12 @@ router.get('/:league_id/:season', async (req, res) => {
     req.params.league_id,
     req.params.season,
   ]);
+  const statsPerSeasonByLeague = await pool.query(sqlStatsPerSeason, [
+    req.params.league_id,
+  ]);
+  const statsAllTime = await pool.query(sqlStatsAllTime, [
+    req.params.league_id,
+  ]);
   res.json({
     league: league.rows,
     clubs: clubsByLeague.rows,
@@ -105,6 +136,8 @@ router.get('/:league_id/:season', async (req, res) => {
     stats: statsByLeague.rows,
     countries: countriesByLeague.rows,
     comparison: comparisonByLeague.rows,
+    statsPerSeason: statsPerSeasonByLeague.rows,
+    statsAllTime: statsAllTime.rows,
   });
 });
 

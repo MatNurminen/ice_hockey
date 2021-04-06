@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -12,7 +13,14 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import { getSeasons } from '../../store/actions/seasonActions';
 import { getClub } from '../../store/actions/clubActions';
+import ClubRoster from '../clubs/layout/clubRoster';
 
 const styles = (theme) => ({
   root: {
@@ -28,6 +36,13 @@ const styles = (theme) => ({
   tableCell: {
     color: '#fff',
   },
+  rowHeader: {
+    backgroundColor: '#0b3548',
+  },
+  headText: {
+    color: '#ffffff',
+    textTransform: 'uppercase',
+  },
 });
 
 export class Club extends Component {
@@ -35,16 +50,24 @@ export class Club extends Component {
     super(props);
     this.state = {
       club: [],
+      seasons: [],
+      season: 2020,
     };
   }
 
   componentDidMount() {
+    this.props.getSeasons();
     const club_id = this.props.match.params.club_id;
-    this.props.getClub(club_id);
+    this.props.getClub(club_id, this.state.season);
   }
 
+  seasonChange = (e) => {
+    this.setState({ season: e.target.value });
+    this.props.getClub(this.props.match.params.club_id, e.target.value);
+  };
+
   render() {
-    const { club, classes } = this.props;
+    const { seasons, season, club, classes } = this.props;
 
     if (!club) {
       return <h1>WAIT!</h1>;
@@ -52,42 +75,108 @@ export class Club extends Component {
 
     return (
       <Container>
-        <div className={classes.root}>
-          {club.map((oneclub) => (
-            <Paper className={classes.paper}>
-              <Grid container>
-                <Grid item xs={12} md={6}>
-                  <img width='80px' src={'..' + oneclub.logo} alt=''></img>
-                  <Typography variant='h5'>
-                    <Box mt={2} fontWeight='fontWeightBold'>
-                      {oneclub.club}
+        <Paper>
+          <Box pt={2}>
+            <Container>
+              {club.map((oneclub) => (
+                <Paper className={classes.paper}>
+                  <Grid container>
+                    <Grid item xs={12} md={6}>
+                      <img width='80px' src={'..' + oneclub.logo} alt=''></img>
+                      <Typography variant='h5'>
+                        <Box mt={2} fontWeight='fontWeightBold'>
+                          {oneclub.club}
+                        </Box>
+                      </Typography>
+                      <Typography
+                        component={Link}
+                        to={'/leagues/' + oneclub.league_id}
+                      >
+                        <Box mt={2} fontWeight='fontWeightBold'>
+                          {oneclub.s_name}
+                        </Box>
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                      <TableContainer component={Paper}>
+                        <Table size='small'>
+                          <TableHead className={classes.tableHead}>
+                            <TableRow>
+                              <TableCell className={classes.tableCell}>
+                                <Typography variant='h6'>Team Facts</Typography>
+                              </TableCell>
+                              <TableCell></TableCell>
+                            </TableRow>
+                          </TableHead>
+                          <TableBody>
+                            <TableRow>
+                              <TableCell>Plays in</TableCell>
+                              <TableCell
+                                component={Link}
+                                to={'/leagues/' + oneclub.league_id}
+                              >
+                                {oneclub.name}
+                              </TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Started</TableCell>
+                              <TableCell>{oneclub.start_year}</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>Ended</TableCell>
+                              <TableCell>{oneclub.end_year}</TableCell>
+                            </TableRow>
+                          </TableBody>
+                        </Table>
+                      </TableContainer>
+                    </Grid>
+                  </Grid>
+                </Paper>
+              ))}
+            </Container>
+            <hr />
+            <Container>
+              <Card>
+                <CardContent className={classes.rowHeader}>
+                  <Typography className={classes.headText}>
+                    <Box fontWeight='fontWeightBold'>
+                      {this.state.season}-{this.state.season + 1} Roster and
+                      Stats
                     </Box>
                   </Typography>
-                </Grid>
-                <Grid item xs={12} md={6}>
-                  <TableContainer>
-                    <Table>
-                      <TableHead className={classes.tableHead}>
-                        <TableRow>
-                          <TableCell className={classes.tableCell}>
-                            <Typography variant='h6'>Team Facts</Typography>
-                          </TableCell>
-                        </TableRow>
-                      </TableHead>
-                    </Table>
-                  </TableContainer>
-                </Grid>
-              </Grid>
-            </Paper>
-          ))}
-        </div>
+                </CardContent>
+                <CardContent>
+                  <FormControl className={classes.formControl}>
+                    <Select
+                      labelId='season-label'
+                      defaultValue={2020}
+                      value={season}
+                      onChange={this.seasonChange}
+                    >
+                      {seasons.map((season) => (
+                        <MenuItem key={this.id} value={season.year}>
+                          {season.season}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </CardContent>
+              </Card>
+            </Container>
+            <ClubRoster />
+            <hr />
+          </Box>
+        </Paper>
       </Container>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
+  seasons: state.seasonReducer.seasons,
   club: state.clubReducer.club,
 });
 
-export default connect(mapStateToProps, { getClub })(withStyles(styles)(Club));
+export default connect(mapStateToProps, { getSeasons, getClub })(
+  withStyles(styles)(Club)
+);

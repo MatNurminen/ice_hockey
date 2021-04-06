@@ -19,6 +19,8 @@ import StatsByLeague from '../leagues/layout/statsByLeague';
 import CountriesByLeague from '../leagues/layout/countriesByLeague';
 import FactsByLeague from '../leagues/layout/factsByLeague';
 import ComparisonByLeague from '../leagues/layout/comparisonByLeague';
+import AllTimeByLeague from '../leagues/layout/statsAllTimeByLeague';
+import PerSeasonByLeague from '../leagues/layout/statsPerSeasonByLeague';
 
 const _ = require('underscore');
 
@@ -165,7 +167,10 @@ export class League extends Component {
                 </Container>
                 <TableByLeague />
                 <hr />
-                <StatsByLeague />
+                <StatsByLeague
+                  season={this.state.season}
+                  league_id={this.props.match.params.league_id}
+                />
                 <hr />
                 <CountriesByLeague />
                 <hr />
@@ -173,6 +178,9 @@ export class League extends Component {
                 <hr />
                 <FactsByLeague />
                 <hr />
+                <AllTimeByLeague />
+                <hr />
+                <PerSeasonByLeague />
               </Grid>
             </Grid>
           </div>
