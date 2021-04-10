@@ -12,7 +12,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
+import Link from '@material-ui/core/Link';
 import { withStyles } from '@material-ui/core/styles';
 import {
   getForwards,
@@ -81,7 +82,7 @@ export class StatsByLeague extends Component {
               className={classes.btn}
               variant='contained'
               fullWidth
-              component={Link}
+              component={RouterLink}
               to={'/rosters?league=' + league_id + '&year=' + season}
             >
               {season}-{season + 1} Teams Rosters
@@ -125,16 +126,18 @@ export class StatsByLeague extends Component {
                   {forwards.map((stat, index) => (
                     <TableRow key={index}>
                       <TableCell>{index + 1}</TableCell>
-                      <TableCell
-                        component={Link}
-                        to={'/players/' + stat.player_id}
-                      >
+                      <TableCell>
                         <img
                           className={classes.flag}
                           src={'/' + stat.flag}
                           alt=''
                         />
-                        {stat.first_name} {stat.last_name} ({stat.pos})
+                        <Link
+                          component={RouterLink}
+                          to={'/players/' + stat.player_id}
+                        >
+                          {stat.first_name} {stat.last_name} ({stat.pos})
+                        </Link>
                       </TableCell>
                       <TableCell>{stat.games}</TableCell>
                       <TableCell>{stat.goals}</TableCell>
@@ -187,16 +190,18 @@ export class StatsByLeague extends Component {
                   {defensemen.map((stat, index) => (
                     <TableRow key={index}>
                       <TableCell>{index + 1}</TableCell>
-                      <TableCell
-                        component={Link}
-                        to={'/players/' + stat.player_id}
-                      >
+                      <TableCell>
                         <img
                           className={classes.flag}
                           src={'/' + stat.flag}
                           alt=''
                         />
-                        {stat.first_name} {stat.last_name}
+                        <Link
+                          component={RouterLink}
+                          to={'/players/' + stat.player_id}
+                        >
+                          {stat.first_name} {stat.last_name} ({stat.pos})
+                        </Link>
                       </TableCell>
                       <TableCell>{stat.games}</TableCell>
                       <TableCell>{stat.goals}</TableCell>
@@ -249,16 +254,18 @@ export class StatsByLeague extends Component {
                   {goaltending.map((stat, index) => (
                     <TableRow key={index}>
                       <TableCell>{index + 1}</TableCell>
-                      <TableCell
-                        component={Link}
-                        to={'/players/' + stat.player_id}
-                      >
+                      <TableCell>
                         <img
                           className={classes.flag}
                           src={'/' + stat.flag}
                           alt=''
                         />
-                        {stat.first_name} {stat.last_name}
+                        <Link
+                          component={RouterLink}
+                          to={'/players/' + stat.player_id}
+                        >
+                          {stat.first_name} {stat.last_name} ({stat.pos})
+                        </Link>
                       </TableCell>
                       <TableCell>{stat.games}</TableCell>
                       <TableCell>{stat.goals}</TableCell>

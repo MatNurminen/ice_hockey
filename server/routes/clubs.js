@@ -24,6 +24,13 @@ const sqlClubBySeason = {
     WHERE club_id = $1 AND season = $2 ORDER BY last_name`,
 };
 
+const sqlClubHistory = {
+  text: `SELECT champ.*, league.name, (gf-ga) as gdif, 
+    (wings*2+ties) as points FROM champ
+    INNER JOIN league ON champ.league_id = league.league_id
+    WHERE club_id = $1 ORDER BY season`,
+};
+
 router.get('/', async (req, res) => {
   const allClubs = await pool.query(sqlClubs);
   res.json(allClubs.rows);
@@ -35,7 +42,12 @@ router.get('/:club_id/:season', async (req, res) => {
     req.params.club_id,
     req.params.season,
   ]);
-  res.json({ club: club.rows, roster: roster.rows });
+  const clubHistory = await pool.query(sqlClubHistory, [req.params.club_id]);
+  res.json({
+    club: club.rows,
+    roster: roster.rows,
+    clubhistory: clubHistory.rows,
+  });
 });
 
 module.exports = router;

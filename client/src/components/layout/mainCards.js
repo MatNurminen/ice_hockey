@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 
 const images = [
   {
@@ -85,7 +85,7 @@ export default function ButtonBases() {
       <Grid container>
         <Grid item xs={12}>
           <Box className={classes.boxMain}>
-            <Box component={Link} to='/leagues'>
+            <Box component={RouterLink} to='/leagues'>
               <img className={classes.imgMain} src='/img/nhl20.jpg' alt='' />
               <div
                 style={{
@@ -107,7 +107,7 @@ export default function ButtonBases() {
         {images.map((image) => (
           <Grid item xs={12} sm={6}>
             <Box className={classes.boxMain}>
-              <Box component={Link} to={image.link}>
+              <Box component={RouterLink} to={image.link}>
                 <img className={classes.img} src={image.url} alt='' />
                 <div
                   style={{

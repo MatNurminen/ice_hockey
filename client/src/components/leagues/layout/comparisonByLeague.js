@@ -10,6 +10,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { Link as RouterLink } from 'react-router-dom';
+import Link from '@material-ui/core/Link';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = (theme) => ({
@@ -92,7 +94,11 @@ export class ComparisonByLeague extends Component {
               {comparison.map((comp, index) => (
                 <TableRow key={index}>
                   <TableCell>{index + 1}</TableCell>
-                  <TableCell>{comp.club}</TableCell>
+                  <TableCell>
+                    <Link component={RouterLink} to={'/clubs/' + comp.club_id}>
+                      {comp.club}
+                    </Link>
+                  </TableCell>
                   <TableCell>{comp.players}</TableCell>
                   <TableCell>{comp.av_height} cm</TableCell>
                   <TableCell>{comp.av_weight} kg</TableCell>

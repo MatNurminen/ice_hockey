@@ -21,6 +21,7 @@ import FactsByLeague from '../leagues/layout/factsByLeague';
 import ComparisonByLeague from '../leagues/layout/comparisonByLeague';
 import AllTimeByLeague from '../leagues/layout/statsAllTimeByLeague';
 import PerSeasonByLeague from '../leagues/layout/statsPerSeasonByLeague';
+import ChampsByLeague from '../leagues/layout/champsByLeague';
 
 const _ = require('underscore');
 
@@ -38,6 +39,10 @@ const styles = (theme) => ({
   headText: {
     color: '#ffffff',
     textTransform: 'uppercase',
+  },
+  hr: {
+    marginTop: '20px',
+    marginBottom: '20px',
   },
 });
 
@@ -75,7 +80,6 @@ export class League extends Component {
     return (
       <Container>
         <Paper>
-          <hr />
           <div className={classes.root}>
             <Grid container spacing={3}>
               <Grid item xs={12}>
@@ -137,7 +141,7 @@ export class League extends Component {
                   <Box fontWeight={700}>TEAMS</Box>
                 </Typography>
                 <ClubsByLeague />
-                <hr />
+                <hr className={classes.hr} />
                 <Container>
                   <Card>
                     <CardContent className={classes.rowHeader}>
@@ -166,21 +170,23 @@ export class League extends Component {
                   </Card>
                 </Container>
                 <TableByLeague />
-                <hr />
+                <hr className={classes.hr} />
                 <StatsByLeague
                   season={this.state.season}
                   league_id={this.props.match.params.league_id}
                 />
-                <hr />
+                <hr className={classes.hr} />
                 <CountriesByLeague />
-                <hr />
+                <hr className={classes.hr} />
                 <ComparisonByLeague />
-                <hr />
+                <hr className={classes.hr} />
                 <FactsByLeague />
-                <hr />
+                <hr className={classes.hr} />
                 <AllTimeByLeague />
-                <hr />
+                <hr className={classes.hr} />
                 <PerSeasonByLeague />
+                <hr className={classes.hr} />
+                <ChampsByLeague />
               </Grid>
             </Grid>
           </div>

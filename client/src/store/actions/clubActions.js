@@ -13,6 +13,7 @@ export const getClub = (club_id, season) => async (dispatch) => {
     clubAndStats: {
       club: data.club,
       roster: data.roster,
+      clubhistory: data.clubhistory,
     },
   });
 };

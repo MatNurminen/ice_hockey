@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
+import Link from '@material-ui/core/Link';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -15,6 +16,9 @@ import {
   getGoaltending,
   getDefensemen,
   getForwards,
+  getAvgAge,
+  getAvgHeight,
+  getAvgWeight,
 } from '../../../store/selectors/clubStatsSelector';
 
 const styles = (theme) => ({
@@ -37,6 +41,12 @@ const styles = (theme) => ({
     backgroundColor: '#8abed2',
     padding: '5px',
   },
+  rowFooter: {
+    backgroundColor: '#ca3136',
+  },
+  footerText: {
+    color: '#ffffff',
+  },
 });
 
 export class ClubRoster extends Component {
@@ -50,9 +60,20 @@ export class ClubRoster extends Component {
   }
 
   render() {
-    const { goaltending, defensemen, forwards, classes } = this.props;
+    const {
+      goaltending,
+      defensemen,
+      forwards,
+      avgage,
+      avgheight,
+      avgweight,
+      classes,
+    } = this.props;
 
     if (!goaltending) {
+      return <h1>WAIT!</h1>;
+    }
+    if (!avgage) {
       return <h1>WAIT!</h1>;
     }
 
@@ -123,8 +144,13 @@ export class ClubRoster extends Component {
                   <TableCell align='center'>
                     <img alt='' src={'/' + pl.flag} width='25'></img>
                   </TableCell>
-                  <TableCell component={Link} to={'/players/' + pl.player_id}>
-                    {pl.first_name} {pl.last_name}
+                  <TableCell>
+                    <Link
+                      component={RouterLink}
+                      to={'/players/' + pl.player_id}
+                    >
+                      {pl.first_name} {pl.last_name}
+                    </Link>
                   </TableCell>
                   <TableCell>{pl.age}</TableCell>
                   <TableCell>{pl.birth}</TableCell>
@@ -147,8 +173,13 @@ export class ClubRoster extends Component {
                   <TableCell align='center'>
                     <img alt='' src={'/' + pl.flag} width='25'></img>
                   </TableCell>
-                  <TableCell component={Link} to={'/players/' + pl.player_id}>
-                    {pl.first_name} {pl.last_name}
+                  <TableCell>
+                    <Link
+                      component={RouterLink}
+                      to={'/players/' + pl.player_id}
+                    >
+                      {pl.first_name} {pl.last_name}
+                    </Link>
                   </TableCell>
                   <TableCell>{pl.age}</TableCell>
                   <TableCell>{pl.birth}</TableCell>
@@ -171,8 +202,13 @@ export class ClubRoster extends Component {
                   <TableCell align='center'>
                     <img alt='' src={'/' + pl.flag} width='25'></img>
                   </TableCell>
-                  <TableCell component={Link} to={'/players/' + pl.player_id}>
-                    {pl.first_name} {pl.last_name}
+                  <TableCell>
+                    <Link
+                      component={RouterLink}
+                      to={'/players/' + pl.player_id}
+                    >
+                      {pl.first_name} {pl.last_name}
+                    </Link>
                   </TableCell>
                   <TableCell>{pl.age}</TableCell>
                   <TableCell>{pl.birth}</TableCell>
@@ -182,6 +218,16 @@ export class ClubRoster extends Component {
                   <TableCell>{pl.goals}</TableCell>
                 </TableRow>
               ))}
+              <TableRow className={classes.rowFooter}>
+                <TableCell colSpan={9}>
+                  <Typography variant='body2' className={classes.footerText}>
+                    <Box py={0.5}>
+                      Av Age: {avgage} years | Av Ht: {avgheight} cm | Av Wt:{' '}
+                      {avgweight} kg
+                    </Box>
+                  </Typography>
+                </TableCell>
+              </TableRow>
             </TableBody>
           </Table>
         </Card>
@@ -194,6 +240,9 @@ const mapStateToProps = (state) => ({
   goaltending: getGoaltending(state),
   defensemen: getDefensemen(state),
   forwards: getForwards(state),
+  avgage: getAvgAge(state),
+  avgheight: getAvgHeight(state),
+  avgweight: getAvgWeight(state),
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(ClubRoster));

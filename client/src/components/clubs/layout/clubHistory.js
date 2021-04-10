@@ -9,8 +9,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { Link as RouterLink } from 'react-router-dom';
-import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = (theme) => ({
@@ -20,6 +19,7 @@ const styles = (theme) => ({
   },
   rowHeader: {
     backgroundColor: '#0b3548',
+    padding: '10px',
   },
   tableHead: {
     backgroundColor: '#ca3136',
@@ -30,35 +30,40 @@ const styles = (theme) => ({
   },
 });
 
-export class TableByLeague extends Component {
+export class ClubHistory extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      table: [],
+      clubhistory: [],
     };
   }
 
   render() {
-    const { table, classes } = this.props;
+    const { clubhistory, classes } = this.props;
 
-    if (!table) {
+    if (!clubhistory) {
       return <h1>WAIT!</h1>;
     }
 
     return (
       <Container>
+        <Grid item xs={12} className={classes.rowHeader}>
+          <Typography className={classes.headText}>
+            <Box fontWeight='fontWeightBold'>TEAM HISTORY AND STANDINGS</Box>
+          </Typography>
+        </Grid>
         <Card>
           <Table size='small'>
             <TableHead className={classes.tableHead}>
               <TableRow>
                 <TableCell>
                   <Typography className={classes.headText}>
-                    <Box fontWeight='fontWeightBold'>#</Box>
+                    <Box fontWeight='fontWeightBold'>Season</Box>
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography className={classes.headText}>
-                    <Box fontWeight='fontWeightBold'>Team</Box>
+                    <Box fontWeight='fontWeightBold'>League</Box>
                   </Typography>
                 </TableCell>
                 <TableCell>
@@ -109,14 +114,12 @@ export class TableByLeague extends Component {
               </TableRow>
             </TableHead>
             <TableBody>
-              {table.map((tbl, index) => (
+              {clubhistory.map((tbl, index) => (
                 <TableRow key={index}>
-                  <TableCell>{index + 1}</TableCell>
                   <TableCell>
-                    <Link component={RouterLink} to={'/clubs/' + tbl.club_id}>
-                      {tbl.club}
-                    </Link>
+                    {tbl.season}-{tbl.season + 1}
                   </TableCell>
+                  <TableCell>{tbl.name}</TableCell>
                   <TableCell>{tbl.games}</TableCell>
                   <TableCell>{tbl.wings}</TableCell>
                   <TableCell>{tbl.ties}</TableCell>
@@ -137,7 +140,7 @@ export class TableByLeague extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  table: state.leagueReducer.tableByLeague,
+  clubhistory: state.clubReducer.clubhistory,
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(TableByLeague));
+export default connect(mapStateToProps)(withStyles(styles)(ClubHistory));

@@ -12,7 +12,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
+import Link from '@material-ui/core/Link';
 import { withStyles } from '@material-ui/core/styles';
 import {
   getForwardsAllTime,
@@ -107,16 +108,18 @@ export class AllTimeByLeague extends Component {
                   {forwards.map((stat, index) => (
                     <TableRow key={index}>
                       <TableCell>{index + 1}</TableCell>
-                      <TableCell
-                        component={Link}
-                        to={'/players/' + stat.player_id}
-                      >
+                      <TableCell>
                         <img
                           className={classes.flag}
                           src={'/' + stat.flag}
                           alt=''
                         />
-                        {stat.first_name} {stat.last_name} ({stat.pos})
+                        <Link
+                          component={RouterLink}
+                          to={'/players/' + stat.player_id}
+                        >
+                          {stat.first_name} {stat.last_name} ({stat.pos})
+                        </Link>
                       </TableCell>
                       <TableCell>{stat.allgm}</TableCell>
                       <TableCell>{stat.allg}</TableCell>
@@ -169,16 +172,18 @@ export class AllTimeByLeague extends Component {
                   {defensemen.map((stat, index) => (
                     <TableRow key={index}>
                       <TableCell>{index + 1}</TableCell>
-                      <TableCell
-                        component={Link}
-                        to={'/players/' + stat.player_id}
-                      >
+                      <TableCell>
                         <img
                           className={classes.flag}
                           src={'/' + stat.flag}
                           alt=''
                         />
-                        {stat.first_name} {stat.last_name}
+                        <Link
+                          component={RouterLink}
+                          to={'/players/' + stat.player_id}
+                        >
+                          {stat.first_name} {stat.last_name} ({stat.pos})
+                        </Link>
                       </TableCell>
                       <TableCell>{stat.allgm}</TableCell>
                       <TableCell>{stat.allg}</TableCell>
@@ -231,16 +236,18 @@ export class AllTimeByLeague extends Component {
                   {goaltending.map((stat, index) => (
                     <TableRow key={index}>
                       <TableCell>{index + 1}</TableCell>
-                      <TableCell
-                        component={Link}
-                        to={'/players/' + stat.player_id}
-                      >
+                      <TableCell>
                         <img
                           className={classes.flag}
                           src={'/' + stat.flag}
                           alt=''
                         />
-                        {stat.first_name} {stat.last_name}
+                        <Link
+                          component={RouterLink}
+                          to={'/players/' + stat.player_id}
+                        >
+                          {stat.first_name} {stat.last_name} ({stat.pos})
+                        </Link>
                       </TableCell>
                       <TableCell>{stat.allgm}</TableCell>
                       <TableCell>{stat.allg}</TableCell>

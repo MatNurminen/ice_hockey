@@ -9,8 +9,6 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { Link as RouterLink } from 'react-router-dom';
-import Link from '@material-ui/core/Link';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = (theme) => ({
@@ -30,18 +28,18 @@ const styles = (theme) => ({
   },
 });
 
-export class TableByLeague extends Component {
+export class ChampsStats extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      table: [],
+      champsStats: [],
     };
   }
 
   render() {
-    const { table, classes } = this.props;
+    const { champsStats, classes } = this.props;
 
-    if (!table) {
+    if (!champsStats) {
       return <h1>WAIT!</h1>;
     }
 
@@ -49,11 +47,20 @@ export class TableByLeague extends Component {
       <Container>
         <Card>
           <Table size='small'>
+            <TableHead className={classes.rowHeader}>
+              <TableRow>
+                <TableCell colSpan={6}>
+                  <Typography className={classes.headText}>
+                    <Box fontWeight='fontWeightBold'>Player statistics</Box>
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            </TableHead>
             <TableHead className={classes.tableHead}>
               <TableRow>
                 <TableCell>
                   <Typography className={classes.headText}>
-                    <Box fontWeight='fontWeightBold'>#</Box>
+                    <Box fontWeight='fontWeightBold'>Season</Box>
                   </Typography>
                 </TableCell>
                 <TableCell>
@@ -63,69 +70,37 @@ export class TableByLeague extends Component {
                 </TableCell>
                 <TableCell>
                   <Typography className={classes.headText}>
+                    <Box fontWeight='fontWeightBold'>League</Box>
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography className={classes.headText}>
+                    <Box fontWeight='fontWeightBold'>Age</Box>
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography className={classes.headText}>
                     <Box fontWeight='fontWeightBold'>gp</Box>
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography className={classes.headText}>
-                    <Box fontWeight='fontWeightBold'>w</Box>
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography className={classes.headText}>
-                    <Box fontWeight='fontWeightBold'>t</Box>
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography className={classes.headText}>
-                    <Box fontWeight='fontWeightBold'>l</Box>
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography className={classes.headText}>
-                    <Box fontWeight='fontWeightBold'>gf</Box>
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography className={classes.headText}>
-                    <Box fontWeight='fontWeightBold'>ga</Box>
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography className={classes.headText}>
-                    <Box fontWeight='fontWeightBold'>+/-</Box>
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography className={classes.headText}>
-                    <Box fontWeight='fontWeightBold'>tp</Box>
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography className={classes.headText}>
-                    <Box fontWeight='fontWeightBold'>Postseason</Box>
+                    <Box fontWeight='fontWeightBold'>g</Box>
                   </Typography>
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {table.map((tbl, index) => (
+              {champsStats.map((tbl, index) => (
                 <TableRow key={index}>
-                  <TableCell>{index + 1}</TableCell>
                   <TableCell>
-                    <Link component={RouterLink} to={'/clubs/' + tbl.club_id}>
-                      {tbl.club}
-                    </Link>
+                    {tbl.season}-{tbl.season + 1}
                   </TableCell>
+                  <TableCell>{tbl.club}</TableCell>
+                  <TableCell>{tbl.s_name}</TableCell>
+                  <TableCell>{tbl.age}</TableCell>
                   <TableCell>{tbl.games}</TableCell>
-                  <TableCell>{tbl.wings}</TableCell>
-                  <TableCell>{tbl.ties}</TableCell>
-                  <TableCell>{tbl.losts}</TableCell>
-                  <TableCell>{tbl.gf}</TableCell>
-                  <TableCell>{tbl.ga}</TableCell>
-                  <TableCell>{tbl.gdif}</TableCell>
-                  <TableCell>{tbl.points}</TableCell>
-                  <TableCell>{tbl.postseason}</TableCell>
+                  <TableCell>{tbl.goals}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -137,7 +112,7 @@ export class TableByLeague extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  table: state.leagueReducer.tableByLeague,
+  champsStats: state.playersReducer.champsStats,
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(TableByLeague));
+export default connect(mapStateToProps)(withStyles(styles)(ChampsStats));

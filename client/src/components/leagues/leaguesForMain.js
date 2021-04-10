@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 
 const styles = (theme) => ({
   mainBackground: {
@@ -48,8 +48,8 @@ export class leaguesForMain extends Component {
           {leagues.map((league) => (
             <ListItem
               button
-              component={Link}
-              to={`/rosters?league=${league.league_id}&year=2020`}
+              component={RouterLink}
+              to={`/leagues/${league.league_id}`}
             >
               <img className={classes.avimg} alt='' src={league.logo} />
               <ListItemText key={league.league_id} primary={league.name} />

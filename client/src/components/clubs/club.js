@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
+import Link from '@material-ui/core/Link';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -21,6 +22,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { getSeasons } from '../../store/actions/seasonActions';
 import { getClub } from '../../store/actions/clubActions';
 import ClubRoster from '../clubs/layout/clubRoster';
+import ClubHistory from '../clubs/layout/clubHistory';
 
 const styles = (theme) => ({
   root: {
@@ -42,6 +44,10 @@ const styles = (theme) => ({
   headText: {
     color: '#ffffff',
     textTransform: 'uppercase',
+  },
+  hr: {
+    marginTop: '20px',
+    marginBottom: '20px',
   },
 });
 
@@ -69,6 +75,9 @@ export class Club extends Component {
   render() {
     const { seasons, season, club, classes } = this.props;
 
+    if (!seasons) {
+      return <h1>WAIT!</h1>;
+    }
     if (!club) {
       return <h1>WAIT!</h1>;
     }
@@ -88,12 +97,14 @@ export class Club extends Component {
                           {oneclub.club}
                         </Box>
                       </Typography>
-                      <Typography
-                        component={Link}
-                        to={'/leagues/' + oneclub.league_id}
-                      >
+                      <Typography>
                         <Box mt={2} fontWeight='fontWeightBold'>
-                          {oneclub.s_name}
+                          <Link
+                            component={RouterLink}
+                            to={'/leagues/' + oneclub.league_id}
+                          >
+                            {oneclub.s_name}
+                          </Link>
                         </Box>
                       </Typography>
                     </Grid>
@@ -111,11 +122,13 @@ export class Club extends Component {
                           <TableBody>
                             <TableRow>
                               <TableCell>Plays in</TableCell>
-                              <TableCell
-                                component={Link}
-                                to={'/leagues/' + oneclub.league_id}
-                              >
-                                {oneclub.name}
+                              <TableCell>
+                                <Link
+                                  component={RouterLink}
+                                  to={'/leagues/' + oneclub.league_id}
+                                >
+                                  {oneclub.name}
+                                </Link>
                               </TableCell>
                             </TableRow>
                             <TableRow>
@@ -134,7 +147,7 @@ export class Club extends Component {
                 </Paper>
               ))}
             </Container>
-            <hr />
+            <hr className={classes.hr} />
             <Container>
               <Card>
                 <CardContent className={classes.rowHeader}>
@@ -164,7 +177,9 @@ export class Club extends Component {
               </Card>
             </Container>
             <ClubRoster />
-            <hr />
+            <hr className={classes.hr} />
+            <ClubHistory />
+            <hr className={classes.hr} />
           </Box>
         </Paper>
       </Container>

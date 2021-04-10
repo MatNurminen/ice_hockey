@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
+import Link from '@material-ui/core/Link';
 import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -34,8 +35,10 @@ export class ClubsByLeague extends Component {
       <Container>
         <List dense={true}>
           {clubs.map((club) => (
-            <ListItem component={Link} to={'/clubs/' + club.club_id}>
-              {club.club}
+            <ListItem>
+              <Link component={RouterLink} to={'/clubs/' + club.club_id}>
+                {club.club}
+              </Link>
             </ListItem>
           ))}
         </List>

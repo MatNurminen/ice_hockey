@@ -8,7 +8,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
+import Link from '@material-ui/core/Link';
 import Container from '@material-ui/core/Container';
 import { Typography } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
@@ -148,11 +149,13 @@ export class FreeAgents extends Component {
                 <TableRow key={agent.id}>
                   <TableCell align='center'>{agent.pos}</TableCell>
                   <TableCell>{agent.num}</TableCell>
-                  <TableCell
-                    component={Link}
-                    to={'/players/' + agent.player_id}
-                  >
-                    {agent.first_name} {agent.last_name}
+                  <TableCell>
+                    <Link
+                      component={RouterLink}
+                      to={'/players/' + agent.player_id}
+                    >
+                      {agent.first_name} {agent.last_name}
+                    </Link>
                   </TableCell>
                   <TableCell>
                     <img alt='' src={agent.flag} width='30'></img>

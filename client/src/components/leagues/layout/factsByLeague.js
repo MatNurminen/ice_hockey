@@ -10,6 +10,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { Link as RouterLink } from 'react-router-dom';
+import Link from '@material-ui/core/Link';
 import { withStyles } from '@material-ui/core/styles';
 import {
   getOldest,
@@ -102,7 +104,12 @@ export class FactsByLeague extends Component {
                           src={'/' + stat.flag}
                           alt=''
                         />
-                        {stat.first_name} {stat.last_name} ({stat.pos})
+                        <Link
+                          component={RouterLink}
+                          to={'/players/' + stat.player_id}
+                        >
+                          {stat.first_name} {stat.last_name} ({stat.pos})
+                        </Link>
                       </TableCell>
                       <TableCell>{stat.age} yrs</TableCell>
                     </TableRow>
@@ -135,7 +142,12 @@ export class FactsByLeague extends Component {
                           src={'/' + stat.flag}
                           alt=''
                         />
-                        {stat.first_name} {stat.last_name} ({stat.pos})
+                        <Link
+                          component={RouterLink}
+                          to={'/players/' + stat.player_id}
+                        >
+                          {stat.first_name} {stat.last_name} ({stat.pos})
+                        </Link>
                       </TableCell>
                       <TableCell>{stat.height} cm</TableCell>
                     </TableRow>
@@ -168,7 +180,12 @@ export class FactsByLeague extends Component {
                           src={'/' + stat.flag}
                           alt=''
                         />
-                        {stat.first_name} {stat.last_name} ({stat.pos})
+                        <Link
+                          component={RouterLink}
+                          to={'/players/' + stat.player_id}
+                        >
+                          {stat.first_name} {stat.last_name} ({stat.pos})
+                        </Link>
                       </TableCell>
                       <TableCell>{stat.weight} kg</TableCell>
                     </TableRow>
@@ -201,7 +218,12 @@ export class FactsByLeague extends Component {
                           src={'/' + stat.flag}
                           alt=''
                         />
-                        {stat.first_name} {stat.last_name} ({stat.pos})
+                        <Link
+                          component={RouterLink}
+                          to={'/players/' + stat.player_id}
+                        >
+                          {stat.first_name} {stat.last_name} ({stat.pos})
+                        </Link>
                       </TableCell>
                       <TableCell>{stat.age} yrs</TableCell>
                     </TableRow>
@@ -234,7 +256,12 @@ export class FactsByLeague extends Component {
                           src={'/' + stat.flag}
                           alt=''
                         />
-                        {stat.first_name} {stat.last_name} ({stat.pos})
+                        <Link
+                          component={RouterLink}
+                          to={'/players/' + stat.player_id}
+                        >
+                          {stat.first_name} {stat.last_name} ({stat.pos})
+                        </Link>
                       </TableCell>
                       <TableCell>{stat.height} cm</TableCell>
                     </TableRow>
@@ -267,7 +294,12 @@ export class FactsByLeague extends Component {
                           src={'/' + stat.flag}
                           alt=''
                         />
-                        {stat.first_name} {stat.last_name} ({stat.pos})
+                        <Link
+                          component={RouterLink}
+                          to={'/players/' + stat.player_id}
+                        >
+                          {stat.first_name} {stat.last_name} ({stat.pos})
+                        </Link>
                       </TableCell>
                       <TableCell>{stat.weight} kg</TableCell>
                     </TableRow>

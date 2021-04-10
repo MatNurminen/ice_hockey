@@ -15,14 +15,13 @@ import Countries from './components/countries/countries';
 import Country from './components/countries/country';
 import Club from './components/clubs/club';
 import AddPlayer from './components/players/addPlayer';
-import SearchPlayer from './components/players/searchPlayer';
 import AdminNavbar from './components/layout/AdminNavbar';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Players from './components/players/players';
 import FreeAgents from './components/players/FreeAgents';
 
-import SearchPlayers from './components/layout/Search';
+//import SearchPlayers from './components/layout/Search';
 
 import LeaguesReport from './reports/leagues';
 import WorkBookPlayers from './reports/workbook';
@@ -37,7 +36,7 @@ class App extends Component {
           <Route exact path='/' component={Main} />
           <Route exact path='/login' component={Login} />
           <Route exact path='/rosters' component={Roster} />
-          <Route path='/players/search' component={SearchPlayer} />
+
           <Route exact path='/players/:player_id' component={PlayerDetail} />
           <Route exact path='/players/create/new' component={AddPlayer} />
 
@@ -55,8 +54,6 @@ class App extends Component {
 
           <Route exact path='/reports/leagues' component={LeaguesReport} />
           <Route exact path='/reports/workbook' component={WorkBookPlayers} />
-
-          <Route exact path='/search' component={SearchPlayers} />
         </Switch>
         <Footer />
       </ThemeProvider>

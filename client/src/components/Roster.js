@@ -1,6 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
+import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -236,12 +237,13 @@ export class Roster extends React.Component {
                         <TableRow className={classes.tblRow}>
                           <TableCell align='center'>{roster.pos}</TableCell>
                           <TableCell align='center'>{roster.num}</TableCell>
-                          <TableCell
-                            width='60%'
-                            component={Link}
-                            to={'/players/' + roster.pl_id}
-                          >
-                            {roster.first_name} {roster.last_name}
+                          <TableCell width='60%'>
+                            <Link
+                              component={RouterLink}
+                              to={'/players/' + roster.pl_id}
+                            >
+                              {roster.first_name} {roster.last_name}
+                            </Link>
                           </TableCell>
                           <TableCell align='center'>
                             <img alt='' src={roster.flag} width='30'></img>

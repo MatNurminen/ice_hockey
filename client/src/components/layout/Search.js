@@ -1,11 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { DebounceInput } from 'react-debounce-input';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import TextField from '@material-ui/core/TextField';
+import SearchIcon from '@material-ui/icons/Search';
+import Box from '@material-ui/core/Box';
+import { withStyles } from '@material-ui/core/styles';
 
 import { getSearchPlayer } from '../../store/actions/searchActions';
+
+const styles = (theme) => ({
+  iconBox: {
+    //padding: '5px',
+  },
+  txtField: {
+    width: '100%',
+  },
+});
 
 export class Search extends React.Component {
   constructor(props) {
@@ -29,15 +41,21 @@ export class Search extends React.Component {
   }
 
   render() {
-    const { searchPlayer } = this.props;
+    const { searchPlayer, classes } = this.props;
 
     return (
       <>
-        <h1>SEARCH</h1>
-        <DebounceInput
-          minLength={2}
-          debounceTimeout={300}
+        <TextField
+          className={classes.txtField}
+          variant='outlined'
           onChange={(event) => this.setState({ value: event.target.value })}
+          InputProps={{
+            endAdornment: (
+              <Box className={classes.iconBox}>
+                <SearchIcon />
+              </Box>
+            ),
+          }}
         />
 
         <List component='nav'>
@@ -68,6 +86,6 @@ const mapStateToProps = (state) => ({
   searchPlayer: state.searchReducer.searchPlayer,
 });
 
-export default connect(mapStateToProps, {
-  getSearchPlayer,
-})(Search);
+export default connect(mapStateToProps, { getSearchPlayer })(
+  withStyles(styles)(Search)
+);

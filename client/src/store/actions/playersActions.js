@@ -11,6 +11,17 @@ export const getPlayers = () => async (dispatch) => {
   dispatch({ type: actions.GET_PLAYERS, players: res.data });
 };
 
+export const getPlayer = (player_id) => async (dispatch) => {
+  const { data } = await axios.get(`/api/players/${player_id}`);
+  dispatch({
+    type: actions.GET_PLAYER,
+    playerAndStats: {
+      playerById: data.playerById,
+      champsStats: data.champsStats,
+    },
+  });
+};
+
 export const getFreeAgents = (season, country) => async (dispatch) => {
   const res = await axios.get('/api/freeagents', {
     params: { season, country },
