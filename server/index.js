@@ -1,7 +1,9 @@
 const path = require('path'),
   express = require('express'),
-  bodyParser = require('body-parser');
+  bodyParser = require('body-parser'),
+  crypto = require('crypto');
 
+const tokenKey = '1a2b-3c4d-5e6f-7g8h';
 //const db = require('./database');
 const pool = require('./database');
 
@@ -12,6 +14,22 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+app.use((req, res, next) => {
+  if (req.headers.authorization) {
+    let tokenParts = req.headers.authorization.split(' ')[1].split('.');
+    let signature = crypto
+      .createHmac('SHA256', tokenKey)
+      .update(tokenParts[0] + '.' + tokenParts[1]);
+    if (signature === tokenParts[2]) {
+      req.user = JSON.parse(
+        Buffer.from(tokenParts[1], 'base64').toString('utf8')
+      );
+    }
+    next();
+  }
+  next();
+});
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}!`);
@@ -46,5 +64,7 @@ const Season = require('./routes/season');
 app.use('/api/season', Season);
 const Search = require('./routes/search');
 app.use('/api/search', Search);
+const Auth = require('./routes/auth');
+app.use('/api/auth', Auth);
 
 module.exports = app;
