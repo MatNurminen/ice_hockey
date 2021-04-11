@@ -17,6 +17,7 @@ import CardContent from '@material-ui/core/CardContent';
 import { getPlayer } from '../../store/actions/playersActions';
 import ChampsStats from '../players/layout/champsStats';
 import LastSeason from '../players/layout/lastSeason';
+import Buttons from '../players/layout/buttons';
 
 const styles = (theme) => ({
   root: {
@@ -224,6 +225,7 @@ export class playerDetail extends Component {
                 </Grid>
               </Grid>
             </Container>
+            <Buttons />
             <hr className={classes.hr} />
             <ChampsStats />
           </Paper>
