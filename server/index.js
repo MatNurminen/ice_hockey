@@ -1,10 +1,9 @@
 const path = require('path'),
   express = require('express'),
   bodyParser = require('body-parser'),
-  crypto = require('crypto');
-
-const tokenKey = '1a2b-3c4d-5e6f-7g8h';
-//const db = require('./database');
+  crypto = require('crypto'),
+  jwt = require('jsonwebtoken');
+const tokenKey = require('./tokenKey');
 const pool = require('./database');
 
 const ENV = process.env.NODE_ENV;
@@ -17,16 +16,16 @@ app.use(bodyParser.json());
 
 app.use((req, res, next) => {
   if (req.headers.authorization) {
-    let tokenParts = req.headers.authorization.split(' ')[1].split('.');
-    let signature = crypto
-      .createHmac('SHA256', tokenKey)
-      .update(tokenParts[0] + '.' + tokenParts[1]);
-    if (signature === tokenParts[2]) {
-      req.user = JSON.parse(
-        Buffer.from(tokenParts[1], 'base64').toString('utf8')
-      );
-    }
-    next();
+    jwt.verify(req.headers.authorization.split(' ')[1], tokenKey, (err) => {
+      if (err) {
+        req.status(403).send('Invalid token');
+      }
+    });
+    //next();
+  } else if (req.url.includes('/api/auth')) {
+    //next();
+  } else {
+    res.status(401).send('Not authorization');
   }
   next();
 });
@@ -65,6 +64,7 @@ app.use('/api/season', Season);
 const Search = require('./routes/search');
 app.use('/api/search', Search);
 const Auth = require('./routes/auth');
+const { send } = require('process');
 app.use('/api/auth', Auth);
 
 module.exports = app;

@@ -8,6 +8,7 @@ const dataSort = function (fieldName, data = this, sortDir = 1) {
     .slice(0, 5);
 };
 
+/* eslint-disable */
 Array.prototype.dataSort = dataSort;
 
 const stats = (state) => state.leagueReducer.statsByLeague;
