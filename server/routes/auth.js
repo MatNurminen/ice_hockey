@@ -5,6 +5,7 @@ const pool = require('../database');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const tokenKey = require('../tokenKey');
+const bcrypt = require('bcrypt');
 
 app.use(express.json());
 
@@ -22,22 +23,20 @@ const sqlUpdateToken = {
   AND password = $3 RETURNING token_exp`,
 };
 
-router.get('/', async (req, res) => {
-  const allUsers = await pool.query(sqlUsers);
-  res.json(allUsers.rows);
-});
-
 router.post('/registration', async (req, res) => {
   const login = req.body.login;
-  const password = req.body.password;
+  const password = await bcrypt.hash(req.body.password, 10);
   const insertUser = await pool.query(sqlInsertUser, [login, password]);
   res.json(insertUser.rows);
 });
 
-router.post('/authoriz', async (req, res) => {
+router.post('/', async (req, res) => {
   const users = await pool.query(sqlUsers);
   for (let user of users.rows) {
-    if (req.body.login === user.login && req.body.password === user.password) {
+    if (
+      req.body.login === user.login &&
+      bcrypt.compare(req.body.password, user.password)
+    ) {
       let head = Buffer.from(
         JSON.stringify({ alg: 'HS256', typ: 'jwt' })
       ).toString('base64');

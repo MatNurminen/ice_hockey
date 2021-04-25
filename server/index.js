@@ -1,13 +1,14 @@
 const path = require('path'),
   express = require('express'),
   bodyParser = require('body-parser'),
-  crypto = require('crypto'),
   jwt = require('jsonwebtoken');
 const tokenKey = require('./tokenKey');
 const pool = require('./database');
 
 const ENV = process.env.NODE_ENV;
 const PORT = process.env.PORT || 5001;
+
+const isCheckToken = require('./checkToken');
 
 const app = express();
 app.use(express.json());
@@ -18,16 +19,28 @@ app.use((req, res, next) => {
   if (req.headers.authorization) {
     jwt.verify(req.headers.authorization.split(' ')[1], tokenKey, (err) => {
       if (err) {
-        req.status(403).send('Invalid token');
+        res.status(403).send('Invalid token');
       }
     });
-    //next();
+    next();
   } else if (req.url.includes('/api/auth')) {
-    //next();
+    next();
   } else {
     res.status(401).send('Not authorization');
   }
-  next();
+  //next();
+});
+
+app.use((req, res, next) => {
+  if (req.headers.authorization) {
+    isCheckToken(req.headers.authorization.split(' ')[1]).then((isExp) => {
+      if (isExp) {
+        next();
+      } else {
+        res.status(403).send('Token expires');
+      }
+    });
+  }
 });
 
 app.listen(PORT, () => {
