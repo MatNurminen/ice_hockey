@@ -13,7 +13,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case actions.GET_LEAGUES:
-      return { ...state, leagues: action.leagues };
+      return { ...state, leagues: action.payload };
     case actions.GET_LEAGUE:
       return {
         ...state,

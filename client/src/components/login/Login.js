@@ -4,7 +4,7 @@ import { loginUser } from '../../store/actions/authActions';
 
 export class Login extends Component {
   state = {
-    email: '',
+    login: '',
     password: '',
   };
 
@@ -26,13 +26,13 @@ export class Login extends Component {
             <form className='p-3 mx-auto col-md-6' onSubmit={this.onSubmit}>
               <h1>Sign in</h1>
               <div className='form-group'>
-                <label htmlFor='email'>E-mail</label>
+                <label htmlFor='email'>Login</label>
                 <input
-                  type='email'
+                  type='text'
                   className='form-control'
-                  value={this.state.email}
+                  value={this.state.login}
                   onChange={this.onChange}
-                  name='email'
+                  name='login'
                 />
               </div>
               <div className='form-group mb-4'>

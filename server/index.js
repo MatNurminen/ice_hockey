@@ -16,23 +16,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
+  console.log(req.url, req.headers);
   if (req.headers.authorization) {
     jwt.verify(req.headers.authorization.split(' ')[1], tokenKey, (err) => {
       if (err) {
         res.status(403).send('Invalid token');
       }
     });
-    next();
-  } else if (req.url.includes('/api/auth')) {
-    next();
-  } else {
-    res.status(401).send('Not authorization');
-  }
-  //next();
-});
-
-app.use((req, res, next) => {
-  if (req.headers.authorization) {
     isCheckToken(req.headers.authorization.split(' ')[1]).then((isExp) => {
       if (isExp) {
         next();
@@ -40,7 +30,13 @@ app.use((req, res, next) => {
         res.status(403).send('Token expires');
       }
     });
+    //next();
+  } else if (req.url.includes('/api/auth')) {
+    next();
+  } else {
+    res.status(401).send('Not authorization');
   }
+  //next();
 });
 
 app.listen(PORT, () => {
@@ -78,6 +74,7 @@ const Search = require('./routes/search');
 app.use('/api/search', Search);
 const Auth = require('./routes/auth');
 const { send } = require('process');
+const { log } = require('console');
 app.use('/api/auth', Auth);
 
 module.exports = app;

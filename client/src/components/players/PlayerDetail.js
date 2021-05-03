@@ -17,7 +17,8 @@ import CardContent from '@material-ui/core/CardContent';
 import { getPlayer } from '../../store/actions/playersActions';
 import ChampsStats from '../players/layout/champsStats';
 import LastSeason from '../players/layout/lastSeason';
-import Buttons from '../players/layout/buttons';
+import Button from '@material-ui/core/Button';
+import EditIcon from '@material-ui/icons/Edit';
 
 const styles = (theme) => ({
   root: {
@@ -64,6 +65,15 @@ const styles = (theme) => ({
     marginTop: '20px',
     marginBottom: '20px',
     borderTop: '0.5px',
+  },
+  btn: {
+    backgroundColor: '#00a651',
+    color: '#fff',
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
+    '&:hover': {
+      background: '#118442',
+    },
   },
 });
 
@@ -225,7 +235,28 @@ export class playerDetail extends Component {
                 </Grid>
               </Grid>
             </Container>
-            <Buttons />
+            <Container>
+              <Box mt={2}>
+                <Grid
+                  container
+                  direction='row'
+                  justify='flex-end'
+                  alignItems='center'
+                >
+                  <Button
+                    className={classes.btn}
+                    variant='contained'
+                    startIcon={<EditIcon />}
+                    size='small'
+                    onClick={() => {
+                      this.setState({ isEditMode: true });
+                    }}
+                  >
+                    Edit
+                  </Button>
+                </Grid>
+              </Box>
+            </Container>
             <hr className={classes.hr} />
             <ChampsStats />
           </Paper>

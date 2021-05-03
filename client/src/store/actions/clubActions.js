@@ -1,9 +1,15 @@
 import axios from 'axios';
 import * as actions from './index';
+import { fetchProtectedData } from '../utils';
 
 export const getClubs = () => async (dispatch) => {
-  const res = await axios.get('/api/clubs');
-  dispatch({ type: actions.GET_CLUBS, clubs: res.data });
+  const res = fetchProtectedData(
+    '/api/clubs',
+    'get',
+    {}
+  )((data) => {
+    dispatch({ type: actions.GET_CLUBS, clubs: data });
+  });
 };
 
 export const getClub = (club_id, season) => async (dispatch) => {
