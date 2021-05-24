@@ -1,33 +1,22 @@
 import axios from 'axios';
 import * as actions from './index';
 
-export const getPlayersForSearch = () => async (dispatch) => {
-  const res = await axios.get('/api/players/playerForSearch');
-  dispatch({ type: actions.GET_PLAYERS_FOR_SEARCH, players: res.data });
-};
+export const getPlayersForSearch = () => ({
+  //const res = await axios.get('/api/players/playerForSearch');
+  type: actions.GET_PLAYERS_FOR_SEARCH_REQUEST,
+});
 
-export const getPlayers = () => async (dispatch) => {
-  const res = await axios.get('/api/players');
-  dispatch({ type: actions.GET_PLAYERS, players: res.data });
-};
+export const getPlayers = () => ({ type: actions.GET_PLAYERS_REQUEST });
 
-export const getPlayer = (player_id) => async (dispatch) => {
-  const { data } = await axios.get(`/api/players/${player_id}`);
-  dispatch({
-    type: actions.GET_PLAYER,
-    playerAndStats: {
-      playerById: data.playerById,
-      champsStats: data.champsStats,
-    },
-  });
-};
+export const getPlayer = (player_id) => ({
+  type: actions.GET_PLAYER_REQUEST,
+  payload: [player_id],
+});
 
-export const getFreeAgents = (season, country) => async (dispatch) => {
-  const res = await axios.get('/api/freeagents', {
-    params: { season, country },
-  });
-  dispatch({ type: actions.GET_FREE_AGENTS, freeagents: res.data });
-};
+export const getFreeAgents = (season, country) => ({
+  type: actions.GET_FREE_AGENTS_REQUEST,
+  payload: { season, country },
+});
 
 export const createPlayer = (player) => async (dispatch) => {
   await axios.post('/api/players/create/new', player);

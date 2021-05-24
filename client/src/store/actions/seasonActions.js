@@ -1,7 +1,9 @@
-import axios from 'axios';
+//import axios from 'axios';
+import { fetchProtectedData } from '../utils';
 import * as actions from './index';
 
 export const getSeasons = () => async (dispatch) => {
-  const res = await axios.get('/api/season');
-  dispatch({ type: actions.GET_SEASONS, seasons: res.data });
+  fetchProtectedData({ url: '/api/season', method: 'get' })((res) => {
+    dispatch({ type: actions.GET_SEASONS, seasons: res });
+  });
 };

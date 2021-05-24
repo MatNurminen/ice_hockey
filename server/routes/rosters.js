@@ -6,8 +6,7 @@ const router = express.Router();
 app.use(express.json());
 
 const sqlRoster = {
-  text:
-    'SELECT championship.championship_id, player.pos, player.num, player.first_name, player.last_name, country.flag, player.birth, \
+  text: 'SELECT championship.championship_id, player.pos, player.num, player.first_name, player.last_name, country.flag, player.birth, \
     player.height, player.weight, club.club_id, club.club, club_logo.logo, league_logo.logo AS league_logo, league.name AS league_name, \
     player.player_id AS pl_id, ($1 - player.birth) AS age \
     FROM championship \
@@ -28,13 +27,11 @@ const sqlDeleteFromRoster = {
 };
 
 const sqlInsertToRoster = {
-  text:
-    'INSERT INTO championship (season, player_id, club_id) VALUES ($1, $2, $3) RETURNING *',
+  text: 'INSERT INTO championship (season, player_id, club_id) VALUES ($1, $2, $3) RETURNING *',
 };
 
 const sqlGetNewPlayer = {
-  text:
-    'SELECT championship.championship_id, player.pos, player.num, player.first_name, player.last_name, country.flag, player.birth, \
+  text: 'SELECT championship.championship_id, player.pos, player.num, player.first_name, player.last_name, country.flag, player.birth, \
     player.height, player.weight, club.club_id, club.club, club_logo.logo, league_logo.logo AS league_logo, league.name AS league_name, \
     player.player_id AS pl_id, ($1 - player.birth) AS age \
     FROM championship \
@@ -52,8 +49,7 @@ const sqlGetNewPlayer = {
 };
 
 const sqlClubsForRoster = {
-  text:
-    'SELECT champ.*, club.club, club_logo.logo FROM champ \
+  text: 'SELECT champ.*, club.club, club_logo.logo FROM champ \
     INNER JOIN club ON champ.club_id = club.club_id \
     INNER JOIN club_logo ON champ.club_id = club_logo.club_id \
     WHERE champ.season = $1 AND champ.league_id = $2 \
@@ -75,10 +71,10 @@ router.get('/', async (req, res) => {
 
 router.delete('/:championship_id', async (req, res) => {
   await pool.query(sqlDeleteFromRoster, [req.params.championship_id]);
-  res.send('success');
+  res.send(req.params.championship_id);
 });
 
-router.post('/insert', async (req, res) => {
+router.post('/', async (req, res) => {
   const newPlayer = await pool.query(sqlInsertToRoster, [
     req.body.season,
     req.body.player_id,

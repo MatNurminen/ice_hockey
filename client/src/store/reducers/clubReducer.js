@@ -8,14 +8,15 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case actions.GET_CLUBS:
-      return { ...state, clubs: action.clubs };
-    case actions.GET_CLUB:
+    case actions.GET_CLUBS_SUCCESS:
+      return { ...state, clubs: action.payload };
+    case actions.GET_CLUB_SUCCESS:
+      const { payload } = action;
       return {
         ...state,
-        club: action.clubAndStats.club,
-        roster: action.clubAndStats.roster,
-        clubhistory: action.clubAndStats.clubhistory,
+        club: payload.club,
+        roster: payload.roster,
+        clubhistory: payload.clubhistory,
       };
     default:
       return state;

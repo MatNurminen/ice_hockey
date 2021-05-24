@@ -8,18 +8,18 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case actions.GET_PLAYERS_FOR_SEARCH:
-      return { ...state, players: action.players };
-    case actions.GET_PLAYERS:
-      return { ...state, players: action.players };
-    case actions.GET_PLAYER:
+    case actions.GET_PLAYERS_FOR_SEARCH_SUCCESS:
+      return { ...state, players: action.payload };
+    case actions.GET_PLAYERS_SUCCESS:
+      return { ...state, players: action.payload };
+    case actions.GET_PLAYER_SUCCESS:
       return {
         ...state,
-        playerById: action.playerAndStats.playerById,
-        champsStats: action.playerAndStats.champsStats,
+        playerById: action.payload.playerById,
+        champsStats: action.payload.champsStats,
       };
-    case actions.GET_FREE_AGENTS:
-      return { ...state, freeagents: action.freeagents };
+    case actions.GET_FREE_AGENTS_SUCCESS:
+      return { ...state, freeagents: action.payload };
     case actions.ADD_PLAYER:
       return { ...state, players: null };
     default:

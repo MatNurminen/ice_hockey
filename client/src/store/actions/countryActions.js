@@ -1,22 +1,17 @@
 import axios from 'axios';
 import * as actions from './index';
 
-export const getCountries = () => async (dispatch) => {
-  const res = await axios.get('/api/countries');
-  dispatch({ type: actions.GET_COUNTRIES, countries: res.data });
-};
+export const getCountries = () => ({ type: actions.GET_COUNTRIES_REQUEST });
 
-export const getCountry = (country_id) => async (dispatch) => {
-  const res = await axios.get(`/api/countries/${country_id}`);
-  dispatch({ type: actions.GET_COUNTRY, country: res.data });
-};
+export const getCountry = (country_id) => ({
+  type: actions.GET_COUNTRY_REQUEST,
+  payload: [country_id],
+});
 
-export const getCountryByLeague = (season, country_id) => async (dispatch) => {
-  const res = await axios.get('/api/chart/', {
-    params: { season, country_id },
-  });
-  dispatch({ type: actions.GET_COUNTRY_BY_LEAGUE, countrybyleague: res.data });
-};
+export const getCountryByLeague = (country_id, season) => ({
+  type: actions.GET_COUNTRY_BY_LEAGUE_REQUEST,
+  payload: { country_id, season },
+});
 
 // useEffect(() => {
 //   const GetData = async () => {

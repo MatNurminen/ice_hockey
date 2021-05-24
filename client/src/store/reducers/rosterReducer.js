@@ -6,23 +6,22 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case actions.GET_ROSTERS:
+    case actions.GET_ROSTERS_SUCCESS:
       return {
         ...state,
-        rosters: action.rostersAndClubs.rosters,
-        clubsByRoster: action.rostersAndClubs.clubs,
+        rosters: action.payload.rosters,
+        clubsByRoster: action.payload.clubs,
       };
-    case actions.INSERT_PLAYER_TO_ROSTER:
+    case actions.INSERT_PLAYER_TO_ROSTER_SUCCESS:
       return {
         ...state,
         rosters: [...state.rosters, action.payload],
       };
-    case actions.DELETE_PLAYER_FROM_ROSTER:
+    case actions.DELETE_PLAYER_FROM_ROSTER_SUCCESS:
       return {
         ...state,
         rosters: state.rosters.filter(
-          ({ championship_id }) =>
-            championship_id !== action.payload.championship_id
+          ({ championship_id }) => championship_id !== action.payload
         ),
       };
     default:

@@ -55,6 +55,7 @@ export class League extends Component {
       season: 2020,
     };
   }
+
   componentDidMount() {
     this.props.getSeasons();
     this.props.getLeague(this.props.match.params.league_id, this.state.season);

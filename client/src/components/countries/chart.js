@@ -58,11 +58,11 @@ export class CountryChart extends Component {
 
   componentDidMount() {
     this.props.getSeasons();
-    this.props.getCountryByLeague(this.state.season, this.state.country_id);
+    this.props.getCountryByLeague(this.state.country_id, this.state.season);
   }
 
   seasonChange = (e) => {
-    this.props.getCountryByLeague(e.target.value, this.state.country_id);
+    this.props.getCountryByLeague(this.state.country_id, e.target.value);
   };
 
   render() {

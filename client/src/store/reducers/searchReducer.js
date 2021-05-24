@@ -5,8 +5,8 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case actions.SEARCH_PLAYER:
-      return { ...state, searchPlayer: action.searchPlayer };
+    case actions.SEARCH_PLAYER_SUCCESS:
+      return { ...state, searchPlayer: action.payload };
     default:
       return state;
   }

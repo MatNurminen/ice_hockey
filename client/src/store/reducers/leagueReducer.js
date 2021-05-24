@@ -1,6 +1,7 @@
 import * as actions from '../actions';
 const initialState = {
   leagues: null,
+  league: null,
   clubsByLeague: null,
   tableByLeague: null,
   statsByLeague: null,
@@ -12,19 +13,20 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case actions.GET_LEAGUES:
+    case actions.GET_LEAGUES_SUCCESS:
       return { ...state, leagues: action.payload };
-    case actions.GET_LEAGUE:
+    case actions.GET_LEAGUE_SUCCESS:
+      const { payload } = action;
       return {
         ...state,
-        league: action.leagueAndClubs.league,
-        clubsByLeague: action.leagueAndClubs.clubs,
-        tableByLeague: action.leagueAndClubs.table,
-        statsByLeague: action.leagueAndClubs.stats,
-        countriesByLeague: action.leagueAndClubs.countries,
-        comparisonByLeague: action.leagueAndClubs.comparison,
-        statsPerSeasonByLeague: action.leagueAndClubs.statsPerSeason,
-        statsAllTimeByLeague: action.leagueAndClubs.statsAllTime,
+        league: payload.league,
+        clubsByLeague: payload.clubs,
+        tableByLeague: payload.table,
+        statsByLeague: payload.stats,
+        countriesByLeague: payload.countries,
+        comparisonByLeague: payload.comparison,
+        statsPerSeasonByLeague: payload.statsPerSeason,
+        statsAllTimeByLeague: payload.statsAllTime,
       };
     default:
       return state;

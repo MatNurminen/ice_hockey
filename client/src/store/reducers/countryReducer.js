@@ -7,12 +7,12 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case actions.GET_COUNTRIES:
-      return { ...state, countries: action.countries };
-    case actions.GET_COUNTRY:
-      return { ...state, country: action.country };
-    case actions.GET_COUNTRY_BY_LEAGUE:
-      return { ...state, countrybyleague: action.countrybyleague };
+    case actions.GET_COUNTRIES_SUCCESS:
+      return { ...state, countries: action.payload };
+    case actions.GET_COUNTRY_SUCCESS:
+      return { ...state, country: action.payload };
+    case actions.GET_COUNTRY_BY_LEAGUE_SUCCESS:
+      return { ...state, countrybyleague: action.payload };
     default:
       return state;
   }

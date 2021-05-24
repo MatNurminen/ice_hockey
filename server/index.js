@@ -16,7 +16,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
-  console.log(req.url, req.headers);
   if (req.headers.authorization) {
     jwt.verify(req.headers.authorization.split(' ')[1], tokenKey, (err) => {
       if (err) {
