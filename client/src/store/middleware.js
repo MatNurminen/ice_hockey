@@ -102,12 +102,28 @@ const actionMap = (params = []) => {
 export const fetchMiddleware = (storeAPI) => (next) => (action) => {
   if (action.type.includes('REQUEST')) {
     const mapValue = actionMap(action.payload)[action.type];
-    fetchProtectedData(mapValue)((data) => {
+    const token = window.localStorage.getItem('token');
+    if (!token && mapValue.method !== 'get') {
       storeAPI.dispatch({
-        type: action.type.replace('REQUEST', 'SUCCESS'),
-        payload: mapValue.selector(data),
+        type: 'ACCESS_ERROR',
+        payload: 'Need SignIn',
       });
-    });
+    } else {
+      fetchProtectedData(mapValue)(
+        (data) => {
+          storeAPI.dispatch({
+            type: action.type.replace('REQUEST', 'SUCCESS'),
+            payload: mapValue.selector(data),
+          });
+        },
+        (error) => {
+          storeAPI.dispatch({
+            type: 'ACCESS_ERROR',
+            payload: error.message,
+          });
+        }
+      );
+    }
   }
   return next(action);
 };

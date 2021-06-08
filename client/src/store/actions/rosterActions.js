@@ -1,4 +1,3 @@
-import axios from 'axios';
 import * as actions from './index';
 const queryString = require('query-string');
 
@@ -22,7 +21,6 @@ export const insertPlayerToRoster =
   };
 
 export const deletePlayerFromRoster = (championship_id) => ({
-  //await axios.delete(`/api/rosters/${championship_id}`);
   type: actions.DELETE_PLAYER_FROM_ROSTER_REQUEST,
   payload: [championship_id],
 });

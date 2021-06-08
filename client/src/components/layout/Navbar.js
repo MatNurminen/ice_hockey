@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import {
   AppBar,
   Toolbar,
@@ -17,6 +18,9 @@ import { Link } from 'react-router-dom';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import MenuIcon from '@material-ui/icons/Menu';
 import IconButton from '@material-ui/core/IconButton';
+import Snackbar from '@material-ui/core/Snackbar';
+
+import { confirmError } from '../../store/actions/authActions';
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -64,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Navbar(props) {
+function Navbar(props) {
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
@@ -72,6 +76,16 @@ export default function Navbar(props) {
   const [openDrawer, setOpenDrawer] = useState(false);
   //const [openMenu, setOpenMenu] = useState(false);
   const tabValue = false;
+
+  const snackBar = (
+    <Snackbar
+      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      open={!!props.error}
+      onClose={() => props.confirmError(null)}
+      message={props.error}
+      key='key'
+    />
+  );
 
   const tabs = (
     <React.Fragment>
@@ -255,8 +269,17 @@ export default function Navbar(props) {
           <Button className={classes.button} component={Link} to='/leagues'>
             Test button
           </Button>
+          {snackBar}
         </Toolbar>
       </AppBar>
     </React.Fragment>
   );
 }
+
+const mapStateToProps = (state) => ({
+  error: state.authReducer.error,
+});
+
+export default connect(mapStateToProps, {
+  confirmError,
+})(Navbar);

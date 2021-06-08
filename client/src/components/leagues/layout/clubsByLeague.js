@@ -5,17 +5,6 @@ import Link from '@material-ui/core/Link';
 import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import { withStyles } from '@material-ui/core/styles';
-
-const styles = (theme) => ({
-  root: {
-    flexGrow: 1,
-    margin: 10,
-  },
-  logo: {
-    width: 80,
-  },
-});
 
 export class ClubsByLeague extends Component {
   constructor(props) {
@@ -25,7 +14,7 @@ export class ClubsByLeague extends Component {
     };
   }
   render() {
-    const { clubs, classes } = this.props;
+    const { clubs } = this.props;
 
     if (!clubs) {
       return <h1>WAIT!</h1>;
@@ -51,4 +40,4 @@ const mapStateToProps = (state) => ({
   clubs: state.leagueReducer.clubsByLeague,
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(ClubsByLeague));
+export default connect(mapStateToProps)(ClubsByLeague);

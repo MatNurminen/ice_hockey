@@ -30,7 +30,7 @@ app.use((req, res, next) => {
       }
     });
     //next();
-  } else if (req.url.includes('/api/auth')) {
+  } else if (req.url.includes('/api/auth') || req.method === 'GET') {
     next();
   } else {
     res.status(401).send('Not authorization');

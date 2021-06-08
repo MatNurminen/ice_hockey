@@ -2,16 +2,20 @@ import axios from 'axios';
 
 export const fetchProtectedData =
   ({ url, method, data, body }) =>
-  (callback) => {
+  (callback, catchinger) => {
+    const token = window.localStorage.getItem('token');
+    const header = token ? { Authorization: 'Bearer ' + token } : {};
     axios({
       data: data,
-      headers: {
-        Authorization: 'Bearer ' + window.localStorage.getItem('token'),
-      },
+      headers: header,
       url: url,
       method: method,
       data: body,
-    }).then(({ data }) => {
-      callback(data);
-    });
+    })
+      .then(({ data }) => {
+        callback(data);
+      })
+      .catch((error) => {
+        catchinger(error);
+      });
   };

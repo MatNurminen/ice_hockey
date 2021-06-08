@@ -1,4 +1,3 @@
-import axios from 'axios';
 import * as actions from './index';
 
 export const getClubs = () => ({ type: actions.GET_CLUBS_REQUEST });

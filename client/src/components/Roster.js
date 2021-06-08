@@ -26,6 +26,7 @@ import {
   deletePlayerFromRoster,
 } from '../store/actions/rosterActions';
 import { getPlayers } from '../store/actions/playersActions';
+import { confirmError } from '../store/actions/authActions';
 
 const queryString = require('query-string');
 
@@ -103,7 +104,9 @@ export class Roster extends React.Component {
     this.setState({ clubsCount: this.state.clubsCount + 1 });
 
   render() {
-    const { classes, rosters, clubs } = this.props;
+    const { classes, rosters, clubs, confirmError } = this.props;
+
+    const token = window.localStorage.getItem('token');
 
     if (!rosters) {
       return <h1>WAIT!</h1>;
@@ -172,13 +175,17 @@ export class Roster extends React.Component {
                     <div className={classes.endDiv}>
                       <Button
                         variant='contained'
-                        onClick={() =>
-                          this.setState({
-                            setOpen: true,
-                            nameClub: club.club,
-                            clubId: club.club_id,
-                          })
-                        }
+                        onClick={() => {
+                          if (!token) {
+                            confirmError('Need SignIn');
+                          } else {
+                            this.setState({
+                              setOpen: true,
+                              nameClub: club.club,
+                              clubId: club.club_id,
+                            });
+                          }
+                        }}
                       >
                         Add
                       </Button>
@@ -290,4 +297,5 @@ export default connect(mapStateToProps, {
   getRosters,
   insertPlayerToRoster,
   deletePlayerFromRoster,
+  confirmError,
 })(withStyles(styles)(Roster));

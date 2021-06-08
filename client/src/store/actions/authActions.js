@@ -12,27 +12,8 @@ export const loginUser = (loginData) => async (dispatch) => {
   window.localStorage.setItem('token', res.data.token);
 };
 
-// var axios = require('axios');
-// var qs = require('qs');
-// var data = qs.stringify({
-//   login: 'test@mail.com',
-//   password: '777',
-// });
-// var config = {
-//   method: 'post',
-//   url: 'http://localhost:3000/api/auth',
-//   headers: {
-//     Authorization:
-//       'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjE4NzQzMTQyfQ.nYjdVKVEVUnh904NE8wZQdXAIWe9l1yYnYJcAafnZio',
-//     'Content-Type': 'application/x-www-form-urlencoded',
-//   },
-//   data: data,
-// };
-
-// axios(config)
-//   .then(function (response) {
-//     console.log(JSON.stringify(response.data));
-//   })
-//   .catch(function (error) {
-//     console.log(error);
-//   });
+export const confirmError =
+  (text = null) =>
+  async (dispatch) => {
+    dispatch({ type: actions.ACCESS_ERROR, payload: text });
+  };

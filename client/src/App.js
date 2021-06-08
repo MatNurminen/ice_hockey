@@ -54,6 +54,8 @@ class App extends Component {
 
           <Route exact path='/reports/leagues' component={LeaguesReport} />
           <Route exact path='/reports/workbook' component={WorkBookPlayers} />
+
+          <Route path='*'>404</Route>
         </Switch>
         <Footer />
       </ThemeProvider>
