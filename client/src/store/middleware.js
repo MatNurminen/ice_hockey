@@ -96,13 +96,22 @@ const actionMap = (params = []) => {
       method: 'delete',
       selector: (data) => data,
     },
+
+    [actions.ADD_PLAYER_REQUEST]: {
+      url: `/api/players/create/new`,
+      method: 'post',
+      body: params,
+      selector: (data) => data,
+    },
   };
 };
 
 export const fetchMiddleware = (storeAPI) => (next) => (action) => {
   if (action.type.includes('REQUEST')) {
     const mapValue = actionMap(action.payload)[action.type];
-    const token = window.localStorage.getItem('token');
+    const token =
+      window.localStorage.getItem('user') &&
+      JSON.parse(window.localStorage.getItem('user')).token;
     if (!token && mapValue.method !== 'get') {
       storeAPI.dispatch({
         type: 'ACCESS_ERROR',

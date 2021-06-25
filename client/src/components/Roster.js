@@ -17,6 +17,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 
+import TokenButton from './layout/TokenButton';
 import Search from './layout/Search';
 
 import { connect } from 'react-redux';
@@ -148,8 +149,8 @@ export class Roster extends React.Component {
               <Button variant='contained'>Print</Button>
             </Grid>
           </Grid>
-          {clubs.map((club) => (
-            <div style={{ paddingTop: 40 }}>
+          {clubs.map((club, key) => (
+            <div key={key} style={{ paddingTop: 40 }}>
               <Grid container>
                 <Grid
                   container
@@ -173,22 +174,20 @@ export class Roster extends React.Component {
                   </Grid>
                   <Grid item xs={3}>
                     <div className={classes.endDiv}>
-                      <Button
-                        variant='contained'
-                        onClick={() => {
-                          if (!token) {
-                            confirmError('Need SignIn');
-                          } else {
+                      <TokenButton>
+                        <Button
+                          variant='contained'
+                          onClick={() => {
                             this.setState({
                               setOpen: true,
                               nameClub: club.club,
                               clubId: club.club_id,
                             });
-                          }
-                        }}
-                      >
-                        Add
-                      </Button>
+                          }}
+                        >
+                          Add
+                        </Button>
+                      </TokenButton>
                     </div>
                   </Grid>
                 </Grid>
@@ -260,17 +259,19 @@ export class Roster extends React.Component {
                           <TableCell align='center'>{roster.height}</TableCell>
                           <TableCell align='center'>{roster.weight}</TableCell>
                           <TableCell align='center'>
-                            <Button
-                              variant='contained'
-                              color='secondary'
-                              onClick={() =>
-                                this.deletePlayerFromRoster(
-                                  roster.championship_id
-                                )
-                              }
-                            >
-                              Delete
-                            </Button>
+                            <TokenButton>
+                              <Button
+                                variant='contained'
+                                color='secondary'
+                                onClick={() =>
+                                  this.deletePlayerFromRoster(
+                                    roster.championship_id
+                                  )
+                                }
+                              >
+                                Delete
+                              </Button>
+                            </TokenButton>
                           </TableCell>
                         </TableRow>
                       ) : null
@@ -289,7 +290,7 @@ export class Roster extends React.Component {
 const mapStateToProps = (state) => ({
   clubs: state.rosterReducer.clubsByRoster,
   rosters: state.rosterReducer.rosters,
-  players: state.playersReducer.players,
+  players: state.players.players,
 });
 
 export default connect(mapStateToProps, {

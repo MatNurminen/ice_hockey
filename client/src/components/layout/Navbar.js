@@ -20,7 +20,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
 
-import { confirmError } from '../../store/actions/authActions';
+import { confirmError, logoutUser } from '../../store/actions/authActions';
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -74,6 +74,7 @@ function Navbar(props) {
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
   const [openDrawer, setOpenDrawer] = useState(false);
+  const isSignIn = !!props.user;
   //const [openMenu, setOpenMenu] = useState(false);
   const tabValue = false;
 
@@ -139,13 +140,28 @@ function Navbar(props) {
           component={Link}
           to='/drafts'
         />
-        <Tab
-          style={{ textDecoration: 'none' }}
-          className={classes.tab}
-          label='Sign In'
-          component={Link}
-          to='/login'
-        />
+        {!isSignIn && (
+          <Tab
+            style={{ textDecoration: 'none' }}
+            className={classes.tab}
+            label='Sign In'
+            component={Link}
+            to='/login'
+          />
+        )}
+        {isSignIn && (
+          <Tab
+            style={{ textDecoration: 'none' }}
+            className={classes.tab}
+            label='Sign Out'
+            component={Link}
+            to='/'
+            onClick={() => {
+              props.logoutUser();
+              window.localStorage.clear();
+            }}
+          />
+        )}
       </Tabs>
     </React.Fragment>
   );
@@ -278,8 +294,10 @@ function Navbar(props) {
 
 const mapStateToProps = (state) => ({
   error: state.authReducer.error,
+  user: state.authReducer.user,
 });
 
 export default connect(mapStateToProps, {
   confirmError,
+  logoutUser,
 })(Navbar);

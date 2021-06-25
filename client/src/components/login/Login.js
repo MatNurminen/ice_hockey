@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { loginUser } from '../../store/actions/authActions';
 
 export class Login extends Component {
@@ -15,10 +16,13 @@ export class Login extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     this.props.loginUser(this.state);
-    console.log(this.state);
+    //console.log(this.state);
   };
 
   render() {
+    if (this.props.user) {
+      return <Redirect to='/' />;
+    }
     return (
       <div>
         <div className='container bg-white my-4'>

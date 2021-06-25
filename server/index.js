@@ -29,13 +29,11 @@ app.use((req, res, next) => {
         res.status(403).send('Token expires');
       }
     });
-    //next();
   } else if (req.url.includes('/api/auth') || req.method === 'GET') {
     next();
   } else {
     res.status(401).send('Not authorization');
   }
-  //next();
 });
 
 app.listen(PORT, () => {
@@ -47,8 +45,6 @@ pool.query('SELECT NOW()', (err, res) => {
   console.log(`PostgreSQL connected: ${res.rows[0].now}`);
 });
 
-// const AllPlayers = require('./routes/allPlayers');
-// app.use('/all_players', AllPlayers);
 const Leagues = require('./routes/leagues');
 app.use('/api/leagues', Leagues);
 const Countries = require('./routes/countries');

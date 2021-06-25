@@ -1,7 +1,10 @@
 import * as actions from '../actions';
 
 const initialState = {
-  user: null,
+  user:
+    (window.localStorage.getItem('user') &&
+      JSON.parse(window.localStorage.getItem('user'))) ||
+    null,
   error: null,
 };
 

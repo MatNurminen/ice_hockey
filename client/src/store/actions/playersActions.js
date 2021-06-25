@@ -2,7 +2,6 @@ import axios from 'axios';
 import * as actions from './index';
 
 export const getPlayersForSearch = () => ({
-  //const res = await axios.get('/api/players/playerForSearch');
   type: actions.GET_PLAYERS_FOR_SEARCH_REQUEST,
 });
 
@@ -18,7 +17,7 @@ export const getFreeAgents = (season, country) => ({
   payload: { season, country },
 });
 
-export const createPlayer = (player) => async (dispatch) => {
-  await axios.post('/api/players/create/new', player);
-  dispatch({ type: actions.ADD_PLAYER });
-};
+export const createPlayer = (player) => ({
+  type: actions.ADD_PLAYER_REQUEST,
+  payload: [player],
+});

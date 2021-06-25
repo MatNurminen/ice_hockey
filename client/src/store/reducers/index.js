@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 import authReducer from './authReducer';
 import leagueReducer from './leagueReducer';
 import rosterReducer from './rosterReducer';
-import playersReducer from './playersReducer';
+import playersReducer, { moduleName as playersModule } from './players';
 import countryReducer from './countryReducer';
 import seasonReducer from './seasonReducer';
 import searchReducer from './searchReducer';
@@ -14,7 +14,7 @@ export default combineReducers({
   leagueReducer,
   countryReducer,
   rosterReducer,
-  playersReducer,
+  [playersModule]: playersReducer,
   seasonReducer,
   searchReducer,
   clubReducer,
