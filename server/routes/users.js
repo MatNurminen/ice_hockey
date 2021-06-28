@@ -1,17 +1,11 @@
 const express = require('express');
 const app = express();
-const pool = require('../database');
 const router = express.Router();
 
 app.use(express.json());
 
-const sqlUsers = {
-  text: 'SELECT * FROM users',
-};
+const { get_users } = require('../controllers/usersController');
 
-router.get('/', async (req, res) => {
-  const allUsers = await pool.query(sqlUsers);
-  res.json(allUsers.rows);
-});
+router.get('/', get_users);
 
 module.exports = router;

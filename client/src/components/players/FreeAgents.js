@@ -63,14 +63,8 @@ export class FreeAgents extends Component {
   };
 
   render() {
-    const {
-      freeagents,
-      season,
-      country,
-      seasons,
-      countries,
-      classes,
-    } = this.props;
+    const { freeagents, season, country, seasons, countries, classes } =
+      this.props;
 
     if (!seasons) {
       return <h1>WAIT!</h1>;

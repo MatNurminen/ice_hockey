@@ -1,21 +1,11 @@
 const express = require('express');
 const app = express();
-const pool = require('../database');
 const router = express.Router();
 
 app.use(express.json());
 
-const sqlSearch = {
-  text:
-    "SELECT * FROM player WHERE (first_name || ' ' || last_name) ILIKE $1 \
-    ORDER BY last_name",
-};
+const { get_players_for_search } = require('../controllers/searchController');
 
-router.get('/', async (req, res) => {
-  const listPlayers = await pool.query(sqlSearch, [
-    '%' + req.query.strSearch + '%',
-  ]);
-  res.json(listPlayers.rows);
-});
+router.get('/', get_players_for_search);
 
 module.exports = router;

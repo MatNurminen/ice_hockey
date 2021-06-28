@@ -1,17 +1,11 @@
 const express = require('express');
 const app = express();
-const pool = require('../database');
 const router = express.Router();
 
 app.use(express.json());
 
-const sqlSeason = {
-  text: 'SELECT * FROM season ORDER BY year DESC',
-};
+const { get_season } = require('../controllers/seasonController');
 
-router.get('/', async (req, res) => {
-  const listSeasons = await pool.query(sqlSeason);
-  res.json(listSeasons.rows);
-});
+router.get('/', get_season);
 
 module.exports = router;
