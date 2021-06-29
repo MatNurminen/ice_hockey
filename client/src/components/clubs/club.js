@@ -19,8 +19,11 @@ import CardContent from '@material-ui/core/CardContent';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import { getSeasons } from '../../store/actions/seasonActions';
-import { getClub } from '../../store/actions/clubActions';
+import {
+  getSeasons,
+  moduleName as seasonsModule,
+} from '../../store/duck/seasons';
+import { getClub, moduleName as clubsModule } from '../../store/duck/clubs';
 import ClubRoster from '../clubs/layout/clubRoster';
 import ClubHistory from '../clubs/layout/clubHistory';
 
@@ -188,8 +191,8 @@ export class Club extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  seasons: state.seasonReducer.seasons,
-  club: state.clubReducer.club,
+  seasons: state[seasonsModule].seasons,
+  club: state[clubsModule].club,
 });
 
 export default connect(mapStateToProps, { getSeasons, getClub })(

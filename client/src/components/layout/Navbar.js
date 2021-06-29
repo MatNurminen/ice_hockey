@@ -20,7 +20,11 @@ import MenuIcon from '@material-ui/icons/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
 
-import { confirmError, logoutUser } from '../../store/actions/authActions';
+import {
+  confirmError,
+  logoutUser,
+  moduleName as authModule,
+} from '../../store/duck/auth';
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -293,8 +297,8 @@ function Navbar(props) {
 }
 
 const mapStateToProps = (state) => ({
-  error: state.authReducer.error,
-  user: state.authReducer.user,
+  error: state[authModule].error,
+  user: state[authModule].user,
 });
 
 export default connect(mapStateToProps, {

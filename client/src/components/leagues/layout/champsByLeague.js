@@ -4,6 +4,7 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { withStyles } from '@material-ui/core/styles';
+import { moduleName as leaguesModule } from '../../../store/duck/leagues';
 
 const styles = (theme) => ({
   headText: {
@@ -32,7 +33,7 @@ export class ChampsByLeague extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  //clubs: state.leagueReducer.clubsByLeague,
+  clubs: state[leaguesModule].clubsByLeague,
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(ChampsByLeague));

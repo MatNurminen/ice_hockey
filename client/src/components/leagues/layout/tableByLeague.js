@@ -12,6 +12,7 @@ import TableRow from '@material-ui/core/TableRow';
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@material-ui/core/Link';
 import { withStyles } from '@material-ui/core/styles';
+import { moduleName as leaguesModule } from '../../../store/duck/leagues';
 
 const styles = (theme) => ({
   root: {
@@ -137,7 +138,7 @@ export class TableByLeague extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  table: state.leagueReducer.tableByLeague,
+  table: state[leaguesModule].tableByLeague,
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(TableByLeague));

@@ -1,4 +1,6 @@
-import * as actions from '../actions';
+import * as actions from './actions';
+export const moduleName = 'clubs';
+
 const initialState = {
   clubs: null,
   club: null,
@@ -22,3 +24,10 @@ export default (state = initialState, action) => {
       return state;
   }
 };
+
+export const getClubs = () => ({ type: actions.GET_CLUBS_REQUEST });
+
+export const getClub = (club_id, season) => ({
+  type: actions.GET_CLUB_REQUEST,
+  payload: [club_id, season],
+});

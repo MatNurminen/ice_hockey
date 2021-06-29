@@ -1,4 +1,6 @@
-import * as actions from '../actions';
+import * as actions from './actions';
+export const moduleName = 'leagues';
+
 const initialState = {
   leagues: null,
   league: null,
@@ -32,3 +34,10 @@ export default (state = initialState, action) => {
       return state;
   }
 };
+
+export const getLeagues = () => ({ type: actions.GET_LEAGUES_REQUEST });
+
+export const getLeague = (league_id, season) => ({
+  type: actions.GET_LEAGUE_REQUEST,
+  payload: [league_id, season],
+});

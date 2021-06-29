@@ -14,7 +14,10 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import { getPlayer } from '../../store/actions/playersActions';
+import {
+  getPlayer,
+  moduleName as playersModule,
+} from '../../store/duck/players';
 import ChampsStats from '../players/layout/champsStats';
 import LastSeason from '../players/layout/lastSeason';
 import Button from '@material-ui/core/Button';
@@ -267,7 +270,7 @@ export class playerDetail extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  playerById: state.playersReducer.playerById,
+  playerById: state[playersModule].playerById,
 });
 
 export default connect(mapStateToProps, { getPlayer })(

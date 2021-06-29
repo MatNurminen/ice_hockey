@@ -12,8 +12,6 @@ import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { getLeagues } from '../../store/actions/leagueActions';
-
 const styles = (theme) => ({
   root: { margin: theme.spacing(2), textAlign: 'center' },
   progress: { margin: theme.spacing(2) },
@@ -67,7 +65,7 @@ function Leagues({ leagues }) {
 }
 
 const mapStateToProps = (state) => ({
-  leagues: state.leagueReducer.leagues,
+  //leagues: state.leagueReducer.leagues,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { moduleName as leaguesModule } from '../duck/leagues';
 
 const dataSort = function (fieldName, data = this, sortDir = 1) {
   return data
@@ -11,9 +12,9 @@ const dataSort = function (fieldName, data = this, sortDir = 1) {
 /* eslint-disable */
 Array.prototype.dataSort = dataSort;
 
-const stats = (state) => state.leagueReducer.statsByLeague;
-const statsAllTime = (state) => state.leagueReducer.statsAllTimeByLeague;
-const statsPerSeason = (state) => state.leagueReducer.statsPerSeasonByLeague;
+const stats = (state) => state[leaguesModule].statsByLeague;
+const statsAllTime = (state) => state[leaguesModule].statsAllTimeByLeague;
+const statsPerSeason = (state) => state[leaguesModule].statsPerSeasonByLeague;
 
 export const getForwards = createSelector(stats, (player) => {
   return player

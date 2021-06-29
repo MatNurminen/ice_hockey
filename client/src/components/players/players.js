@@ -13,7 +13,10 @@ import Container from '@material-ui/core/Container';
 
 //import axios from 'axios';
 
-import { getPlayers } from '../../store/actions/playersActions';
+import {
+  getPlayers,
+  moduleName as playersModule,
+} from '../../store/duck/players';
 import { Button } from '@material-ui/core';
 
 /* // IT'S WORKING!
@@ -120,7 +123,7 @@ export class Players extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  players: state.playersReducer.players,
+  players: state[playersModule].players,
 });
 
 export default connect(mapStateToProps, { getPlayers })(Players);

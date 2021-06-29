@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getLeagues } from '../../store/actions/leagueActions';
-import { getSeasons } from '../../store/actions/seasonActions';
+import {
+  getLeagues,
+  moduleName as leaguesModule,
+} from '../../store/duck/leagues';
+import { getSeasons } from '../../store/duck/seasons';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
@@ -62,7 +65,7 @@ export class leaguesForMain extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  leagues: state.leagueReducer.leagues,
+  leagues: state[leaguesModule].leagues,
 });
 
 export default connect(mapStateToProps, { getLeagues, getSeasons })(

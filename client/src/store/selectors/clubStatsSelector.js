@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
+import { moduleName as clubsModule } from '../../store/duck/clubs';
 
-const stats = (state) => state.clubReducer.roster;
+const stats = (state) => state[clubsModule].roster;
 
 export const getGoaltending = createSelector(stats, (player) => {
   return player.filter((pl) => pl.pos === 'G');

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getPlayersForSearch } from '../../store/actions/playersActions';
-
 import './players.css';
 
 class SearchPlayer extends Component {

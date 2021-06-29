@@ -11,6 +11,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
+import { moduleName as clubsModule } from '../../../store/duck/clubs';
 
 const styles = (theme) => ({
   root: {
@@ -140,7 +141,7 @@ export class ClubHistory extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  clubhistory: state.clubReducer.clubhistory,
+  clubhistory: state[clubsModule].clubhistory,
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(ClubHistory));

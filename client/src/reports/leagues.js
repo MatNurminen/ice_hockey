@@ -9,7 +9,7 @@ import {
   StyleSheet,
 } from '@react-pdf/renderer';
 
-import { getLeagues } from '../store/actions/leagueActions';
+import { getLeagues, moduleName as leaguesModule } from '../store/duck/leagues';
 
 const styles = StyleSheet.create({
   page: {
@@ -79,7 +79,7 @@ export class leaguesReport extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  leagues: state.leagueReducer.leagues,
+  leagues: state[leaguesModule].leagues,
 });
 
 export default connect(mapStateToProps, { getLeagues })(leaguesReport);

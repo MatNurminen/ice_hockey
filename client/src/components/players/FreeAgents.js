@@ -16,9 +16,18 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import { getSeasons } from '../../store/actions/seasonActions';
-import { getCountries } from '../../store/actions/countryActions';
-import { getFreeAgents } from '../../store/actions/playersActions';
+import {
+  getSeasons,
+  moduleName as seasonsModule,
+} from '../../store/duck/seasons';
+import {
+  getCountries,
+  moduleName as countriesModule,
+} from '../../store/duck/countries';
+import {
+  getFreeAgents,
+  moduleName as playersModule,
+} from '../../store/duck/players';
 
 const styles = (theme) => ({
   formControl: {
@@ -168,9 +177,9 @@ export class FreeAgents extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  seasons: state.seasonReducer.seasons,
-  countries: state.countryReducer.countries,
-  freeagents: state.playersReducer.freeagents,
+  seasons: state[seasonsModule].seasons,
+  countries: state[countriesModule].countries,
+  freeagents: state[playersModule].freeagents,
 });
 
 export default connect(mapStateToProps, {

@@ -12,7 +12,10 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { getCountry } from '../../store/actions/countryActions';
+import {
+  getCountry,
+  moduleName as countriesModule,
+} from '../../store/duck/countries';
 import Chart from './chart';
 
 const styles = (theme) => ({
@@ -125,7 +128,7 @@ export class Country extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  country: state.countryReducer.country,
+  country: state[countriesModule].country,
 });
 
 export default connect(mapStateToProps, { getCountry })(

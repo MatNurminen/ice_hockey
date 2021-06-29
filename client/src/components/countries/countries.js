@@ -13,7 +13,10 @@ import Container from '@material-ui/core/Container';
 
 //import axios from 'axios';
 
-import { getCountries } from '../../store/actions/countryActions';
+import {
+  getCountries,
+  moduleName as countriesModule,
+} from '../../store/duck/countries';
 import { Button, Typography } from '@material-ui/core';
 
 import doc from '../../reports/countries';
@@ -126,7 +129,7 @@ export class Countries extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  countries: state.countryReducer.countries,
+  countries: state[countriesModule].countries,
 });
 
 export default connect(mapStateToProps, { getCountries })(Countries);

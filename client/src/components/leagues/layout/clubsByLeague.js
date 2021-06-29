@@ -5,6 +5,7 @@ import Link from '@material-ui/core/Link';
 import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import { moduleName as leaguesModule } from '../../../store/duck/leagues';
 
 export class ClubsByLeague extends Component {
   constructor(props) {
@@ -37,7 +38,7 @@ export class ClubsByLeague extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  clubs: state.leagueReducer.clubsByLeague,
+  clubs: state[leaguesModule].clubsByLeague,
 });
 
 export default connect(mapStateToProps)(ClubsByLeague);

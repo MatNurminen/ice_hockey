@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { loginUser } from '../../store/actions/authActions';
+import { loginUser, moduleName as authModule } from '../../store/duck/auth';
 
 export class Login extends Component {
   state = {
@@ -16,7 +16,6 @@ export class Login extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     this.props.loginUser(this.state);
-    //console.log(this.state);
   };
 
   render() {
@@ -61,7 +60,7 @@ export class Login extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  user: state.authReducer.user,
+  user: state[authModule].user,
 });
 
 export default connect(mapStateToProps, { loginUser })(Login);

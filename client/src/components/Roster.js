@@ -25,9 +25,13 @@ import {
   getRosters,
   insertPlayerToRoster,
   deletePlayerFromRoster,
-} from '../store/actions/rosterActions';
-import { getPlayers } from '../store/actions/playersActions';
-import { confirmError } from '../store/actions/authActions';
+  moduleName as rostersModule,
+} from '../store/duck/rosters';
+import {
+  getPlayers,
+  moduleName as playerssModule,
+} from '../store/duck/players';
+import { confirmError, moduleName as authModule } from '../store/duck/auth';
 
 const queryString = require('query-string');
 
@@ -288,9 +292,9 @@ export class Roster extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  clubs: state.rosterReducer.clubsByRoster,
-  rosters: state.rosterReducer.rosters,
-  players: state.players.players,
+  clubs: state[rostersModule].clubsByRoster,
+  rosters: state[rostersModule].rosters,
+  players: state[playerssModule].players,
 });
 
 export default connect(mapStateToProps, {

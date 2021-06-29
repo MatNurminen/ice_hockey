@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { createPlayer } from '../../store/actions/playersActions';
+//import { connect } from 'react-redux';
+//import { createPlayer } from '../../store/actions/playersActions';
 
 class addPlayer extends Component {
   state = {
@@ -150,4 +150,5 @@ class addPlayer extends Component {
   }
 }
 
-export default connect(null, { createPlayer })(addPlayer);
+//export default connect(null, { createPlayer })(addPlayer);
+export default addPlayer;

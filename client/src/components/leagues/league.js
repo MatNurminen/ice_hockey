@@ -11,8 +11,14 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core/styles';
-import { getLeague } from '../../store/actions/leagueActions';
-import { getSeasons } from '../../store/actions/seasonActions';
+import {
+  getLeague,
+  moduleName as leaguessModule,
+} from '../../store/duck/leagues';
+import {
+  getSeasons,
+  moduleName as seasonsModule,
+} from '../../store/duck/seasons';
 import ClubsByLeague from '../leagues/layout/clubsByLeague';
 import TableByLeague from '../leagues/layout/tableByLeague';
 import StatsByLeague from '../leagues/layout/statsByLeague';
@@ -198,8 +204,8 @@ export class League extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  seasons: state.seasonReducer.seasons,
-  league: state.leagueReducer.league,
+  seasons: state[seasonsModule].seasons,
+  league: state[leaguessModule].league,
 });
 
 export default connect(mapStateToProps, { getLeague, getSeasons })(

@@ -16,8 +16,14 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import { getSeasons } from '../../store/actions/seasonActions';
-import { getCountryByLeague } from '../../store/actions/countryActions';
+import {
+  getSeasons,
+  moduleName as seasonsModule,
+} from '../../store/duck/seasons';
+import {
+  getCountryByLeague,
+  moduleName as countriesModule,
+} from '../../store/duck/countries';
 
 const styles = (theme) => ({
   root: {
@@ -172,8 +178,8 @@ export class CountryChart extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  seasons: state.seasonReducer.seasons,
-  countrybyleague: state.countryReducer.countrybyleague,
+  seasons: state[seasonsModule].seasons,
+  countrybyleague: state[countriesModule].countrybyleague,
 });
 
 export default connect(mapStateToProps, { getSeasons, getCountryByLeague })(

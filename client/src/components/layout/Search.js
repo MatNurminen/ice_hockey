@@ -8,7 +8,10 @@ import SearchIcon from '@material-ui/icons/Search';
 import Box from '@material-ui/core/Box';
 import { withStyles } from '@material-ui/core/styles';
 
-import { getSearchPlayer } from '../../store/actions/searchActions';
+import {
+  getSearchPlayer,
+  moduleName as searchModule,
+} from '../../store/duck/search';
 
 const styles = (theme) => ({
   iconBox: {
@@ -83,7 +86,7 @@ export class Search extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  searchPlayer: state.searchReducer.searchPlayer,
+  searchPlayer: state[searchModule].searchPlayer,
 });
 
 export default connect(mapStateToProps, { getSearchPlayer })(

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getRosters } from '../store/actions/rosterActions';
+import { getRosters, moduleName as rostersModule } from '../store/duck/rosters';
 import {
   PDFViewer,
   Page,
@@ -67,7 +67,7 @@ export class workBookPlayers extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  rosters: state.rosterReducer.rosters,
+  rosters: state[rostersModule].rosters,
 });
 
 export default connect(mapStateToProps, { getRosters })(workBookPlayers);

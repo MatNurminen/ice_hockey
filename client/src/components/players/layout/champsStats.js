@@ -10,6 +10,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { withStyles } from '@material-ui/core/styles';
+import { moduleName as playersModule } from '../../../store/duck/players';
 
 const styles = (theme) => ({
   root: {
@@ -112,7 +113,7 @@ export class ChampsStats extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  champsStats: state.playersReducer.champsStats,
+  champsStats: state[playersModule].champsStats,
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(ChampsStats));

@@ -1,5 +1,6 @@
-import * as actions from '../actions';
+import * as actions from './actions';
 export const moduleName = 'players';
+
 const initialState = {
   players: null,
   freeagents: null,
@@ -28,15 +29,15 @@ export default (state = initialState, action) => {
   }
 };
 
-export const getPlayersForSearch = () => ({
-  type: actions.GET_PLAYERS_FOR_SEARCH_REQUEST,
-});
-
 export const getPlayers = () => ({ type: actions.GET_PLAYERS_REQUEST });
 
 export const getPlayer = (player_id) => ({
   type: actions.GET_PLAYER_REQUEST,
   payload: [player_id],
+});
+
+export const getPlayersForSearch = () => ({
+  type: actions.GET_PLAYERS_FOR_SEARCH_REQUEST,
 });
 
 export const getFreeAgents = (season, country) => ({

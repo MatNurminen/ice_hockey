@@ -1,4 +1,4 @@
-import * as actions from './actions/index';
+import * as actions from './duck/actions';
 import queryString from 'query-string';
 import { fetchProtectedData } from './utils';
 

@@ -1,4 +1,6 @@
-import * as actions from '../actions';
+import * as actions from './actions';
+export const moduleName = 'search';
+
 const initialState = {
   searchPlayer: null,
 };
@@ -11,3 +13,8 @@ export default (state = initialState, action) => {
       return state;
   }
 };
+
+export const getSearchPlayer = (strSearch) => ({
+  type: actions.SEARCH_PLAYER_REQUEST,
+  payload: { strSearch },
+});
