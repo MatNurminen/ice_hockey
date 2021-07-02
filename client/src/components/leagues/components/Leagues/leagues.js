@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import styles from './styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -11,12 +11,6 @@ import { Link as RouterLink } from 'react-router-dom';
 import Link from '@material-ui/core/Link';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-
-const styles = (theme) => ({
-  logo: {
-    width: '20%',
-  },
-});
 
 function Leagues({ classes, leagues, getLeagues }) {
   useEffect(() => {
@@ -65,4 +59,4 @@ function Leagues({ classes, leagues, getLeagues }) {
   );
 }
 
-export default withStyles(styles)(Leagues);
+export default styles(Leagues);

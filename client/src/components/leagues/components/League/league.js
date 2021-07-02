@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -11,23 +10,15 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core/styles';
-import {
-  getLeague,
-  moduleName as leaguessModule,
-} from '../../store/duck/leagues';
-import {
-  getSeasons,
-  moduleName as seasonsModule,
-} from '../../store/duck/seasons';
-import ClubsByLeague from '../leagues/layout/clubsByLeague';
-import TableByLeague from '../leagues/layout/tableByLeague';
-import StatsByLeague from '../leagues/layout/statsByLeague';
-import CountriesByLeague from '../leagues/layout/countriesByLeague';
-import FactsByLeague from '../leagues/layout/factsByLeague';
-import ComparisonByLeague from '../leagues/layout/comparisonByLeague';
-import AllTimeByLeague from '../leagues/layout/statsAllTimeByLeague';
-import PerSeasonByLeague from '../leagues/layout/statsPerSeasonByLeague';
-import ChampsByLeague from '../leagues/layout/champsByLeague';
+import ClubsByLeague from './layout/clubsByLeague';
+import TableByLeague from './layout/tableByLeague';
+import StatsByLeague from './layout/statsByLeague';
+import CountriesByLeague from './layout/countriesByLeague';
+import FactsByLeague from './layout/factsByLeague';
+import ComparisonByLeague from './layout/comparisonByLeague';
+import AllTimeByLeague from './layout/statsAllTimeByLeague';
+import PerSeasonByLeague from './layout/statsPerSeasonByLeague';
+import ChampsByLeague from './layout/champsByLeague';
 
 const _ = require('underscore');
 
@@ -176,7 +167,7 @@ export class League extends Component {
                     </CardContent>
                   </Card>
                 </Container>
-                <TableByLeague />
+                <TableByLeague table={this.props.table} />
                 <hr className={classes.hr} />
                 <StatsByLeague
                   season={this.state.season}
@@ -203,11 +194,4 @@ export class League extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  seasons: state[seasonsModule].seasons,
-  league: state[leaguessModule].league,
-});
-
-export default connect(mapStateToProps, { getLeague, getSeasons })(
-  withStyles(styles)(League)
-);
+export default withStyles(styles)(League);

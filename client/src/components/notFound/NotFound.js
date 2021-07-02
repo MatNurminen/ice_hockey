@@ -1,19 +1,51 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import CardMedia from '@material-ui/core/CardMedia';
 
-import Navbar from '../layout/Navbar';
+const styles = (theme) => ({
+  root: {
+    padding: theme.spacing(4),
+    backgroundColor: '#063950',
+  },
+  text: {
+    color: '#fff',
+  },
+  media: {
+    height: 300,
+  },
+});
 
-export default class NotFound extends Component {
-  render() {
-    return (
-      <div>
-        <Navbar />
-        <div className='container text-center bg-white'>
-          <h1 className='pt-4'>OOF!</h1>
-          <h5>We are sorry, but you have reached this page in error.</h5>
-          <h5>404 Error - Page not found</h5>
-          <img className='error-img' alt='' src='/img/puck_spinning.gif'></img>
-        </div>
-      </div>
-    );
-  }
+function NotFound({ classes }) {
+  return (
+    <div className={classes.root}>
+      <Container>
+        <Grid container alignItems='center'>
+          <Grid item xs={1}></Grid>
+          <Grid item xs={4}>
+            <Typography className={classes.text} variant='h1'>
+              <Box fontWeight='fontWeightBold'>404</Box>
+            </Typography>
+            <Typography className={classes.text} variant='h4'>
+              Not found
+            </Typography>
+            <Typography className={classes.text}>
+              The link is broken or the page has been moved.
+            </Typography>
+          </Grid>
+          <Grid item sm={7} xs={0}>
+            <CardMedia
+              className={classes.media}
+              image='/img/puck_spinning.gif'
+            />
+          </Grid>
+        </Grid>
+      </Container>
+    </div>
+  );
 }
+
+export default withStyles(styles)(NotFound);

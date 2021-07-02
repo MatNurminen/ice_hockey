@@ -20,7 +20,7 @@ import {
   getYoungest,
   getShortest,
   getLightest,
-} from '../../../store/selectors/leagueStatsSelector';
+} from '../../../../../store/selectors/leagueStatsSelector';
 
 const styles = (theme) => ({
   root: {
@@ -58,15 +58,8 @@ export class FactsByLeague extends Component {
   }
 
   render() {
-    const {
-      oldest,
-      tallest,
-      heaviest,
-      youngest,
-      shortest,
-      lightest,
-      classes,
-    } = this.props;
+    const { oldest, tallest, heaviest, youngest, shortest, lightest, classes } =
+      this.props;
 
     if (!oldest) {
       return <h1>WAIT!</h1>;

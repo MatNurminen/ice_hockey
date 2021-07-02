@@ -16,10 +16,10 @@ import { Link as RouterLink } from 'react-router-dom';
 import Link from '@material-ui/core/Link';
 import { withStyles } from '@material-ui/core/styles';
 import {
-  getForwardsPerSeason,
-  getDefensemenPerSeason,
-  getGoaltendingPerSeason,
-} from '../../../store/selectors/leagueStatsSelector';
+  getForwards,
+  getDefensemen,
+  getGoaltending,
+} from '../../../../../store/selectors/leagueStatsSelector';
 
 const styles = (theme) => ({
   root: {
@@ -49,12 +49,8 @@ const styles = (theme) => ({
     width: '22px',
     marginRight: '10px',
   },
-  hr: {
-    marginTop: '20px',
-    marginBottom: '20px',
-  },
 });
-export class PerSeasonByLeague extends Component {
+export class StatsByLeague extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -65,21 +61,33 @@ export class PerSeasonByLeague extends Component {
   }
 
   render() {
-    const { forwards, defensemen, goaltending, classes } = this.props;
+    const { forwards, defensemen, goaltending, season, league_id, classes } =
+      this.props;
 
     if (!forwards) {
       return <h1>WAIT!</h1>;
     }
 
     return (
-      <div>
-        <Container>
+      <Container>
+        <Grid container spacing={2}>
           <Grid item xs={12}>
+            <Button
+              className={classes.btn}
+              variant='contained'
+              fullWidth
+              component={RouterLink}
+              to={'/rosters?league=' + league_id + '&year=' + season}
+            >
+              {season}-{season + 1} Teams Rosters
+            </Button>
+          </Grid>
+          <Grid item sm={4} xs={12}>
             <Card>
               <CardContent className={classes.rowHeader}>
                 <Typography className={classes.headText}>
                   <Box fontWeight='fontWeightBold'>
-                    League All-Time Forwards Stats Per Season
+                    {season}-{season + 1} Forwards Stats
                   </Box>
                 </Typography>
               </CardContent>
@@ -94,16 +102,6 @@ export class PerSeasonByLeague extends Component {
                     <TableCell>
                       <Typography className={classes.headText}>
                         <Box fontWeight='fontWeightBold'>Player</Box>
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography className={classes.headText}>
-                        <Box fontWeight='fontWeightBold'>Season</Box>
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography className={classes.headText}>
-                        <Box fontWeight='fontWeightBold'>Club</Box>
                       </Typography>
                     </TableCell>
                     <TableCell>
@@ -135,10 +133,6 @@ export class PerSeasonByLeague extends Component {
                           {stat.first_name} {stat.last_name} ({stat.pos})
                         </Link>
                       </TableCell>
-                      <TableCell>
-                        {stat.season}-{stat.season + 1}
-                      </TableCell>
-                      <TableCell>{stat.club}</TableCell>
                       <TableCell>{stat.games}</TableCell>
                       <TableCell>{stat.goals}</TableCell>
                     </TableRow>
@@ -152,15 +146,12 @@ export class PerSeasonByLeague extends Component {
               </Button>
             </Box>
           </Grid>
-        </Container>
-        <hr className={classes.hr} />
-        <Container>
-          <Grid item xs={12}>
+          <Grid item sm={4} xs={12}>
             <Card>
               <CardContent className={classes.rowHeader}>
                 <Typography className={classes.headText}>
                   <Box fontWeight='fontWeightBold'>
-                    League All-Time Defensemen Stats Per Season
+                    {season}-{season + 1} Defensemen Stats
                   </Box>
                 </Typography>
               </CardContent>
@@ -175,16 +166,6 @@ export class PerSeasonByLeague extends Component {
                     <TableCell>
                       <Typography className={classes.headText}>
                         <Box fontWeight='fontWeightBold'>Player</Box>
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography className={classes.headText}>
-                        <Box fontWeight='fontWeightBold'>Season</Box>
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography className={classes.headText}>
-                        <Box fontWeight='fontWeightBold'>Club</Box>
                       </Typography>
                     </TableCell>
                     <TableCell>
@@ -216,10 +197,6 @@ export class PerSeasonByLeague extends Component {
                           {stat.first_name} {stat.last_name} ({stat.pos})
                         </Link>
                       </TableCell>
-                      <TableCell>
-                        {stat.season}-{stat.season + 1}
-                      </TableCell>
-                      <TableCell>{stat.club}</TableCell>
                       <TableCell>{stat.games}</TableCell>
                       <TableCell>{stat.goals}</TableCell>
                     </TableRow>
@@ -233,15 +210,12 @@ export class PerSeasonByLeague extends Component {
               </Button>
             </Box>
           </Grid>
-        </Container>
-        <hr className={classes.hr} />
-        <Container>
-          <Grid item xs={12}>
+          <Grid item sm={4} xs={12}>
             <Card>
               <CardContent className={classes.rowHeader}>
                 <Typography className={classes.headText}>
                   <Box fontWeight='fontWeightBold'>
-                    League All-Time Goaltending Stats Per Season
+                    {season}-{season + 1} Goaltending Stats
                   </Box>
                 </Typography>
               </CardContent>
@@ -256,16 +230,6 @@ export class PerSeasonByLeague extends Component {
                     <TableCell>
                       <Typography className={classes.headText}>
                         <Box fontWeight='fontWeightBold'>Player</Box>
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography className={classes.headText}>
-                        <Box fontWeight='fontWeightBold'>Season</Box>
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography className={classes.headText}>
-                        <Box fontWeight='fontWeightBold'>Club</Box>
                       </Typography>
                     </TableCell>
                     <TableCell>
@@ -297,10 +261,6 @@ export class PerSeasonByLeague extends Component {
                           {stat.first_name} {stat.last_name} ({stat.pos})
                         </Link>
                       </TableCell>
-                      <TableCell>
-                        {stat.season}-{stat.season + 1}
-                      </TableCell>
-                      <TableCell>{stat.club}</TableCell>
                       <TableCell>{stat.games}</TableCell>
                       <TableCell>{stat.goals}</TableCell>
                     </TableRow>
@@ -314,16 +274,16 @@ export class PerSeasonByLeague extends Component {
               </Button>
             </Box>
           </Grid>
-        </Container>
-      </div>
+        </Grid>
+      </Container>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  forwards: getForwardsPerSeason(state),
-  defensemen: getDefensemenPerSeason(state),
-  goaltending: getGoaltendingPerSeason(state),
+  forwards: getForwards(state),
+  defensemen: getDefensemen(state),
+  goaltending: getGoaltending(state),
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(PerSeasonByLeague));
+export default connect(mapStateToProps)(withStyles(styles)(StatsByLeague));

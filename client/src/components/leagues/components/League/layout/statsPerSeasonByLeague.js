@@ -16,10 +16,10 @@ import { Link as RouterLink } from 'react-router-dom';
 import Link from '@material-ui/core/Link';
 import { withStyles } from '@material-ui/core/styles';
 import {
-  getForwardsAllTime,
-  getDefensemenAllTime,
-  getGoaltendingAllTime,
-} from '../../../store/selectors/leagueStatsSelector';
+  getForwardsPerSeason,
+  getDefensemenPerSeason,
+  getGoaltendingPerSeason,
+} from '../../../../..//store/selectors/leagueStatsSelector';
 
 const styles = (theme) => ({
   root: {
@@ -49,8 +49,12 @@ const styles = (theme) => ({
     width: '22px',
     marginRight: '10px',
   },
+  hr: {
+    marginTop: '20px',
+    marginBottom: '20px',
+  },
 });
-export class AllTimeByLeague extends Component {
+export class PerSeasonByLeague extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -68,14 +72,14 @@ export class AllTimeByLeague extends Component {
     }
 
     return (
-      <Container>
-        <Grid container spacing={2}>
-          <Grid item xs={4}>
+      <div>
+        <Container>
+          <Grid item xs={12}>
             <Card>
               <CardContent className={classes.rowHeader}>
                 <Typography className={classes.headText}>
                   <Box fontWeight='fontWeightBold'>
-                    League All-Time Forwards Stats
+                    League All-Time Forwards Stats Per Season
                   </Box>
                 </Typography>
               </CardContent>
@@ -90,6 +94,16 @@ export class AllTimeByLeague extends Component {
                     <TableCell>
                       <Typography className={classes.headText}>
                         <Box fontWeight='fontWeightBold'>Player</Box>
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography className={classes.headText}>
+                        <Box fontWeight='fontWeightBold'>Season</Box>
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography className={classes.headText}>
+                        <Box fontWeight='fontWeightBold'>Club</Box>
                       </Typography>
                     </TableCell>
                     <TableCell>
@@ -121,8 +135,12 @@ export class AllTimeByLeague extends Component {
                           {stat.first_name} {stat.last_name} ({stat.pos})
                         </Link>
                       </TableCell>
-                      <TableCell>{stat.allgm}</TableCell>
-                      <TableCell>{stat.allg}</TableCell>
+                      <TableCell>
+                        {stat.season}-{stat.season + 1}
+                      </TableCell>
+                      <TableCell>{stat.club}</TableCell>
+                      <TableCell>{stat.games}</TableCell>
+                      <TableCell>{stat.goals}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -134,12 +152,15 @@ export class AllTimeByLeague extends Component {
               </Button>
             </Box>
           </Grid>
-          <Grid item xs={4}>
+        </Container>
+        <hr className={classes.hr} />
+        <Container>
+          <Grid item xs={12}>
             <Card>
               <CardContent className={classes.rowHeader}>
                 <Typography className={classes.headText}>
                   <Box fontWeight='fontWeightBold'>
-                    League All-Time Defensemen Stats
+                    League All-Time Defensemen Stats Per Season
                   </Box>
                 </Typography>
               </CardContent>
@@ -154,6 +175,16 @@ export class AllTimeByLeague extends Component {
                     <TableCell>
                       <Typography className={classes.headText}>
                         <Box fontWeight='fontWeightBold'>Player</Box>
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography className={classes.headText}>
+                        <Box fontWeight='fontWeightBold'>Season</Box>
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography className={classes.headText}>
+                        <Box fontWeight='fontWeightBold'>Club</Box>
                       </Typography>
                     </TableCell>
                     <TableCell>
@@ -185,8 +216,12 @@ export class AllTimeByLeague extends Component {
                           {stat.first_name} {stat.last_name} ({stat.pos})
                         </Link>
                       </TableCell>
-                      <TableCell>{stat.allgm}</TableCell>
-                      <TableCell>{stat.allg}</TableCell>
+                      <TableCell>
+                        {stat.season}-{stat.season + 1}
+                      </TableCell>
+                      <TableCell>{stat.club}</TableCell>
+                      <TableCell>{stat.games}</TableCell>
+                      <TableCell>{stat.goals}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -198,12 +233,15 @@ export class AllTimeByLeague extends Component {
               </Button>
             </Box>
           </Grid>
-          <Grid item xs={4}>
+        </Container>
+        <hr className={classes.hr} />
+        <Container>
+          <Grid item xs={12}>
             <Card>
               <CardContent className={classes.rowHeader}>
                 <Typography className={classes.headText}>
                   <Box fontWeight='fontWeightBold'>
-                    League All-Time Goaltending Stats
+                    League All-Time Goaltending Stats Per Season
                   </Box>
                 </Typography>
               </CardContent>
@@ -218,6 +256,16 @@ export class AllTimeByLeague extends Component {
                     <TableCell>
                       <Typography className={classes.headText}>
                         <Box fontWeight='fontWeightBold'>Player</Box>
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography className={classes.headText}>
+                        <Box fontWeight='fontWeightBold'>Season</Box>
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography className={classes.headText}>
+                        <Box fontWeight='fontWeightBold'>Club</Box>
                       </Typography>
                     </TableCell>
                     <TableCell>
@@ -249,8 +297,12 @@ export class AllTimeByLeague extends Component {
                           {stat.first_name} {stat.last_name} ({stat.pos})
                         </Link>
                       </TableCell>
-                      <TableCell>{stat.allgm}</TableCell>
-                      <TableCell>{stat.allg}</TableCell>
+                      <TableCell>
+                        {stat.season}-{stat.season + 1}
+                      </TableCell>
+                      <TableCell>{stat.club}</TableCell>
+                      <TableCell>{stat.games}</TableCell>
+                      <TableCell>{stat.goals}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -262,16 +314,16 @@ export class AllTimeByLeague extends Component {
               </Button>
             </Box>
           </Grid>
-        </Grid>
-      </Container>
+        </Container>
+      </div>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  forwards: getForwardsAllTime(state),
-  defensemen: getDefensemenAllTime(state),
-  goaltending: getGoaltendingAllTime(state),
+  forwards: getForwardsPerSeason(state),
+  defensemen: getDefensemenPerSeason(state),
+  goaltending: getGoaltendingPerSeason(state),
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(AllTimeByLeague));
+export default connect(mapStateToProps)(withStyles(styles)(PerSeasonByLeague));

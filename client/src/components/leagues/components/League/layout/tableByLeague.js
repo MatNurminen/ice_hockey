@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -12,7 +11,6 @@ import TableRow from '@material-ui/core/TableRow';
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@material-ui/core/Link';
 import { withStyles } from '@material-ui/core/styles';
-import { moduleName as leaguesModule } from '../../../store/duck/leagues';
 
 const styles = (theme) => ({
   root: {
@@ -137,8 +135,4 @@ export class TableByLeague extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  table: state[leaguesModule].tableByLeague,
-});
-
-export default connect(mapStateToProps)(withStyles(styles)(TableByLeague));
+export default withStyles(styles)(TableByLeague);

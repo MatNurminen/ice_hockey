@@ -4,7 +4,7 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { withStyles } from '@material-ui/core/styles';
-import { moduleName as leaguesModule } from '../../../store/duck/leagues';
+import { moduleName as leaguesModule } from '../../../../../store/duck/leagues';
 
 const styles = (theme) => ({
   headText: {

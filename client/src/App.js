@@ -5,12 +5,13 @@ import { Switch, Route } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/styles';
 import theme from './components/ui/Theme';
 
+import NotFound from './components/notFound/notFound';
 import Main from './components/Main';
 import Login from './components/login/Login';
 import Roster from './components/Roster';
 import PlayerDetail from './components/players/PlayerDetail';
-import Leagues from './components/leagues';
-import League from './components/leagues/league';
+import Leagues from './components/leagues/components/Leagues';
+import League from './components/leagues/components/League';
 import Countries from './components/countries/countries';
 import Country from './components/countries/country';
 import Club from './components/clubs/club';
@@ -54,7 +55,7 @@ class App extends Component {
           <Route exact path='/reports/leagues' component={LeaguesReport} />
           <Route exact path='/reports/workbook' component={WorkBookPlayers} />
 
-          <Route path='*'>404</Route>
+          <Route path='*' component={NotFound} />
         </Switch>
         <Footer />
       </ThemeProvider>
