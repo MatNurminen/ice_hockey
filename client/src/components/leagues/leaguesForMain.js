@@ -48,8 +48,9 @@ export class leaguesForMain extends Component {
           </Typography>
         </div>
         <List aria-label='secondary mailbox folders'>
-          {leagues.map((league) => (
+          {leagues.map((league, key) => (
             <ListItem
+              key={key}
               button
               component={RouterLink}
               to={`/leagues/${league.league_id}`}

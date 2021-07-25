@@ -1,8 +1,8 @@
 import React, { useEffect, useCallback } from 'react';
+import styles from './styles';
 import { connect } from 'react-redux';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/core/styles';
 import { Pie } from 'react-chartjs-2';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -19,35 +19,11 @@ import Typography from '@material-ui/core/Typography';
 import {
   getSeasons,
   moduleName as seasonsModule,
-} from '../../store/duck/seasons';
+} from '../../../../../store/duck/seasons';
 import {
   getCountryByLeague,
   moduleName as countriesModule,
-} from '../../store/duck/countries';
-
-const styles = (theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  tableHead: {
-    backgroundColor: '#0b3548',
-  },
-  headText: {
-    color: '#ffffff',
-  },
-  totalRow: {
-    backgroundColor: '#ca3136',
-    color: '#ffffff',
-  },
-  tblMargin: {
-    marginTop: 20,
-    marginBottom: 30,
-  },
-});
+} from '../../../../../store/duck/countries';
 
 export const CountryChart = (props) => {
   const {
@@ -113,10 +89,8 @@ export const CountryChart = (props) => {
               <InputLabel id='season-label'>Season</InputLabel>
               <Select
                 labelId='season-label'
-                //id="demo-simple-select"
                 defaultValue={2020}
                 value={season}
-                //onChange={handleChange}
                 onChange={seasonChange}
               >
                 {seasons.map((season, id) => (
@@ -184,5 +158,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { getSeasons, getCountryByLeague })(
-  withStyles(styles)(CountryChart)
+  styles(CountryChart)
 );

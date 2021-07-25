@@ -1,21 +1,13 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import styles from './styles';
 
-import LeagueForMain from './leagues/leaguesForMain';
-import MainCards from './layout/mainCards';
+import LeagueForMain from '../../../leagues/leaguesForMain';
+import MainCards from './layout/MainCards';
 
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-}));
-
-export default function Main() {
-  const classes = useStyles();
-
+function Main({ classes }) {
   return (
     <Container>
       <div className={classes.root}>
@@ -31,3 +23,5 @@ export default function Main() {
     </Container>
   );
 }
+
+export default styles(Main);

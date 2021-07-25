@@ -72,7 +72,6 @@ const styles = (theme) => ({
   btn: {
     backgroundColor: '#00a651',
     color: '#fff',
-    textTransform: 'uppercase',
     fontWeight: 'bold',
     '&:hover': {
       background: '#118442',

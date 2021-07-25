@@ -6,19 +6,19 @@ import { ThemeProvider } from '@material-ui/styles';
 import theme from './components/ui/Theme';
 
 import NotFound from './components/notFound/notFound';
-import Main from './components/Main';
+import Main from './components/main/components/Main/Main';
 import Login from './components/login/Login';
-import Roster from './components/Roster';
+import Roster from './components/roster/components/Roster';
 import PlayerDetail from './components/players/PlayerDetail';
 import Leagues from './components/leagues/components/Leagues';
 import League from './components/leagues/components/League';
-import Countries from './components/countries/countries';
-import Country from './components/countries/country';
+import Countries from './components/countries/components/Countries';
+import Country from './components/countries/components/Country';
 import Club from './components/clubs/club';
-import AddPlayer from './components/players/addPlayer';
-import AdminNavbar from './components/layout/AdminNavbar';
-import Navbar from './components/layout/Navbar';
-import Footer from './components/layout/Footer';
+import AddPlayer from './components/players/components/AddPlayer';
+import AdminNavbar from './components/layout/components/AdminNavbar';
+import Navbar from './components/layout/components/Navbar';
+import Footer from './components/layout/components/Footer';
 import Players from './components/players/players';
 import FreeAgents from './components/players/FreeAgents';
 

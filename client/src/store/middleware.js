@@ -65,6 +65,12 @@ const actionMap = (params = []) => {
       method: 'get',
       selector: (data) => data,
     },
+    [actions.ADD_PLAYER_REQUEST]: {
+      url: `/api/players/create/new`,
+      method: 'post',
+      body: params[0],
+      selector: (data) => data,
+    },
 
     [actions.GET_ROSTERS_REQUEST]: {
       url: `/api/rosters/${urlModify}`,
@@ -94,13 +100,6 @@ const actionMap = (params = []) => {
     [actions.DELETE_PLAYER_FROM_ROSTER_REQUEST]: {
       url: `/api/rosters/${urlModify}`,
       method: 'delete',
-      selector: (data) => data,
-    },
-
-    [actions.ADD_PLAYER_REQUEST]: {
-      url: `/api/players/create/new`,
-      method: 'post',
-      body: params,
       selector: (data) => data,
     },
   };

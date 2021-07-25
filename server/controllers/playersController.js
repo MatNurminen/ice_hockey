@@ -27,8 +27,16 @@ const sqlChampsStats = {
 };
 
 const sqlAddPlayer = {
-  text: `INSERT INTO player (name, num, pos, country_id, birth, height, weight, pos_num) \
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
+  text: `INSERT INTO player (first_name, last_name, num, pos, country_id, 
+    birth, height, weight, pos_num, start_year, end_year)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
+};
+
+const sqlEditPlayer = {
+  text: `UPDATE player SET (first_name, last_name, num, pos, country_id, 
+    birth, height, weight, pos_num, start_year, end_year)
+    = ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+    WHERE player_id = $12`,
 };
 
 const get_players = async (req, res) => {
@@ -51,11 +59,9 @@ const get_players_for_search = async (req, res) => {
 };
 
 const add_player = async (req, res) => {
-  const { name, num, pos, country_id, birth, height, weight, pos_num } =
-    req.body;
-
-  const addPlayer = await pool.query(sqlAddPlayer, [
-    name,
+  const {
+    first_name,
+    last_name,
     num,
     pos,
     country_id,
@@ -63,8 +69,56 @@ const add_player = async (req, res) => {
     height,
     weight,
     pos_num,
-  ]);
+    start_year,
+    end_year,
+  } = req.body;
+
+  const body = Object.assign({}, req.body, {
+    num: Number(req.body.num),
+    country_id: Number(req.body.country_id),
+    birth: Number(req.body.birth),
+    height: Number(req.body.height),
+    weight: Number(req.body.weight),
+    pos_num: Number(req.body.pos_num),
+    start_year: Number(req.body.start_year),
+    end_year: Number(req.body.end_year),
+  });
+
+  const addPlayer = await pool.query(sqlAddPlayer, Object.values(body));
   res.json(addPlayer);
+};
+
+const edit_player = async (req, res) => {
+  const {
+    first_name,
+    last_name,
+    num,
+    pos,
+    country_id,
+    birth,
+    height,
+    weight,
+    pos_num,
+    start_year,
+    end_year,
+  } = req.body;
+
+  const body = Object.assign({}, req.body, {
+    num: Number(req.body.num),
+    country_id: Number(req.body.country_id),
+    birth: Number(req.body.birth),
+    height: Number(req.body.height),
+    weight: Number(req.body.weight),
+    pos_num: Number(req.body.pos_num),
+    start_year: Number(req.body.start_year),
+    end_year: Number(req.body.end_year),
+    player_id: req.params.player_id,
+  });
+  const editPlayer = await pool.query(sqlEditPlayer, Object.values(body));
+  res.json(
+    //'TEST'
+    [req.params.player_id]
+  );
 };
 
 module.exports = {
@@ -72,4 +126,5 @@ module.exports = {
   get_player_by_id,
   get_players_for_search,
   add_player,
+  edit_player,
 };
