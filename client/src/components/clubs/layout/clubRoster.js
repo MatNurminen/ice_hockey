@@ -142,7 +142,7 @@ export class ClubRoster extends Component {
                 <TableRow key={index}>
                   <TableCell>{pl.num}</TableCell>
                   <TableCell align='center'>
-                    <img alt='' src={'/' + pl.flag} width='25'></img>
+                    <img alt='' src={pl.flag} width='25'></img>
                   </TableCell>
                   <TableCell>
                     <Link
@@ -171,7 +171,7 @@ export class ClubRoster extends Component {
                 <TableRow key={index}>
                   <TableCell>{pl.num}</TableCell>
                   <TableCell align='center'>
-                    <img alt='' src={'/' + pl.flag} width='25'></img>
+                    <img alt='' src={pl.flag} width='25'></img>
                   </TableCell>
                   <TableCell>
                     <Link
@@ -200,7 +200,7 @@ export class ClubRoster extends Component {
                 <TableRow key={index}>
                   <TableCell>{pl.num}</TableCell>
                   <TableCell align='center'>
-                    <img alt='' src={'/' + pl.flag} width='25'></img>
+                    <img alt='' src={pl.flag} width='25'></img>
                   </TableCell>
                   <TableCell>
                     <Link

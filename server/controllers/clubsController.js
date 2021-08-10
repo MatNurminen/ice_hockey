@@ -26,6 +26,14 @@ const sqlClubHistory = {
       WHERE club_id = $1 ORDER BY season`,
 };
 
+const sqlValidClubsByLeague = {
+  text: `SELECT club.*, club_logo.*, league.* FROM club
+      INNER JOIN club_logo ON club.club_id = club_logo.club_id
+      INNER JOIN league ON club.league_id = league.league_id
+      WHERE league.league_id = $1 AND club.end_year ISNULL AND club_logo.end_year ISNULL
+      ORDER BY club.club`,
+};
+
 const get_clubs = async (req, res) => {
   const allClubs = await pool.query(sqlClubs);
   res.json(allClubs.rows);
@@ -45,4 +53,15 @@ const get_club_by_id_and_season = async (req, res) => {
   });
 };
 
-module.exports = { get_clubs, get_club_by_id_and_season };
+const get_validclubs_by_league = async (req, res) => {
+  const validClubs = await pool.query(sqlValidClubsByLeague, [
+    req.query.league_id,
+  ]);
+  res.json(validClubs.rows);
+};
+
+module.exports = {
+  get_clubs,
+  get_club_by_id_and_season,
+  get_validclubs_by_league,
+};

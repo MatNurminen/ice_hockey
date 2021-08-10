@@ -123,11 +123,7 @@ export class PerSeasonByLeague extends Component {
                     <TableRow key={index}>
                       <TableCell>{index + 1}</TableCell>
                       <TableCell>
-                        <img
-                          className={classes.flag}
-                          src={'/' + stat.flag}
-                          alt=''
-                        />
+                        <img className={classes.flag} src={stat.flag} alt='' />
                         <Link
                           component={RouterLink}
                           to={'/players/' + stat.player_id}
@@ -204,11 +200,7 @@ export class PerSeasonByLeague extends Component {
                     <TableRow key={index}>
                       <TableCell>{index + 1}</TableCell>
                       <TableCell>
-                        <img
-                          className={classes.flag}
-                          src={'/' + stat.flag}
-                          alt=''
-                        />
+                        <img className={classes.flag} src={stat.flag} alt='' />
                         <Link
                           component={RouterLink}
                           to={'/players/' + stat.player_id}
@@ -285,11 +277,7 @@ export class PerSeasonByLeague extends Component {
                     <TableRow key={index}>
                       <TableCell>{index + 1}</TableCell>
                       <TableCell>
-                        <img
-                          className={classes.flag}
-                          src={'/' + stat.flag}
-                          alt=''
-                        />
+                        <img className={classes.flag} src={stat.flag} alt='' />
                         <Link
                           component={RouterLink}
                           to={'/players/' + stat.player_id}

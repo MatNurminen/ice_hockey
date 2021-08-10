@@ -8,6 +8,7 @@ import clubsReducer, { moduleName as clubsModule } from './clubs';
 import playersReducer, { moduleName as playersModule } from './players';
 import rostersReducer, { moduleName as rostersModule } from './rosters';
 import searchReducer, { moduleName as searchModule } from './search';
+import champsReducer, { moduleName as champsModule } from './champs';
 
 export default combineReducers({
   [authModule]: authReducer,
@@ -18,4 +19,5 @@ export default combineReducers({
   [playersModule]: playersReducer,
   [rostersModule]: rostersReducer,
   [searchModule]: searchReducer,
+  [champsModule]: champsReducer,
 });

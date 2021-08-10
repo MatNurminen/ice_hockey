@@ -48,6 +48,11 @@ const actionMap = (params = []) => {
       method: 'get',
       selector: (data) => data,
     },
+    [actions.GET_VALIDCLUBS_REQUEST]: {
+      url: `/api/clubs/validclubs/${urlModify}`,
+      method: 'get',
+      selector: (data) => data,
+    },
 
     [actions.GET_FREE_AGENTS_REQUEST]: {
       url: `/api/freeagents/${urlModify}`,
@@ -67,6 +72,12 @@ const actionMap = (params = []) => {
     },
     [actions.ADD_PLAYER_REQUEST]: {
       url: `/api/players/create/new`,
+      method: 'post',
+      body: params[0],
+      selector: (data) => data,
+    },
+    [actions.EDIT_PLAYER_REQUEST]: {
+      url: `/api/players/`,
       method: 'post',
       body: params[0],
       selector: (data) => data,
@@ -102,6 +113,11 @@ const actionMap = (params = []) => {
       method: 'delete',
       selector: (data) => data,
     },
+    [actions.GET_CHAMP_BY_SEASON_AND_LEAGUE_REQUEST]: {
+      url: `/api/champs/${urlModify}`,
+      method: 'get',
+      selector: (data) => data,
+    },
   };
 };
 
@@ -123,6 +139,7 @@ export const fetchMiddleware = (storeAPI) => (next) => (action) => {
             type: action.type.replace('REQUEST', 'SUCCESS'),
             payload: mapValue.selector(data),
           });
+          action.callback && action.callback(mapValue.selector(data));
         },
         (error) => {
           storeAPI.dispatch({

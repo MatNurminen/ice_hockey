@@ -20,6 +20,6 @@ router.get('/playerForSearch', get_players_for_search);
 
 router.post('/create/new', add_player);
 
-router.post('/:player_id', edit_player);
+router.post('/', edit_player);
 
 module.exports = router;

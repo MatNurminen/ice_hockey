@@ -31,7 +31,7 @@ function AdminNavbar({ classes }) {
     },
     { label: 'Edit Player', path: '/players', icon: <HowToRegIcon /> },
     { label: 'Add Roster', path: '', icon: <GroupAddIcon /> },
-    { label: 'Add Tournament', path: '', icon: <PostAddIcon /> },
+    { label: 'Add Championship', path: '/champ', icon: <PostAddIcon /> },
   ];
 
   const tabs = (

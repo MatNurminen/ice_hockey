@@ -16,6 +16,7 @@ import {
 import Roster from './roster';
 
 const mapStateToProps = (state) => ({
+  error: state[authModule].error,
   clubs: state[rostersModule].clubsByRoster,
   rosters: state[rostersModule].rosters,
   players: state[playerssModule].players,

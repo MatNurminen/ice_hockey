@@ -17,10 +17,16 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 
-import TokenButton from '../../../layout/TokenButton';
+import TokenButton from '../../../layout/wrappers/TokenButton';
 import Search from '../../../layout/Search';
 
 const queryString = require('query-string');
+
+const playerFormaterByRoster = (players, rosterClubId) => {
+  return players
+    .filter((f) => f.club_id === rosterClubId)
+    .sort((a, b) => a.pos_num - b.pos_num);
+};
 
 export const Roster = (props) => {
   const { classes, rosters, clubs, getRosters, deletePlayerFromRoster } = props;
@@ -153,41 +159,43 @@ export const Roster = (props) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rosters.map((roster) =>
-                    roster.club_id === club.club_id ? (
-                      <TableRow className={classes.tblRow}>
-                        <TableCell align='center'>{roster.pos}</TableCell>
-                        <TableCell align='center'>{roster.num}</TableCell>
-                        <TableCell width='60%'>
-                          <Link
-                            component={RouterLink}
-                            to={'/players/' + roster.pl_id}
-                          >
-                            {roster.first_name} {roster.last_name}
-                          </Link>
-                        </TableCell>
-                        <TableCell align='center'>
-                          <img alt='' src={roster.flag} width='30'></img>
-                        </TableCell>
-                        <TableCell align='center'>{roster.birth}</TableCell>
-                        <TableCell align='center'>{roster.age}</TableCell>
-                        <TableCell align='center'>{roster.height}</TableCell>
-                        <TableCell align='center'>{roster.weight}</TableCell>
-                        <TableCell align='center'>
-                          <TokenButton>
-                            <Button
-                              variant='contained'
-                              color='secondary'
-                              onClick={() =>
-                                deletePlayerFromRoster(roster.championship_id)
-                              }
+                  {playerFormaterByRoster(rosters, club.club_id).map(
+                    (roster) => {
+                      return (
+                        <TableRow className={classes.tblRow}>
+                          <TableCell align='center'>{roster.pos}</TableCell>
+                          <TableCell align='center'>{roster.num}</TableCell>
+                          <TableCell width='60%'>
+                            <Link
+                              component={RouterLink}
+                              to={'/players/' + roster.pl_id}
                             >
-                              Delete
-                            </Button>
-                          </TokenButton>
-                        </TableCell>
-                      </TableRow>
-                    ) : null
+                              {roster.first_name} {roster.last_name}
+                            </Link>
+                          </TableCell>
+                          <TableCell align='center'>
+                            <img alt='' src={roster.flag} width='30'></img>
+                          </TableCell>
+                          <TableCell align='center'>{roster.birth}</TableCell>
+                          <TableCell align='center'>{roster.age}</TableCell>
+                          <TableCell align='center'>{roster.height}</TableCell>
+                          <TableCell align='center'>{roster.weight}</TableCell>
+                          <TableCell align='center'>
+                            <TokenButton>
+                              <Button
+                                variant='contained'
+                                color='secondary'
+                                onClick={() =>
+                                  deletePlayerFromRoster(roster.championship_id)
+                                }
+                              >
+                                Delete
+                              </Button>
+                            </TokenButton>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    }
                   )}
                 </TableBody>
               </Table>

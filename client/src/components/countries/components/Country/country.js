@@ -34,11 +34,7 @@ export const Country = (props) => {
               <Grid align='center' item sm={6}>
                 <Grid alignItems='center' container direction='row'>
                   <Grid align='center' item xs={2}>
-                    <img
-                      className={classes.img}
-                      src={'../' + onecountry.flag}
-                      alt=''
-                    />
+                    <img className={classes.img} src={onecountry.flag} alt='' />
                   </Grid>
                   <Grid item xs={4}>
                     <Typography variant='h4'>

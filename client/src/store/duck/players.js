@@ -24,6 +24,8 @@ export default (state = initialState, action) => {
       return { ...state, freeagents: action.payload };
     case actions.ADD_PLAYER_SUCCESS:
       return { ...state, players: null };
+    case actions.EDIT_PLAYER_SUCCESS:
+      return { ...state, playerById: action.payload };
     default:
       return state;
   }
@@ -45,7 +47,14 @@ export const getFreeAgents = (season, country) => ({
   payload: { season, country },
 });
 
-export const createPlayer = (player) => ({
+export const createPlayer = (player, callback) => ({
   type: actions.ADD_PLAYER_REQUEST,
   payload: [player],
+  callback,
+});
+
+export const editPlayer = (player, player_id, callback) => ({
+  type: actions.EDIT_PLAYER_REQUEST,
+  payload: [{ ...player, player_id }],
+  callback,
 });

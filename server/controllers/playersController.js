@@ -29,14 +29,16 @@ const sqlChampsStats = {
 const sqlAddPlayer = {
   text: `INSERT INTO player (first_name, last_name, num, pos, country_id, 
     birth, height, weight, pos_num, start_year, end_year)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+    RETURNING player_id`,
 };
 
 const sqlEditPlayer = {
   text: `UPDATE player SET (first_name, last_name, num, pos, country_id, 
     birth, height, weight, pos_num, start_year, end_year)
     = ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
-    WHERE player_id = $12`,
+    WHERE player_id = $12
+    RETURNING *`,
 };
 
 const get_players = async (req, res) => {
@@ -58,67 +60,30 @@ const get_players_for_search = async (req, res) => {
   res.json(PlayerForSearch.rows);
 };
 
-const add_player = async (req, res) => {
-  const {
-    first_name,
-    last_name,
-    num,
-    pos,
-    country_id,
-    birth,
-    height,
-    weight,
-    pos_num,
-    start_year,
-    end_year,
-  } = req.body;
-
-  const body = Object.assign({}, req.body, {
-    num: Number(req.body.num),
-    country_id: Number(req.body.country_id),
-    birth: Number(req.body.birth),
-    height: Number(req.body.height),
-    weight: Number(req.body.weight),
-    pos_num: Number(req.body.pos_num),
-    start_year: Number(req.body.start_year),
-    end_year: Number(req.body.end_year),
+const playerFormater = (player) => {
+  return Object.assign(player, {
+    num: Number(player.num),
+    country_id: Number(player.country_id),
+    birth: Number(player.birth),
+    height: Number(player.height),
+    weight: Number(player.weight),
+    pos_num: Number(player.pos_num),
+    start_year: Number(player.start_year),
+    end_year: Number(player.end_year),
   });
+};
 
-  const addPlayer = await pool.query(sqlAddPlayer, Object.values(body));
-  res.json(addPlayer);
+const add_player = async (req, res) => {
+  const body = playerFormater(req.body);
+  const { rows } = await pool.query(sqlAddPlayer, Object.values(body));
+  res.json(rows);
 };
 
 const edit_player = async (req, res) => {
-  const {
-    first_name,
-    last_name,
-    num,
-    pos,
-    country_id,
-    birth,
-    height,
-    weight,
-    pos_num,
-    start_year,
-    end_year,
-  } = req.body;
-
-  const body = Object.assign({}, req.body, {
-    num: Number(req.body.num),
-    country_id: Number(req.body.country_id),
-    birth: Number(req.body.birth),
-    height: Number(req.body.height),
-    weight: Number(req.body.weight),
-    pos_num: Number(req.body.pos_num),
-    start_year: Number(req.body.start_year),
-    end_year: Number(req.body.end_year),
-    player_id: req.params.player_id,
-  });
-  const editPlayer = await pool.query(sqlEditPlayer, Object.values(body));
-  res.json(
-    //'TEST'
-    [req.params.player_id]
-  );
+  const body = playerFormater(req.body);
+  await pool.query(sqlEditPlayer, Object.values(body));
+  const { rows } = await pool.query(sqlPlayerById, [body.player_id]);
+  res.json(rows);
 };
 
 module.exports = {

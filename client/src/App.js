@@ -9,18 +9,19 @@ import NotFound from './components/notFound/notFound';
 import Main from './components/main/components/Main/Main';
 import Login from './components/login/Login';
 import Roster from './components/roster/components/Roster';
-import PlayerDetail from './components/players/PlayerDetail';
+import PlayerDetail from './components/players/components/PlayerDetail';
 import Leagues from './components/leagues/components/Leagues';
 import League from './components/leagues/components/League';
 import Countries from './components/countries/components/Countries';
 import Country from './components/countries/components/Country';
 import Club from './components/clubs/club';
-import AddPlayer from './components/players/components/AddPlayer';
+import PlayerForm from './components/players/components/PlayerForm';
 import AdminNavbar from './components/layout/components/AdminNavbar';
 import Navbar from './components/layout/components/Navbar';
 import Footer from './components/layout/components/Footer';
 import Players from './components/players/players';
-import FreeAgents from './components/players/FreeAgents';
+import FreeAgents from './components/players/components/FreeAgents';
+import EditChamp from './components/champs/components/EditChamp';
 
 import LeaguesReport from './reports/leagues';
 import WorkBookPlayers from './reports/workbook';
@@ -38,7 +39,8 @@ class App extends Component {
 
           <Route exact path='/players' component={Players} />
           <Route exact path='/players/:player_id' component={PlayerDetail} />
-          <Route exact path='/players/create/new' component={AddPlayer} />
+          <Route exact path='/players/create/new' component={PlayerForm} />
+          <Route exact path='/players/:player_id/edit' component={PlayerForm} />
 
           <Route exact path='/leagues' component={Leagues} />
           <Route exact path='/leagues/:league_id' component={League} />
@@ -54,6 +56,8 @@ class App extends Component {
 
           <Route exact path='/reports/leagues' component={LeaguesReport} />
           <Route exact path='/reports/workbook' component={WorkBookPlayers} />
+
+          <Route exact path='/champ' component={EditChamp} />
 
           <Route path='*' component={NotFound} />
         </Switch>

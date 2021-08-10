@@ -21,6 +21,10 @@ const styles = (theme) => ({
       width: '12ch',
     },
   },
+  img: {
+    height: 40,
+    marginLeft: -115,
+  },
   buttons: {
     '& > *': {
       marginTop: theme.spacing(2),

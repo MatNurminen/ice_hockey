@@ -67,6 +67,8 @@ const Season = require('./routes/season');
 app.use('/api/season', Season);
 const Search = require('./routes/search');
 app.use('/api/search', Search);
+const Champs = require('./routes/champs');
+app.use('/api/champs', Champs);
 const Auth = require('./routes/auth');
 const { send } = require('process');
 const { log } = require('console');

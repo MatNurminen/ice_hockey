@@ -8,11 +8,10 @@ export const fetchProtectedData =
       JSON.parse(window.localStorage.getItem('user')).token;
     const header = token ? { Authorization: 'Bearer ' + token } : {};
     axios({
-      data: data,
+      data: data || body,
       headers: header,
       url: url,
       method: method,
-      data: body,
     })
       .then(({ data }) => {
         callback(data);

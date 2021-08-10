@@ -50,7 +50,7 @@ export class CountriesByLeague extends Component {
         <List dense={true}>
           {countries.map((country) => (
             <ListItem>
-              <img className={classes.flag} src={'/' + country.flag} alt='' />
+              <img className={classes.flag} src={country.flag} alt='' />
               {country.count} players
             </ListItem>
           ))}
