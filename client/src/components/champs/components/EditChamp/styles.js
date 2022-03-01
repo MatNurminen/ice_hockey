@@ -5,7 +5,11 @@ const styles = (theme) => ({
     margin: theme.spacing(3),
     minWidth: 140,
   },
-  clubsLabel: {
+  clubsLeftLabel: {
+    marginTop: theme.spacing(3),
+    marginLeft: theme.spacing(3),
+  },
+  clubsRightLabel: {
     marginLeft: theme.spacing(3),
   },
 });

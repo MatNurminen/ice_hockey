@@ -87,16 +87,16 @@ export const EditChampionship = (props) => {
     return <h1>WAIT!</h1>;
   }
 
-  //   const handleToggle = (value) => () => {
-  //     const currentIndex = checked.indexOf(value);
-  //     const newChecked = [...checked];
-  //     if (currentIndex === -1) {
-  //       newChecked.push(value);
-  //     } else {
-  //       newChecked.splice(currentIndex, 1);
-  //     }
-  //     setChecked(newChecked);
-  //   };
+  const handleToggle = (value) => () => {
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+    setChecked(newChecked);
+  };
 
   //   const numberOfChecked = (items) => intersection(checked, items).length;
 
@@ -131,24 +131,24 @@ export const EditChampionship = (props) => {
       />
       <Divider />
       <List className={classes.list} dense component='div' role='list'>
-        {leagues.map((league) => {
-          const labelId = `transfer-list-all-item-${league.s_name}-label`;
+        {validclubs.map((validclub) => {
+          const labelId = `transfer-list-all-item-${validclub.club}-label`;
           return (
             <ListItem
-              key={league.league_id}
+              key={validclub.club_id}
               role='listitem'
               button
               //onClick={handleToggle(value)}
             >
               <ListItemIcon>
                 <Checkbox
-                  checked={checked.indexOf(league.league_id) !== -1}
+                  checked={checked.indexOf(validclub.club_id) !== -1}
                   tabIndex={-1}
                   disableRipple
                   inputProps={{ 'aria-labelledby': labelId }}
                 />
               </ListItemIcon>
-              <ListItemText id={labelId} primary={league.name} />
+              <ListItemText id={labelId} primary={validclub.club} />
             </ListItem>
           );
         })}
@@ -213,24 +213,12 @@ export const EditChampionship = (props) => {
       <Paper>
         <Grid container>
           <Grid item xs={6}>
-            <FormControl className={classes.formControl}>
-              <InputLabel id='league-label'>League</InputLabel>
-              <Select
-                labelId='league-label'
-                value={league}
-                //onChange={countryChange}
-              >
-                <MenuItem value=''>
-                  <em>None</em>
-                </MenuItem>
-                {leagues.map((league, id) => (
-                  <MenuItem key={id} value={league.league_id}>
-                    {league.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            {customListLeft('Choices', leagues)}
+            <Grid item className={classes.clubsLeftLabel} xs={6}>
+              <Typography variant='body2'>
+                Clubs: {validclubs.length}
+              </Typography>
+            </Grid>
+            {customListLeft('Choices', validclubs)}
           </Grid>
           <Grid item xs={6}>
             <FormControl className={classes.formControl}>
@@ -263,7 +251,7 @@ export const EditChampionship = (props) => {
                 ))}
               </Select>
             </FormControl>
-            <Grid item className={classes.clubsLabel} xs={6}>
+            <Grid item className={classes.clubsRightLabel} xs={6}>
               <Typography variant='body2'>Clubs: {clubs.length}</Typography>
             </Grid>
             {customListRight('Choices', clubs)}

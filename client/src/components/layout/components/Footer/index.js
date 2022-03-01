@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './styles';
-import { Link } from 'react-router-dom';
+//import { Link as RouterLink } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
@@ -25,8 +25,13 @@ function Footer({ classes }) {
         <Grid item className={classes.gridItem}>
           <Grid container direction='column' spacing={2}>
             <Grid item className={classes.link}>
-              <Button component={Link} to='/'>
-                <img className={classes.logo} alt='' src='/img/b_logo.png' />
+              {/* <Button component={RouterLink} to='/'> */}
+              <Button to='/'>
+                <img
+                  className={classes.logo}
+                  alt='logo'
+                  src='/img/b_logo.png'
+                />
               </Button>
             </Grid>
           </Grid>
@@ -34,12 +39,13 @@ function Footer({ classes }) {
         {gridItems.map((item, key) => (
           <Grid key={key} item className={classes.gridItem}>
             <Grid container direction='column' spacing={2}>
-              <Grid
-                component={Link}
+              {/* <Grid
+                component={RouterLink}
                 to={item.path}
                 item
                 className={classes.link}
-              >
+              > */}
+              <Grid to={item.path} item className={classes.link}>
                 {item.label}
               </Grid>
             </Grid>
