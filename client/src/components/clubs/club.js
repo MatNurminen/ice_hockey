@@ -23,6 +23,7 @@ import ClubHistory from '../clubs/layout/clubHistory';
 
 export const Club = (props) => {
   const { classes, seasons, club, getSeasons, getClub } = props;
+  const defaultClub_id = props.match.params.club_id;
   const season = 2020;
   // constructor(props) {
   //   super(props);
@@ -40,6 +41,7 @@ export const Club = (props) => {
   // }
 
   useEffect(() => {
+    //getClub(defaultClub_id);
     getSeasons();
   }, [getSeasons]);
 

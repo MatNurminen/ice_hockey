@@ -32,6 +32,7 @@ export const PlayerDetail = (props) => {
   }
 
   const player = playerById[0];
+  console.log('test', player);
 
   return (
     <Container>
@@ -142,6 +143,17 @@ export const PlayerDetail = (props) => {
                         <TableCell>
                           <Box className={classes.boxTblItem}>
                             {player.weight}
+                          </Box>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          <Box className={classes.boxTable}>Draft</Box>
+                        </TableCell>
+                        <TableCell>
+                          <Box className={classes.boxTblItem}>
+                            <img width='20' alt='' src={player.draftlogo} />
+                            {player.draftclub}
                           </Box>
                         </TableCell>
                       </TableRow>

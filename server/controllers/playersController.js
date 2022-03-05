@@ -11,8 +11,11 @@ const sqlPlayerForSearch = {
 
 const sqlPlayerById = {
   text: `SELECT player.*, EXTRACT(YEAR FROM current_date)-player.birth AS age,
-      country.name, country.flag, country.jersey FROM player
+      country.name, country.flag, country.jersey, club.club as draftclub, 
+      club_logo.logo as draftlogo FROM player
       INNER JOIN country ON player.country_id = country.country_id
+      LEFT JOIN club ON player.draft = club.club_id
+      LEFT JOIN club_logo ON club.club_id = club_logo.club_id
       WHERE player_id = $1`,
 };
 

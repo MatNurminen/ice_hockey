@@ -127,23 +127,20 @@ export const Roster = (props) => {
                       <Typography className={classes.headText}>Pos</Typography>
                     </TableCell>
                     <TableCell align='center'>
-                      <Typography className={classes.headText}>
-                        Number
-                      </Typography>
+                      <Typography className={classes.headText}>#</Typography>
+                    </TableCell>
+                    <TableCell align='center'>
+                      <Typography className={classes.headText}>N</Typography>
                     </TableCell>
                     <TableCell>
                       <Typography className={classes.headText}>Name</Typography>
                     </TableCell>
+                    <TableCell></TableCell>
                     <TableCell align='center'>
-                      <Typography className={classes.headText}>
-                        Country
-                      </Typography>
+                      <Typography className={classes.headText}>Age</Typography>
                     </TableCell>
                     <TableCell align='center'>
                       <Typography className={classes.headText}>Born</Typography>
-                    </TableCell>
-                    <TableCell align='center'>
-                      <Typography className={classes.headText}>Age</Typography>
                     </TableCell>
                     <TableCell align='center'>
                       <Typography className={classes.headText}>
@@ -165,6 +162,9 @@ export const Roster = (props) => {
                         <TableRow className={classes.tblRow}>
                           <TableCell align='center'>{roster.pos}</TableCell>
                           <TableCell align='center'>{roster.num}</TableCell>
+                          <TableCell align='center'>
+                            <img alt='' src={roster.flag} width='30'></img>
+                          </TableCell>
                           <TableCell width='60%'>
                             <Link
                               component={RouterLink}
@@ -174,10 +174,10 @@ export const Roster = (props) => {
                             </Link>
                           </TableCell>
                           <TableCell align='center'>
-                            <img alt='' src={roster.flag} width='30'></img>
+                            <img alt='' src={roster.draftlogo} width='30'></img>
                           </TableCell>
-                          <TableCell align='center'>{roster.birth}</TableCell>
                           <TableCell align='center'>{roster.age}</TableCell>
+                          <TableCell align='center'>{roster.birth}</TableCell>
                           <TableCell align='center'>{roster.height}</TableCell>
                           <TableCell align='center'>{roster.weight}</TableCell>
                           <TableCell align='center'>
