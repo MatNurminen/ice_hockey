@@ -32,7 +32,6 @@ export const PlayerDetail = (props) => {
   }
 
   const player = playerById[0];
-  console.log('test', player);
 
   return (
     <Container>

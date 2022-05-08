@@ -61,6 +61,8 @@ app.use('/api/users', Users);
 //app.use('/api/seasons', Seasons);
 const FreeAgents = require('./routes/freeAgents');
 app.use('/api/freeagents', FreeAgents);
+const Draft = require('./routes/draft');
+app.use('/api/draft', Draft);
 const Chart = require('./routes/chart');
 app.use('/api/chart', Chart);
 const Season = require('./routes/season');

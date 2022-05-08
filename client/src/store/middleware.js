@@ -60,6 +60,17 @@ const actionMap = (params = []) => {
       selector: (data) => data,
     },
 
+    [actions.GET_DRAFT_REQUEST]: {
+      url: `/api/draft`,
+      method: 'get',
+      selector: (data) => data,
+    },
+    [actions.GET_DRAFT_PLAYERS_BY_COUNTRY_REQUEST]: {
+      url: `/api/draft/country/${urlModify}`,
+      method: 'get',
+      selector: (data) => data,
+    },
+
     [actions.GET_PLAYERS_REQUEST]: {
       url: `/api/players`,
       method: 'get',

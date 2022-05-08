@@ -9,16 +9,6 @@ import { withStyles } from '@material-ui/core/styles';
 import { moduleName as leaguesModule } from '../../../../../store/duck/leagues';
 
 const styles = (theme) => ({
-  root: {
-    flexGrow: 1,
-    margin: 10,
-  },
-  rowHeader: {
-    backgroundColor: '#0b3548',
-  },
-  tableHead: {
-    backgroundColor: '#ca3136',
-  },
   headText: {
     textTransform: 'uppercase',
   },
@@ -27,6 +17,7 @@ const styles = (theme) => ({
     marginRight: '10px',
   },
 });
+
 export class CountriesByLeague extends Component {
   constructor(props) {
     super(props);

@@ -20,6 +20,8 @@ import AdminNavbar from './components/layout/components/AdminNavbar';
 import Navbar from './components/layout/components/Navbar';
 import Footer from './components/layout/components/Footer';
 import Players from './components/players/players';
+import Draft from './components/players/components/Draft';
+import DraftByCountry from './components/players/components/Draft/DraftByCountry';
 import FreeAgents from './components/players/components/FreeAgents';
 import EditChamp from './components/champs/components/EditChamp';
 
@@ -53,6 +55,13 @@ class App extends Component {
           <Route exact path='/countries/:country_id' component={Country} />
 
           <Route exact path='/freeagents' component={FreeAgents} />
+
+          <Route exact path='/drafts' component={Draft} />
+          <Route
+            exact
+            path='/drafts/country/:country_id'
+            component={DraftByCountry}
+          />
 
           <Route exact path='/reports/leagues' component={LeaguesReport} />
           <Route exact path='/reports/workbook' component={WorkBookPlayers} />
